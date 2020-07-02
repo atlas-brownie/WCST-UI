@@ -1,14 +1,16 @@
 {
     "production": false,
-    "baseURL": "https://ernaxs410i.execute-api.us-east-2.amazonaws.com/Prod",
-    "rootAPIPath": "/api",
+    "baseURL": "https://TESTsandbox-api.TESTva.TESTgov/services/vba_documents",
+    "baseURLX": "https://sandbox-api.va.gov/services/vba_documents",
+    "rootAPIPath": "",
     "APIVersion": "/v1",
     "localMockPath": "/data",
+    "mockApiKey": "Epg2nPCX9hlzbbPc22xpC5FqGAxVXLwM",
     "featureflags": {
         "authenticationService": "mock",
-        "healthCheck": true,
+        "healthCheck": false,
         "services": {
-            "getApplicant$": { "localMockData": false },
+            "getDocumentUploadLocation$": { "localMockData": false },
             "getApplicantProfile$": { "localMockData": false },
             "getAWSUsers$": { "localMockData": true },
             "getMockUsers$": { "localMockData": true },

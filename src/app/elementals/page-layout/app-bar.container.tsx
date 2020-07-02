@@ -14,7 +14,7 @@ export interface AppBarProps {
 
 export const AppBar: FunctionComponent<AppBarProps> = ({ open, setOpen, ...props }): ReactElement => {
     const credentials = UserDefault.isAuthenticated;
-    const health = useSelector(selectHealth) || false;
+    const health = useSelector(selectHealth) || true;
     const successColor = '#3f51b5';
     const appBarColor = health ? successColor : `red`;
     const history = useHistory();

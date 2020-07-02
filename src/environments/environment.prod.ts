@@ -5,6 +5,7 @@ export const environment = {
     baseURL: '',
     rootAPIPath: '',
     APIVersion: '',
+    mockApiKey: '',
     localMockPath: '',
     featureflags: {
         authenticationService: '',

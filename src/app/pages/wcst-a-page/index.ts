@@ -1,0 +1,1 @@
+export * from './wcst-a-page.container';

@@ -1,5 +1,17 @@
 import React from 'react';
-import { ProfilePage, HomePage, ComponentsPage, SigninPage, SignupPage, ForgotPasswordPage, SignupVerification, ResetPassword, ResendConfirmation, ApplicantPage } from 'app/pages';
+import {
+    ProfilePage,
+    HomePage,
+    ComponentsPage,
+    SigninPage,
+    SignupPage,
+    ForgotPasswordPage,
+    SignupVerification,
+    ResetPassword,
+    ResendConfirmation,
+    ApplicantPage,
+    WcstAPage
+} from 'app/pages';
 import { RouteProps } from 'react-router-dom';
 import { Location, History, LocationKey, LocationDescriptor, Pathname, createLocation as historyCreateLocation } from 'history';
 import { Key as TreeKey } from 'rc-tree/lib/interface';
@@ -94,6 +106,16 @@ export class AppRouteClass {
             id: 'ApplicantPage',
             path: '/applicant-page',
             component: ApplicantPage
+        },
+        {
+            id: 'WcstAPage',
+            path: '/wcst-a-page',
+            component: WcstAPage
+        },
+        {
+            id: 'HomePage',
+            path: '/',
+            component: HomePage
         }
     ];
 
