@@ -1,0 +1,26 @@
+{
+    "production": false,
+    "baseURL": "https://ernaxs410i.execute-api.us-east-2.amazonaws.com/Prod",
+    "rootAPIPath": "/api",
+    "APIVersion": "/v1",
+    "localMockPath": "/data",
+    "featureflags": {
+        "authenticationService": "mock",
+        "healthCheck": true,
+        "services": {
+            "getApplicant$": { "localMockData": false },
+            "getApplicantProfile$": { "localMockData": false },
+            "getAWSUsers$": { "localMockData": true },
+            "getMockUsers$": { "localMockData": true },
+            "getSupervisorReview$": { "localMockData": false }
+        }
+    },
+    "amazonCognito": {
+        "region": "us-east-2",
+        "userPoolId": "us-east-2_o35ucKkwq",
+        "domain": "gsa-ctzn-services-dev.auth.us-east-2.amazoncognito.com",
+        "userPoolWebClientId": "2mua47mjua6675mmor05799lqr",
+        "cookieDomain": "localhost",
+        "cookieSecure": false
+    }
+}

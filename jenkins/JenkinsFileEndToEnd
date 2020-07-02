@@ -1,0 +1,30 @@
+ pipeline {
+    agent any
+       environment {
+         SLACK_CHANNEL = '#kube-kai-notifications'
+         TEST_RESULTS_DIR = '/var/www/coverage'
+    }
+    stages {
+      stage ('Code Quality') {
+        steps {
+          withSonarQubeEnv('SonarQube') {
+            sh 'docker run --rm --name $JOB_NAME --volume $WORKSPACE/test_results:$TEST_RESULTS_DIR $DEV_IMAGE_NAME /bin/bash -c "npm run-script coverage && npm run-script sonar -- -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.password="" -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.projectKey=$JOB_NAME -Dsonar.projectName=$JOB_NAME"'
+          }
+        }
+      }
+    }
+    post {
+      success {
+        //Send build status to Slack channel
+        slackSend channel: "${env.SLACK_CHANNEL}",
+                  color: 'good',
+                  message: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
+      }
+      failure {
+        //Send build status to Slack channel
+        slackSend channel: "${env.SLACK_CHANNEL}",
+                  color: 'danger',
+                  message: "The pipeline ${currentBuild.fullDisplayName} failed."
+      }
+    }
+ }

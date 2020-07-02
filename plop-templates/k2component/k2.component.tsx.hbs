@@ -1,0 +1,54 @@
+import React, { FunctionComponent, ReactElement, useContext, useState, Dispatch } from 'react';
+import { getIn } from 'formik';
+import { FormContext } from './';
+
+export interface K2{{pascalCase name}}Props {
+    name?: string,
+    label: string,
+    required: boolean,
+    autoComplete?: string,
+    placeholder?: string,
+    helperText?: string,
+    disabled?: boolean,
+    onFocus?: void
+}
+
+function mapFormikControlsToTextField(formContext: any, props: K2{{pascalCase name}}Props, value: string, setValue: Dispatch<any>) {
+    const { name = '', label = '', required = false, autoComplete = 'off' } = props;
+    const displayLabel = required ? `${label}*` : label;
+    const fieldError = getIn(formContext.errors, name);
+    const showError = getIn(formContext.touched, name) && !!fieldError;
+    const placeholder = props.placeholder || 'Type ' + props.label;
+    const fieldProps = formContext.getFieldProps(name);
+
+    return {
+        ...props,
+        label: displayLabel,
+        required: false,
+        error: showError,
+        fullWidth: true,
+        helperText: showError ? fieldError : props.helperText,
+        placeholder,
+        disabled: props.disabled,
+        size: 'small',
+        variant: 'outlined',
+        autoComplete,
+        value,
+        onFocus: (evt: any) => {
+           formContext.setFieldTouched(name, false);
+        },
+        onChange: (evt: any) => {
+            setValue(evt.target.value);
+        },
+        onBlur: (evt: any) => {
+            formContext.setFieldTouched(name, true);
+            fieldProps.onChange(evt);
+        }
+    };
+}
+
+export const K2{{pascalCase name}}: FunctionComponent<K2{{pascalCase name}}Props> = (props): ReactElement => {
+    const formContext: any = useContext(FormContext);
+    const [value, setValue] = useState(formContext.getFieldProps(props.name).value);
+    return <div {...mapFormikControlsToTextField(formContext, props, value, setValue)} />;
+};

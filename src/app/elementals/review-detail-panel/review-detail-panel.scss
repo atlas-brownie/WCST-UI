@@ -1,0 +1,16 @@
+.review-detail-panel {
+    margin: 10px 20px;
+
+    > span {
+        position: relative;
+        display: inline-block;
+
+        &.dropdown {
+            width: 10%;
+        }
+
+        &.button {
+            left: 100px;
+        }
+    }
+}

@@ -1,0 +1,1 @@
+export * from './applicant-page.container';

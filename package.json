@@ -1,0 +1,128 @@
+{
+    "name": "wcst-react-project",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@date-io/date-fns": "^1.3.13",
+        "@material-ui/core": "^4.9.14",
+        "@material-ui/icons": "^4.9.1",
+        "@material-ui/lab": "^4.0.0-alpha.53",
+        "@material-ui/pickers": "^3.2.10",
+        "@reduxjs/toolkit": "^1.3.6",
+        "ag-grid-community": "^23.1.1",
+        "ag-grid-react": "^23.1.1",
+        "aws-amplify": "^3.0.11",
+        "date-fns": "^2.14.0",
+        "formik": "^2.1.4",
+        "keycloak-js": "^10.0.2",
+        "lodash": "^4.17.15",
+        "material-ui-dropzone": "^3.0.0",
+        "node-sass": "^4.14.1",
+        "papaparse": "^5.2.0",
+        "rc-tree": "^3.3.1",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "react-dropzone": "^11.0.1",
+        "react-infinite-scroll": "^0.1.5",
+        "react-infinite-scroller": "^1.2.4",
+        "react-redux": "^7.2.0",
+        "react-router-dom": "^5.2.0",
+        "react-scripts": "3.4.1",
+        "react-split-pane": "^2.0.3",
+        "react-swipeable-views": "^0.13.9",
+        "react-table": "^7.2.1",
+        "redux-batched-actions": "^0.5.0",
+        "redux-logger": "^3.0.6",
+        "redux-thunk": "^2.3.0",
+        "rxjs": "^6.5.5",
+        "url-assembler": "^2.1.1",
+        "yup": "^0.28.5"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "build": "react-scripts build",
+        "testold": "react-scripts test",
+        "test": "react-scripts test --watchAll=false  --env=jest-environment-jsdom-sixteen",
+        "testlive": "react-scripts test --watchAll=true",
+        "eject": "react-scripts eject",
+        "storybook": "start-storybook -p 9009 -s public",
+        "build-storybook": "build-storybook -s public",
+        "generate": "plop",
+        "sonar": "sonar-scanner",
+        "coverage": "npm run test -- --coverage --reporters=default --reporters=jest-junit --watchAll=false"
+    },
+    "jest-junit": {
+        "outputDirectory": "coverage"
+    },
+    "jest": {
+        "collectCoverageFrom": [
+            "src/app/**/*.{js,jsx,ts,tsx}",
+            "!<rootDir>/node_modules/",
+            "!<rootDir>/src/index.tsx",
+            "!<rootDir>/src/app/app.container.tsx",
+            "!<rootDir>/src/app/app.render.tsx",
+            "!<rootDir>/src/app/serviceWorker.ts"
+        ],
+        "coverageReporters": [
+            "text",
+            "lcov",
+            "cobertura"
+        ]
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "@storybook/addon-actions": "^5.3.18",
+        "@storybook/addon-links": "^5.3.18",
+        "@storybook/addons": "^5.3.18",
+        "@storybook/preset-create-react-app": "^2.1.2",
+        "@storybook/react": "^5.3.18",
+        "@testing-library/jest-dom": "^5.7.0",
+        "@testing-library/react": "^10.0.4",
+        "@testing-library/user-event": "^10.3.1",
+        "@types/enzyme": "^3.10.5",
+        "@types/enzyme-adapter-react-16": "^1.0.6",
+        "@types/jest": "^25.2.3",
+        "@types/lodash": "^4.14.151",
+        "@types/node": "^14.0.1",
+        "@types/papaparse": "^5.0.3",
+        "@types/react": "^16.9.35",
+        "@types/react-dom": "^16.9.8",
+        "@types/react-infinite-scroller": "^1.2.1",
+        "@types/react-redux": "^7.1.8",
+        "@types/react-router-dom": "^5.1.5",
+        "@types/react-swipeable-views": "^0.13.0",
+        "@types/react-table": "^7.0.19",
+        "@types/redux-logger": "^3.0.7",
+        "@types/rx": "^4.1.2",
+        "@types/url-assembler": "^1.2.2",
+        "@types/yup": "^0.28.3",
+        "codelyzer": "^5.2.2",
+        "enzyme": "^3.11.0",
+        "enzyme-adapter-react-16": "^1.15.2",
+        "jest-environment-jsdom-sixteen": "^1.0.3",
+        "jest-enzyme": "^7.1.2",
+        "jest-junit": "^10.0.0",
+        "plop": "^2.6.0",
+        "redux-devtools": "^3.5.0",
+        "sonarqube-scanner": "^2.6.0",
+        "ts-jest": "^26.0.0",
+        "tslint": "^6.1.2",
+        "tslint-react": "^5.0.0",
+        "typescript": "^3.9.2",
+        "typescript-tslint-plugin": "^0.5.5"
+    }
+}
