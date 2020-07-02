@@ -9,7 +9,6 @@ import {
     ProfilePage,
     HomePage,
     ApplicantPage,
-    SupervisorReviewPage,
     ComponentsPage,
     SigninPage,
     SignupPage,
@@ -46,7 +45,6 @@ export const AppRender: FunctionComponent<AppRenderProps> = ({ store }): ReactEl
                                 <Route path="/profile-page" component={ProfilePage} />
                                 <Route path="/home-page" component={HomePage} />
                                 <Route path="/applicant-page" component={ApplicantPage} />
-                                <Route path="/supervisor-review-page" component={SupervisorReviewPage} />
                                 <Route path="/components-page" component={ComponentsPage} />
                                 <Route path="/" component={HomePage} />
                             </Switch>

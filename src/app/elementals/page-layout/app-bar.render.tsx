@@ -1,9 +1,8 @@
-import React, { FunctionComponent, ReactElement, Dispatch, useEffect, Fragment } from 'react';
+import React, { FunctionComponent, ReactElement, Dispatch, useEffect } from 'react';
 import clsx from 'clsx';
 import { makeStyles } from '@material-ui/core/styles';
 import { ChevronRight as ChevronRightIcon } from '@material-ui/icons';
 import { AppBar, IconButton, Typography, Toolbar } from '@material-ui/core';
-import { K2FlatButton } from 'app/k2-mui-core';
 import { Link } from 'react-router-dom';
 import { User } from 'app/shared';
 
@@ -87,28 +86,6 @@ export const AppBarRender: FunctionComponent<AppBarRenderProps> = ({ user, crede
                         <span>WCST Project</span>
                     </Link>
                 </Typography>
-                {!credentials && (
-                    <Link to="/signin">
-                        <K2FlatButton color="inherit">Sign In</K2FlatButton>
-                    </Link>
-                )}
-                {!credentials && (
-                    <Link to="/signup">
-                        <K2FlatButton color="inherit">Sign Up</K2FlatButton>
-                    </Link>
-                )}
-                {credentials && (
-                    <Fragment>
-                        <Link to="/profile-page">
-                            <K2FlatButton color="inherit">
-                                {user.firstName}&nbsp;{user.lastName}
-                            </K2FlatButton>
-                        </Link>
-                        <K2FlatButton color="inherit" onClick={handleClickSignout}>
-                            Sign Out
-                        </K2FlatButton>
-                    </Fragment>
-                )}
             </Toolbar>
         </AppBar>
     );

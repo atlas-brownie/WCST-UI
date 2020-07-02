@@ -1,7 +1,4 @@
 import React, { FunctionComponent, ReactElement, Fragment } from 'react';
-import { useSelector } from 'react-redux';
-import { selectUser } from 'app/app.service';
-import { User } from 'app/shared';
 import './drawer.scss';
 import { makeStyles } from '@material-ui/core/styles';
 import { FilterList as FilterListIcon, ChevronLeft as ChevronLeftIcon } from '@material-ui/icons';
@@ -79,8 +76,6 @@ const useStyles = makeStyles((theme) => ({
 
 export const DrawerRender: FunctionComponent<DrawerRenderProps> = ({ open, setOpen }): ReactElement => {
     const classes = useStyles();
-    // TODO: add to starters - get current user or load public pete
-    const user = useSelector(selectUser) || new User({ firstName: 'Pete', roles: ['PUBLIC'] });
 
     const handleDrawerClose = () => {
         setOpen(false);
@@ -88,11 +83,8 @@ export const DrawerRender: FunctionComponent<DrawerRenderProps> = ({ open, setOp
 
     let links: Array<object>;
     links = [
-        { to: 'home-page', primary: 'Home', isHidden: false },
+        { to: 'home-page', primary: 'Home', isHidden: false }
         /* PLOP_INJECT_DRAWER_LINK */
-        { to: 'server-profile-page', primary: 'Test Server Profile' },
-        { to: 'applicant-page', primary: 'Applicant', isHidden: user.roles[0] !== 'AUTHENTICATED_USER' },
-        { to: 'supervisor-review-page', primary: 'Supervisor Review', isHidden: user.roles[0] !== 'SUPERVISOR' }
     ];
 
     return (

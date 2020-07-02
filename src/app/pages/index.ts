@@ -4,7 +4,6 @@ export * from './server-profile-page';
 export * from './profile-page';
 export * from './home-page';
 export * from './applicant-page';
-export * from './supervisor-review-page';
 export * from './components-page';
 
 export * from './signin-signup/signin-page.container';
