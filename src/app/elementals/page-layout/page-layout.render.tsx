@@ -70,7 +70,7 @@ export const PageLayoutRender: FunctionComponent<PageLayoutRenderProps> = ({ use
             >
                 <Drawer open={open} setOpen={setOpen} />
             </MuiDrawer>
-            <K2TabContainer />
+            <K2TabContainer>Hello, world</K2TabContainer>
             <Snackbar
                 anchorOrigin={{
                     vertical: 'top',
