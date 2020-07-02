@@ -1,0 +1,32 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Description: A template for creating resources needed for S3 static website hosting 
+
+Parameters:
+  RootBucketName:
+    Description: Unique Name for the S3 bucket that hosts the website 
+    Type: String
+
+Resources:
+
+  S3BucketRoot:
+    Type: AWS::S3::Bucket
+    DeletionPolicy: Delete
+    Properties:
+      AccessControl: PublicRead
+      BucketName: !Ref RootBucketName
+      WebsiteConfiguration:
+        ErrorDocument: '404.html'
+        IndexDocument: 'index.html'
+
+  S3BucketPolicy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref S3BucketRoot
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: 'Allow'
+            Action: 's3:GetObject'
+            Principal: '*'
+            Resource: !Sub '${S3BucketRoot.Arn}/*'
