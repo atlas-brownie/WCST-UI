@@ -42,7 +42,7 @@ pipeline {
       steps {
         withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
           // Upload files from working directory 'dist' in your project workspace
-          s3Upload(bucket:"dev.mblsto2020.com", workingDir:'dist', includePathPattern:'**/*')
+          s3Upload(bucket:"dev.mblsto2020.com")
         }
       }
     }
