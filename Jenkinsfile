@@ -19,7 +19,6 @@ pipeline {
       steps {
         sh 'npm install'
         sh 'npm audit fix'
-        sh 'npm install -D jest jest-junit'
       }
     }
 
