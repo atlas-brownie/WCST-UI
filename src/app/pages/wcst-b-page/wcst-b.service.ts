@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { WcstB } from 'app/models';
+import { WcstB, WcstA } from 'app/models';
 import { AppHttpService, store } from 'app/shared';
 import { ServiceOptions } from 'app/shared';
 import { ServiceState } from 'app/models';
@@ -21,6 +21,22 @@ export const getWcstB$ = () => {
         store.dispatch(wcstBSlice.actions.loadWcstB(payload));
     });
     return httpSubject;
+};
+
+export const postDocumentUploadLocation$ = (files: any[]) => {
+    const data = new WcstA();
+    const serviceOptions: ServiceOptions = {
+        servicePath: '/uploads'
+    };
+    const subject = AppHttpService.post$<WcstA>(WcstA, serviceOptions, data);
+    subject.subscribe(({ payload, error }) => {
+        console.log('postDocumentUploadLocation payload, error=', payload, error);
+        ServiceState.documentUploadLocation = payload[0];
+        console.log('postDocumentUploadLocation ServiceState.documentUploadLocation=', ServiceState.documentUploadLocation);
+
+        postWcstB$(files);
+    });
+    return subject;
 };
 
 export const postWcstB$ = (files: any[]) => {

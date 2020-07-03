@@ -116,12 +116,12 @@ export class AppRouteClass {
         },
         {
             id: 'WcstBPage',
-            path: '/wcst-b-page',
+            path: '/upload-benefit-form',
             component: WcstBPage
         },
         {
             id: 'WcstCPage',
-            path: '/wcst-c-page',
+            path: '/get-status',
             component: WcstCPage
         },
         {

@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactElement, useState, useCallback } from 'react';
 import { WcstBPageRender } from './wcst-b-page.render';
-import { getMetadata, postWcstB$ } from './wcst-b.service';
+import { getMetadata, postDocumentUploadLocation$ } from './wcst-b.service';
 import { K2DropzoneProps } from 'app/k2-mui-core';
 
 export const WcstBPage: FunctionComponent = (props): ReactElement => {
@@ -18,7 +18,7 @@ export const WcstBPage: FunctionComponent = (props): ReactElement => {
     const handleClickUploadDocument = useCallback(
         (evt: MouseEvent) => {
             console.log('clicked btn');
-            postWcstB$(files);
+            postDocumentUploadLocation$(files);
         },
         [files]
     );
