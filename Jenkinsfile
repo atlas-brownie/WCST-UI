@@ -3,6 +3,7 @@ pipeline {
     environment {
         HOME = '.'
     }
+    
     stages {
         stage('Initialize') {
             steps {
