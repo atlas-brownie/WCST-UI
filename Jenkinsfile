@@ -3,7 +3,6 @@ pipeline {
   environment {
     HOME = '.'
   }
-  
   stages {
     stage('Initialize') {
       steps {
@@ -27,13 +26,6 @@ pipeline {
         sh 'npm run test'
       }
     }
-
-//    stage('tests') {
-//        withEnv(["JEST_JUNIT_OUTPUT=./jest-test-results.xml"]) {
-//            sh 'npm test -- --ci --testResultsProcessor="jest-junit"'
-//        }
-//        junit 'jest-test-results.xml'
-//    }
       
     stage('Code Quality') {
       steps {
@@ -46,36 +38,19 @@ pipeline {
         }
      }
 
-    stage('Cleanup Old Docker Artifacts'){
-      steps{
-        sh 'docker image prune -f'
-        sh 'docker volume prune -f'
-        sh 'docker container prune -f'
-      }
-    }
-
-    stage('Build Docker Image'){
-      steps {
-        script {
-          docker.build('wcst-ui')
-          }
-      }
-    }
-    
-    stage('Deploy Docker Image on AWS'){
-      steps {
-        script{
-          docker.withRegistry('https://494587492891.dkr.ecr.us-east-1.amazonaws.com/wcst-ui', 'ecr:us-east-1:pchong-aws-credentials'){
-            docker.image('wcst-ui').push('latest')
-          }
-        }
-      }
-    }
-    
-    stage('Remove unused docker image'){
-      steps{
-        sh "docker image prune -f"
-      }
+    stage('Upload'){
+        dir('/var/lib/jenkins/workspace/WCST-UI-Dev'){
+            pwd(); //Log current directory
+            withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
+                 def identity=awsIdentity();//Log AWS credentials
+                // Upload files from working directory 'dist' in your project workspace
+                 s3Upload(
+                     bucket:"dev.mblsto2020.com",
+                     workingDir:'dist',
+                     includePathPattern:'**/*'
+               );
+            }
+        };
     }
   }
 }
