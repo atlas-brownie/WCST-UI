@@ -85,7 +85,9 @@ export const DrawerRender: FunctionComponent<DrawerRenderProps> = ({ open, setOp
     links = [
         { to: '/', primary: 'Home', isHidden: false },
         /* PLOP_INJECT_DRAWER_LINK */
-        { to: '/wcst-a-page', primary: 'Wcst A Page', isHidden: false }
+        { to: '/wcst-a-page', primary: 'Wcst A Page', isHidden: false },
+        { to: '/wcst-b-page', primary: 'Wcst B Page', isHidden: false },
+        { to: '/wcst-c-page', primary: 'Wcst C Page', isHidden: false }
     ];
 
     return (

@@ -9,7 +9,7 @@ import { ServiceOptions } from 'app/shared';
 
 export const getWcstA$ = () => {
     const serviceOptions: ServiceOptions = {
-        serviceKey: 'getWcstA$',
+        serviceKey: 'getDocumentUploadLocation$',
         localDataPath: '/wcst-a.json',
         servicePath: '/wcst-a',
         params: {}
@@ -22,12 +22,12 @@ export const getWcstA$ = () => {
     return httpSubject;
 };
 
-export const postWcstA$ = (data: WcstA) => {
+export const postDocumentUploadLocation$ = () => {
+    const data = new WcstA();
     const serviceOptions: ServiceOptions = {
-        servicePath: '/wcst-a'
+        servicePath: '/uploads'
     };
-    const httpSubject = AppHttpService.post$<WcstA>(WcstA, serviceOptions, data);
-    return httpSubject;
+    return AppHttpService.post$<WcstA>(WcstA, serviceOptions, data);
 };
 
 export const putWcstA$ = (id: string, data: WcstA) => {

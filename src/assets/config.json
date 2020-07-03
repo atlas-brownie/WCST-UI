@@ -4,7 +4,7 @@
     "rootAPIPath": "",
     "APIVersion": "/v1",
     "localMockPath": "/data",
-    "mockApiKey": "",
+    "mockAPIKey": "",
     "featureflags": {
         "authenticationService": "mock",
         "healthCheck": true,

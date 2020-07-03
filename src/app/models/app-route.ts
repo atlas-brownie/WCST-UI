@@ -10,7 +10,9 @@ import {
     ResetPassword,
     ResendConfirmation,
     ApplicantPage,
-    WcstAPage
+    WcstAPage,
+    WcstCPage,
+    WcstBPage
 } from 'app/pages';
 import { RouteProps } from 'react-router-dom';
 import { Location, History, LocationKey, LocationDescriptor, Pathname, createLocation as historyCreateLocation } from 'history';
@@ -111,6 +113,16 @@ export class AppRouteClass {
             id: 'WcstAPage',
             path: '/wcst-a-page',
             component: WcstAPage
+        },
+        {
+            id: 'WcstBPage',
+            path: '/wcst-b-page',
+            component: WcstBPage
+        },
+        {
+            id: 'WcstCPage',
+            path: '/wcst-c-page',
+            component: WcstCPage
         },
         {
             id: 'HomePage',

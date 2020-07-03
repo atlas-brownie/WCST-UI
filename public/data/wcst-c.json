@@ -1,0 +1,12 @@
+{
+    "dateTime": "",
+    "hasError": false,
+    "length": 1024,
+    "message": "",
+    "payload": ['copy and paste mockaroo data hash here inside of this array'],
+    "payloadType": "application/json",
+    "metadata": null,
+    "error": "",
+    "errorMap": {},
+    "nextPageUrl": null
+}

@@ -1,5 +1,7 @@
 //THIS NEEDS TO STAY IN HERE FOR PLOP
 /* PLOP_INJECT_EXPORT */
+export * from './wcst-b';
+export * from './wcst-c';
 export * from './wcst-a';
 export * from './server-profile';
 export * from './applicant';
