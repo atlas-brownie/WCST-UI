@@ -38,19 +38,13 @@ pipeline {
         }
      }
 
-    stage('Upload'){
-        dir('/var/lib/jenkins/workspace/WCST-UI-Dev'){
-            pwd(); //Log current directory
-            withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
-                 def identity=awsIdentity();//Log AWS credentials
-                // Upload files from working directory 'dist' in your project workspace
-                 s3Upload(
-                     bucket:"dev.mblsto2020.com",
-                     workingDir:'dist',
-                     includePathPattern:'**/*'
-               );
-            }
-        };
+    stage('Upload') {
+      steps {
+        withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
+          // Upload files from working directory 'dist' in your project workspace
+          s3Upload(bucket:"dev.mblsto2020.com", workingDir:'dist', includePathPattern:'**/*')
+        }
+      }
     }
   }
 }
