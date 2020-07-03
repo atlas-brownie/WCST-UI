@@ -20,6 +20,7 @@ pipeline {
       steps {
         sh 'npm install'
         sh 'npm audit fix'
+        sh 'npm install -D jest jest-junit'
       }
     }
 
@@ -28,7 +29,14 @@ pipeline {
         sh 'npm run test'
       }
     }
-    
+
+    stage ('tests') {
+        withEnv(["JEST_JUNIT_OUTPUT=./jest-test-results.xml"]) {
+            sh 'npm test -- --ci --testResultsProcessor="jest-junit"'
+        }
+        junit 'jest-test-results.xml'
+    }
+      
     stage('Code Quality') {
       steps {
         script {
@@ -51,20 +59,20 @@ pipeline {
     stage('Build Docker Image'){
       steps {
         script {
-          docker.build('node-hello-world')
+          docker.build('wcst-ui')
           }
       }
     }
     
-//    stage('Deploy Docker Image on AWS'){
-//      steps {
-//        script{
-//          docker.withRegistry('https://940093668739.dkr.ecr.us-east-1.amazonaws.com', 'ecr:us-east-1:pchong-aws-credentials'){
-//            docker.image('node-hello-world').push('latest')
-//          }
-//        }
-//      }
-//    }
+    stage('Deploy Docker Image on AWS'){
+      steps {
+        script{
+          docker.withRegistry('494587492891.dkr.ecr.us-east-1.amazonaws.com/wcst-ui', 'ecr:us-east-1:pchong-aws-credentials'){
+            docker.image('wcst-ui').push('latest')
+          }
+        }
+      }
+    }
     
     stage('Remove unused docker image'){
       steps{
