@@ -45,21 +45,38 @@ pipeline {
             }
         }
         
-        stage('Upload') {
-            steps {
-                withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
-                    // Delete files from directory first.
-                    s3Delete(bucket:"dev.mblsto2020.com", path:'**/*')
-                    // Upload files from working directory 'dist' in your project workspace
-                    s3Upload(bucket:"dev.mblsto2020.com", workingDir:'build', includePathPattern:'**/*');
+        stage('Deployment') {
+            parallel{
+                stage('Development') {
+                    when {
+                        branch 'develop'
+                    }
+                    steps {
+                        withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
+                        // Delete files from directory first.
+                        s3Delete(bucket:"dev.mblsto2020.com", path:'**/*')
+                        // Upload files from working directory 'dist' in your project workspace
+                        s3Upload(bucket:"dev.mblsto2020.com", workingDir:'build', includePathPattern:'**/*');
+                        }
+                        slackSend channel: '#dev-notifications',
+                                  message: 'Jenkins pipeline build completed'
+                    }
                 }
-            }
-        }
-        
-        stage('Slack') {
-            steps {
-                slackSend channel: '#dev-notifications',
-                          message: 'Jenkins pipeline build completed'
+                stage('Production') {
+                    when {
+                        branch 'master'
+                    }
+                    steps {
+                        withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
+                        // Delete files from directory first.
+                        s3Delete(bucket:"prod.mblsto2020.com", path:'**/*')
+                        // Upload files from working directory 'dist' in your project workspace
+                        s3Upload(bucket:"prod.mblsto2020.com", workingDir:'build', includePathPattern:'**/*');
+                        }
+                        slackSend channel: '#prod-notifications',
+                                  message: 'Jenkins pipeline build completed'
+                    }
+                }
             }
         }
     }
