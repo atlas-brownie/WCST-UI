@@ -2,8 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import { WcstC } from 'app/models';
 import { AppHttpService } from 'app/shared';
 import { ServiceOptions } from 'app/shared';
+import { ServiceState } from 'app/models';
 
-export const getDocumentStatus$ = (guid: string) => {
+export const getDocumentStatus$ = (guidDEPRECATED: string) => {
+    const guid = ServiceState.documentUploadLocation.data.attributes.guid;
+
     const serviceOptions: ServiceOptions = {
         serviceKey: 'getDocumentStatus$',
         localDataPath: '/wcst-c.json',

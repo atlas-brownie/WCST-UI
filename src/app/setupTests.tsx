@@ -28,7 +28,7 @@ export class MockFile {
             return 'a'.repeat(size);
         }
 
-        var file = new File([range(size)], name, { type: mimeType });
+        const file = new File([range(size)], name, { type: mimeType });
         return file;
     }
 }

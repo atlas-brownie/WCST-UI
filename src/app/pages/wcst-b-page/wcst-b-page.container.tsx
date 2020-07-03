@@ -1,14 +1,30 @@
+import React, { FunctionComponent, ReactElement, useState, useCallback } from 'react';
 import { WcstBPageRender } from './wcst-b-page.render';
-import React, { FunctionComponent, ReactElement } from 'react';
-// import { postDocumentUploadLocation$ } from './wcst-b.service';
+import { getMetadata, postWcstB$ } from './wcst-b.service';
+import { K2DropzoneProps } from 'app/k2-mui-core';
 
 export const WcstBPage: FunctionComponent = (props): ReactElement => {
-    const handleClickDocumentUploadLocation = (evt: MouseEvent) => {
-        console.log('clicked btn');
-        // postDocumentUploadLocation$().subscribe(({ payload, error }) => {
-        //     console.log('postDocumentUploadLocation payload, error=', payload, error);
-        // });
-    };
+    const [files, setFiles] = useState<any[]>([]);
 
-    return <WcstBPageRender {...{ handleClickDocumentUploadLocation }} />;
+    const handleDrop = useCallback(
+        (acceptedFiles) => {
+            // Do something with the files
+            console.log('onDrop Files=', acceptedFiles);
+            setFiles(files.concat(acceptedFiles, getMetadata()));
+        },
+        [files]
+    );
+
+    const handleClickUploadDocument = useCallback(
+        (evt: MouseEvent) => {
+            console.log('clicked btn');
+            postWcstB$(files);
+        },
+        [files]
+    );
+    console.log('files=', files);
+
+    const dropzone: K2DropzoneProps = { onDrop: handleDrop, onDropAccepted: handleDrop, onDropRejected: handleDrop };
+
+    return <WcstBPageRender {...{ handleClickUploadDocument, dropzone }} />;
 };

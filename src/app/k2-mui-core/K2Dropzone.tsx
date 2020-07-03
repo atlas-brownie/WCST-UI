@@ -8,7 +8,7 @@ export interface K2DropzoneProps extends DropzoneProps {
 }
 
 export const K2Dropzone: FunctionComponent<K2DropzoneProps> = ({ children, ...props }): ReactElement => {
-    const { acceptedFiles, getRootProps, getInputProps } = useDropzone();
+    const { acceptedFiles, getRootProps, getInputProps } = useDropzone({ ...props });
 
     const files = acceptedFiles.map((file: any) => (
         <li key={file.path}>

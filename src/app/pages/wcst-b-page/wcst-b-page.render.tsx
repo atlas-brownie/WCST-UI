@@ -1,12 +1,18 @@
-import React, { FunctionComponent, ReactElement } from 'react';
+import React, { Fragment, FunctionComponent, ReactElement } from 'react';
 import './wcst-b-page.scss';
-import { K2RaisedButton } from 'app/k2-mui-core';
+import { K2RaisedButton, K2Dropzone, K2DropzoneProps } from 'app/k2-mui-core';
 import { FuncAny } from 'app/shared';
 
 export interface WcstBPageRenderProps {
-    handleClickDocumentUploadLocation: FuncAny;
+    handleClickUploadDocument: FuncAny;
+    dropzone: K2DropzoneProps;
 }
 
 export const WcstBPageRender: FunctionComponent<WcstBPageRenderProps> = (props): ReactElement => {
-    return <K2RaisedButton onClick={props.handleClickDocumentUploadLocation}>Upload Document</K2RaisedButton>;
+    return (
+        <Fragment>
+            <K2Dropzone {...props.dropzone} />
+            <K2RaisedButton onClick={props.handleClickUploadDocument}>Upload Document</K2RaisedButton>
+        </Fragment>
+    );
 };
