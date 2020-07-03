@@ -55,5 +55,12 @@ pipeline {
                 }
             }
         }
+        
+        stage('Slack') {
+            steps {
+                slackSend channel: '#dev-notifications',
+                          message: 'Jenkins pipeline build completed'
+            }
+        }
     }
 }
