@@ -2,7 +2,6 @@ pipeline {
   agent any
   environment {
     HOME = '.'
-    PATH = "/usr/bin/chromedriver:/usr/bin/google-chrome:$PATH"
   }
   
   stages {
