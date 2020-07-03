@@ -65,7 +65,7 @@ pipeline {
     stage('Deploy Docker Image on AWS'){
       steps {
         script{
-          docker.withRegistry('494587492891.dkr.ecr.us-east-1.amazonaws.com/wcst-ui', 'ecr:us-east-1:pchong-aws-credentials'){
+          docker.withRegistry('https://494587492891.dkr.ecr.us-east-1.amazonaws.com/wcst-ui', 'ecr:us-east-1:pchong-aws-credentials'){
             docker.image('wcst-ui').push('latest')
           }
         }
