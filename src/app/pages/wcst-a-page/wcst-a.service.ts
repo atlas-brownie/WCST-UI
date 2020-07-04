@@ -1,54 +1,32 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { WcstA } from 'app/models';
-import { AppHttpService, store } from 'app/shared';
-import { ServiceOptions } from 'app/shared';
+import { VAHttpResponseHandler } from 'app/shared';
+// import { ServiceState } from 'app/models';
 
-// Please open config.json and config-local.json and apply/paste the local mock data below to the services hash
-// to setup intial api to work with mock data.
-// "getWcstA$": { "localMockData": true }
+export const getWhatServerSees$ = (guid: string) => {
+    // const guid = ServiceState.documentUploadLocation.data.attributes.guid;
+    // const guid = '8aafe39f-af5f-4f5c-86e2-0504b510d2cd';
+    const locationUrl = `https://sandbox-api.va.gov/services/vba_documents/v1/uploads/${guid}/download`;
 
-export const getWcstA$ = () => {
-    const serviceOptions: ServiceOptions = {
-        serviceKey: 'getDocumentUploadLocation$',
-        localDataPath: '/wcst-a.json',
-        servicePath: '/wcst-a',
-        params: {}
-    };
+    const oReq = new XMLHttpRequest();
+    oReq.open('GET', locationUrl, true);
+    oReq.setRequestHeader('apikey', VAHttpResponseHandler.getAPIKey());
+    oReq.responseType = 'blob';
+    oReq.onload = function (oEvent) {
+        if (oReq.status === 200) {
+            const disposition = oReq.getResponseHeader('Content-Disposition') || '';
+            const matches = /"([^"]*)"/.exec(disposition);
+            const filename = matches != null && matches[1] ? matches[1] : 'filename=';
 
-    const httpSubject = AppHttpService.get$<WcstA>(WcstA, serviceOptions);
-    httpSubject.subscribe(({ payload }: any) => {
-        store.dispatch(wcstASlice.actions.loadWcstA(payload));
-    });
-    return httpSubject;
-};
-
-export const postDocumentUploadLocation$ = () => {
-    const data = new WcstA();
-    const serviceOptions: ServiceOptions = {
-        servicePath: '/uploads'
-    };
-    return AppHttpService.post$<WcstA>(WcstA, serviceOptions, data);
-};
-
-export const putWcstA$ = (id: string, data: WcstA) => {
-    const httpSubject = AppHttpService.put$<WcstA>(WcstA, { servicePath: '/wcstA/{id}', params: { id } }, data);
-    return httpSubject;
-};
-
-export const deleteWcstA$ = (id: string) => {
-    const httpSubject = AppHttpService.delete$<WcstA>(WcstA, { servicePath: '/wcstA/{id}', params: { id } });
-    return httpSubject;
-};
-
-const initialGridState: Array<object> = [];
-export const wcstASlice = createSlice({
-    name: 'wcst-a',
-    initialState: initialGridState,
-    reducers: {
-        loadWcstA: (state, action) => {
-            return action.payload;
+            const blob = new Blob([oReq.response], { type: 'application/zip' });
+            const link = document.createElement('a');
+            link.href = window.URL.createObjectURL(blob);
+            link.download = filename;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        } else {
+            console.log('failed return from GET ZIP Files');
         }
-    }
-});
+    };
 
-export const selectWcstA = (state: any): Array<object> => state.wcstA.map((o: any) => ({ ...o }));
+    oReq.send();
+};

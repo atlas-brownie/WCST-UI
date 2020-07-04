@@ -111,7 +111,7 @@ export class AppRouteClass {
         },
         {
             id: 'WcstAPage',
-            path: '/wcst-a-page',
+            path: '/download-zip',
             component: WcstAPage
         },
         {

@@ -1,6 +1,5 @@
 import { WcstB, WcstA } from 'app/models';
-import { AppHttpService } from 'app/shared';
-import { ServiceOptions } from 'app/shared';
+import { AppHttpService, ServiceOptions } from 'app/shared';
 import { ServiceState } from 'app/models';
 
 export const getWcstB$ = () => {

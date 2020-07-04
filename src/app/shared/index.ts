@@ -7,6 +7,7 @@ export * from './user';
 export * from './store';
 export * from './service-locator';
 export * from './form-base';
+export * from './va-http-response-handler';
 
 export type Constructable<T> = new (...args: any) => T;
 export type FuncAny = (...args: any) => any;

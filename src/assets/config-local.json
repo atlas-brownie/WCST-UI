@@ -11,6 +11,7 @@
         "healthCheck": false,
         "services": {
             "getDocumentUploadLocation$": { "localMockData": false },
+            "getWhatServerSees$": { "localMockData": false },
             "getDocumentStatus$": { "localMockData": false },
             "getApplicantProfile$": { "localMockData": false },
             "getAWSUsers$": { "localMockData": true },

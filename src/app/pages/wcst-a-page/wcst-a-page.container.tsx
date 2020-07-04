@@ -1,17 +1,16 @@
+import React, { FunctionComponent, ReactElement, useState, useCallback } from 'react';
 import { WcstAPageRender } from './wcst-a-page.render';
-import React, { FunctionComponent, ReactElement } from 'react';
-import { postDocumentUploadLocation$ } from './wcst-a.service';
-import { ServiceState } from 'app/models';
+import { getWhatServerSees$ } from './wcst-a.service';
 
 export const WcstAPage: FunctionComponent = (props): ReactElement => {
-    const handleClickDocumentUploadLocation = (evt: MouseEvent) => {
-        console.log('clicked btn');
-        postDocumentUploadLocation$().subscribe(({ payload, error }) => {
-            console.log('postDocumentUploadLocation payload, error=', payload, error);
-            ServiceState.documentUploadLocation = payload[0];
-            console.log('postDocumentUploadLocation ServiceState.documentUploadLocation=', ServiceState.documentUploadLocation);
-        });
-    };
+    const handleClickWhatServerSees = useCallback((evt: MouseEvent) => {
+        const form = document.getElementById('search-form') as HTMLFormElement;
+        console.log('clicked btn, form.elements.namedItem=', form.elements.namedItem('confirmation-code'));
+        const formData = new FormData(form);
 
-    return <WcstAPageRender {...{ handleClickDocumentUploadLocation }} />;
+        console.log('clicked btn');
+        getWhatServerSees$(formData.get('confirmation-code') as string);
+    }, []);
+
+    return <WcstAPageRender {...{ handleClickWhatServerSees }} />;
 };
