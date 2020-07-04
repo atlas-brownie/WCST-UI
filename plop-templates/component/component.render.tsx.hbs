@@ -1,0 +1,12 @@
+import React, { FunctionComponent, ReactElement } from 'react';
+import './{{dashCase name}}.scss';
+
+export interface {{pascalCase name}}RenderProps {}
+
+export const {{pascalCase name}}Render: FunctionComponent<{{pascalCase name}}RenderProps> = (props): ReactElement => {
+    return (
+        <div className="{{dashCase name}}">
+            {{pascalCase name}} Works!
+        </div>
+    );
+};

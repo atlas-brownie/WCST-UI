@@ -1,0 +1,30 @@
+{
+    "production": false,
+    "baseURLX": "https://TESTsandbox-api.TESTva.TESTgov/services/vba_documents",
+    "baseURL": "https://sandbox-api.va.gov/services/vba_documents",
+    "rootAPIPath": "",
+    "APIVersion": "/v1",
+    "localMockPath": "/data",
+    "mockAPIKey": "Epg2nPCX9hlzbbPc22xpC5FqGAxVXLwM",
+    "featureflags": {
+        "authenticationService": "mock",
+        "healthCheck": false,
+        "services": {
+            "getDocumentUploadLocation$": { "localMockData": false },
+            "getWhatServerSees$": { "localMockData": false },
+            "getDocumentStatus$": { "localMockData": false },
+            "getApplicantProfile$": { "localMockData": false },
+            "getAWSUsers$": { "localMockData": true },
+            "getMockUsers$": { "localMockData": true },
+            "getSupervisorReview$": { "localMockData": false }
+        }
+    },
+    "amazonCognito": {
+        "region": "us-east-2",
+        "userPoolId": "us-east-2_o35ucKkwq",
+        "domain": "gsa-ctzn-services-dev.auth.us-east-2.amazoncognito.com",
+        "userPoolWebClientId": "2mua47mjua6675mmor05799lqr",
+        "cookieDomain": "localhost",
+        "cookieSecure": false
+    }
+}

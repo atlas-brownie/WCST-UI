@@ -1,0 +1,15 @@
+import { ModelBase } from 'app/shared';
+import { K2TextFieldProps } from 'app/k2-mui-core';
+
+export class {{pascalCase name}}FormDefinitions {
+    field1: K2TextFieldProps = { label: 'Field 1', name: 'field1', required: false, value: '' };
+}
+
+export class {{pascalCase name}} extends ModelBase {
+    field1: any;
+
+    constructor(properties?: any) {
+        super();
+        this.override(properties);
+    }
+}

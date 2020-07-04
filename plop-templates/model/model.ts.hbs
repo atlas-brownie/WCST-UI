@@ -1,0 +1,10 @@
+import { ModelBase } from 'app/shared';
+
+export class {{pascalCase name}} extends ModelBase {
+    mockProperty: any;
+
+    constructor(properties?: any) {
+        super();
+        this.override(properties);
+    }
+}

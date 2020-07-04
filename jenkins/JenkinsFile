@@ -1,0 +1,64 @@
+ pipeline {
+    agent any
+       environment {
+         SLACK_CHANNEL = '#kube-kai-notifications'
+         TEST_RESULTS_DIR = '/var/www/coverage'
+         BUILD_DIR = '/var/www/build'
+         AWS_REGION = "us-east-2"
+         S3_BUCKET_NAME = "${JOB_NAME}"
+    }
+    stages {
+      stage('Build') {
+        steps {
+          //Create directories for docker volume
+          sh 'mkdir -p $WORKSPACE/test_results'
+          sh 'mkdir -p $WORKSPACE/build'
+          //Create docker test image
+          sh 'docker build -f jenkins/Dockerfile -t $JOB_NAME:test .'
+        }
+      }
+      stage ('Test') {
+        steps {
+          //Run unit tests in test container
+          sh 'docker run --rm --name $JOB_NAME-test --volume $WORKSPACE/test_results:$TEST_RESULTS_DIR $JOB_NAME:test npm run-script coverage'
+        }
+      }
+      stage ('Package') {
+        steps {
+          sh 'docker run --rm --name $JOB_NAME-test --volume $WORKSPACE/build:$BUILD_DIR $JOB_NAME:test npm run-script build' 
+        }
+      }
+      stage ('Deploy') {
+        steps {
+          withAWS(region: AWS_REGION, credentials:'aws-credentials') {
+            //Create cloudformation stack that manages S3 bucket configuration
+            sh 'aws cloudformation deploy --stack-name $JOB_NAME --template-file jenkins/template.yaml --parameter-overrides RootBucketName=$S3_BUCKET_NAME --no-fail-on-empty-changeset'
+            //Deploy build to S3 bucket for static website hosting
+            s3Delete(bucket: "$S3_BUCKET_NAME", path:'**/*')
+            s3Upload(bucket: "$S3_BUCKET_NAME", workingDir:'build', includePathPattern:'**/*');
+          }
+        }
+      }
+    }
+    post {
+      always {
+        //Publish test results 
+        junit 'test_results/junit.xml'
+        cobertura autoUpdateHealth: false, autoUpdateStability: false, coberturaReportFile: '**/test_results/cobertura-coverage.xml', conditionalCoverageTargets: '70, 0, 0', failUnhealthy: false, failUnstable: false, lineCoverageTargets: '80, 0, 0', maxNumberOfBuilds: 0, methodCoverageTargets: '80, 0, 0', onlyStable: false, sourceEncoding: 'ASCII', zoomCoverageChart: false
+      }
+      success {
+        //Trigger end-to-end testing job upon success
+        build job: "${JOB_NAME}-EndToEnd", parameters: [string(name: 'DEV_IMAGE_NAME', value: "${JOB_NAME}:test"), string(name: 'COMMIT_HASH', value: "${GIT_COMMIT}")], propagate: false, wait: false
+        //Send build status to Slack channel
+        slackSend channel: "${env.SLACK_CHANNEL}",
+                  color: 'good',
+                  message: "The pipeline ${currentBuild.fullDisplayName} completed successfully."
+      }
+      failure {
+        //Send build status to Slack channel
+        slackSend channel: "${env.SLACK_CHANNEL}",
+                  color: 'danger',
+                  message: "The pipeline ${currentBuild.fullDisplayName} failed."
+      }
+    }
+ }
