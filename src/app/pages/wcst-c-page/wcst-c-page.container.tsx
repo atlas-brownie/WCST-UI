@@ -1,15 +1,21 @@
+import React, { FunctionComponent, ReactElement, useState } from 'react';
 import { WcstCPageRender } from './wcst-c-page.render';
-import React, { FunctionComponent, ReactElement } from 'react';
-import { getDocumentStatus$ } from './wcst-c.service';
+import { getCurrentGuid, getDocumentStatus$ } from './wcst-c.service';
 
 export const WcstCPage: FunctionComponent = (props): ReactElement => {
+    const [status, setStatus] = useState<string>('');
     const handleClickDocumentUploadLocation = (evt: MouseEvent) => {
-        console.log('clicked btn');
-        const guid = 'd7887142-0877-4dec-bd6f-089a94627e15';
-        getDocumentStatus$(guid).subscribe(({ payload, error }) => {
+        const form = document.getElementById('search-form') as HTMLFormElement;
+        console.log('clicked btn, form.elements.namedItem=', form.elements.namedItem('confirmation-code'));
+        const formData = new FormData(form);
+
+        getDocumentStatus$(formData.get('confirmation-code') as string).subscribe(({ payload, error }) => {
             console.log('getDocumentStatus payload, error=', payload, error);
+            let returnStatus = 'Invalid Confirmation Code';
+            if (payload[0] && payload[0].data) returnStatus = payload[0].data.attributes.status;
+            setStatus(returnStatus);
         });
     };
 
-    return <WcstCPageRender {...{ handleClickDocumentUploadLocation }} />;
+    return <WcstCPageRender {...{ handleClickDocumentUploadLocation, confirmationCode: getCurrentGuid(), status }} />;
 };

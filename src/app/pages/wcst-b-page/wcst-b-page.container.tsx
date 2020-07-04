@@ -1,28 +1,37 @@
 import React, { FunctionComponent, ReactElement, useState, useCallback } from 'react';
 import { WcstBPageRender } from './wcst-b-page.render';
-import { getMetadata, postDocumentUploadLocation$ } from './wcst-b.service';
+import { getMetadataFile, postDocumentUploadLocation$ } from './wcst-b.service';
 import { K2DropzoneProps } from 'app/k2-mui-core';
 
 export const WcstBPage: FunctionComponent = (props): ReactElement => {
-    const [files, setFiles] = useState<any[]>([]);
+    const [pdfFile, setPdfFile] = useState<File | null>(null);
 
-    const handleDrop = useCallback(
-        (acceptedFiles) => {
-            // Do something with the files
-            console.log('onDrop Files=', acceptedFiles);
-            setFiles(files.concat(acceptedFiles, getMetadata()));
-        },
-        [files]
-    );
+    const handleDrop = useCallback((acceptedFiles) => {
+        // Do something with the files
+        console.log('onDrop File=', acceptedFiles);
+        setPdfFile(acceptedFiles[0]);
+    }, []);
 
     const handleClickUploadDocument = useCallback(
         (evt: MouseEvent) => {
             console.log('clicked btn');
-            postDocumentUploadLocation$(files);
+
+            const form = document.getElementById('metadata-form') as HTMLFormElement;
+            const formData = new FormData(form);
+            const object: any = {};
+            formData.forEach(function (value, key) {
+                object[key] = value;
+            });
+            const json = JSON.stringify(object);
+            console.log('formData json=', json);
+
+            const metadataFile = getMetadataFile(json);
+
+            postDocumentUploadLocation$(metadataFile, pdfFile);
         },
-        [files]
+        [pdfFile]
     );
-    console.log('files=', files);
+    console.log('files=', pdfFile);
 
     const dropzone: K2DropzoneProps = { onDrop: handleDrop, onDropAccepted: handleDrop, onDropRejected: handleDrop };
 
