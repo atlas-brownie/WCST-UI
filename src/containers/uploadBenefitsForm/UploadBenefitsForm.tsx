@@ -63,15 +63,61 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
     return (
       <div role="region" aria-labelledby="apply-header" className={applyClasses}>
         {/* <ApplyHeader /> */}
-        <div className="vads-l-row">
-          <div
-            className={classNames(
-              'vads-l-col--12',
-              'medium-screen:vads-l-col--8',
-              'vads-u-padding-x--2p5',
-            )}
-          >
-            <form className="usa-form">
+
+        <div
+          className={classNames(
+            'vads-l-col--12',
+            'medium-screen:vads-l-col--8',
+            'vads-u-padding-x--2p5',
+            'vads-u-margin-x--4',
+          )}
+        >
+          <div className="vads-l-row">
+            <form>
+              <div
+                className={classNames(
+                  'vads-u-display--flex',
+                  'vads-u-flex-direction--row',
+                  'vads-u-align-items--center',
+                  'vads-u-flex-wrap--nowrap',
+                  'vads-u-margin-y--2',
+                )}
+              >
+                <div
+                  className={classNames(
+                    'progress-segment',
+                    'progress-segment-complete',
+                    'vads-u-padding-y--0p5',
+                  )}
+                />
+                <div className={classNames('progress-segment', 'vads-u-padding-y--0p5')} />
+              </div>
+              <div
+                className={classNames(
+                  'vads-u-display--flex',
+                  'vads-u-flex-direction--row',
+                  'vads-u-align-items--center',
+                  'vads-u-flex-wrap--nowrap',
+                  'vads-u-margin-y--2',
+                )}
+              >
+                <div className="fa-stack">
+                  <i
+                    className={classNames(
+                      'fa',
+                      'fa-circle',
+                      'fa-stack-2x',
+                      'vads-u-color--primary',
+                      'vads-u-padding-x--0',
+                    )}
+                  />
+                  <strong className={classNames('fa-stack-1x', 'vads-u-color--white')}>1</strong>
+                </div>
+                <div>of 2</div>
+                <h4 className={classNames('vads-u-margin-x--1', 'vads-u-margin-y--0')}>
+                  Upload Form
+                </h4>
+              </div>
               <div
                 className={classNames(
                   'vads-u-display--flex',
@@ -83,18 +129,25 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                 <h2>Widget Claim</h2>
                 <span className={classNames('vads-u-margin-x--4')}>Form T4NG</span>
               </div>
+              {/* <div className={classNames('usa-form')}> */}
               <DeveloperInfo />
+              {/* </div> */}
               <div
                 className={classNames(
                   'vads-u-display--flex',
                   'vads-u-flex-wrap--nowrap',
+
                   'vads-u-margin-y--2',
                 )}
               >
                 <div className={classNames('va-api-nav-secondary')}>
                   <Link to="/" className={classNames('usa-button', 'usa-button-secondary')}>
                     <span
-                      className={classNames('vads-u-display--flex', 'vads-u-flex-wrap--nowrap')}
+                      className={classNames(
+                        'vads-u-display--flex',
+                        'vads-u-align-items--center',
+                        'vads-u-flex-wrap--nowrap',
+                      )}
                     >
                       <i className={classNames('fa', 'fa-angle-double-left')} />
                       <span className={classNames('vads-u-margin-x--2')}>Back</span>
@@ -107,7 +160,11 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                       'Sending...'
                     ) : (
                       <span
-                        className={classNames('vads-u-display--flex', 'vads-u-flex-wrap--nowrap')}
+                        className={classNames(
+                          'vads-u-display--flex',
+                          'vads-u-align-items--center',
+                          'vads-u-flex-wrap--nowrap',
+                        )}
                       >
                         Continue
                         <i

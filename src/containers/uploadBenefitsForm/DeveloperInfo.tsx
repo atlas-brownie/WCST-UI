@@ -88,35 +88,36 @@ class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
             />
           </div>
         </div>
+        <div className={classNames('usa-form-small')}>
+          <ErrorableTextInput
+            label="First name"
+            field={this.props.veteranFirstName}
+            onValueChange={this.props.updateVeteranFirstName}
+            required={true}
+          />
 
-        <ErrorableTextInput
-          label="First name"
-          field={this.props.veteranFirstName}
-          onValueChange={this.props.updateVeteranFirstName}
-          required={true}
-        />
+          <ErrorableTextInput
+            label="Last name"
+            field={this.props.veteranLastName}
+            onValueChange={this.props.updateVeteranLastName}
+            required={true}
+          />
 
-        <ErrorableTextInput
-          label="Last name"
-          field={this.props.veteranLastName}
-          onValueChange={this.props.updateVeteranLastName}
-          required={true}
-        />
+          <ErrorableTextInput
+            errorMessage={this.props.fileNumber.validation}
+            label="Social Security Number"
+            field={this.props.fileNumber}
+            onValueChange={this.props.updateFileNumber(this.props.fileNumber.validation)}
+            required={true}
+          />
 
-        <ErrorableTextInput
-          errorMessage={this.props.fileNumber.validation}
-          label="Social Security Number"
-          field={this.props.fileNumber}
-          onValueChange={this.props.updateFileNumber(this.props.fileNumber.validation)}
-          required={true}
-        />
-
-        <ErrorableTextInput
-          label="Postal Code"
-          field={this.props.zipCode}
-          onValueChange={this.props.updateZipCode}
-          required={true}
-        />
+          <ErrorableTextInput
+            label="Postal Code"
+            field={this.props.zipCode}
+            onValueChange={this.props.updateZipCode}
+            required={true}
+          />
+        </div>
       </React.Fragment>
     );
   }
