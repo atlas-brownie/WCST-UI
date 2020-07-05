@@ -3,6 +3,7 @@ import { Provider } from 'react-redux';
 import NoSsr from '@material-ui/core/NoSsr';
 import { PageLayout } from 'app/elementals';
 import { BrowserRouter as Router } from 'react-router-dom';
+import '@department-of-veterans-affairs/formation/dist/formation.min.css';
 
 //DO NO REMOVE => THIS IS FOR PLOP TEMPLATING
 // PLEASE MAKE SURE THE PLOP IMPORTED ROUTE COMMENT IS INSIDE OF THE IMPORT BRACKETS WHEN SAVING
