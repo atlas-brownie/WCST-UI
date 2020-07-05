@@ -8,14 +8,14 @@ import { ThunkDispatch } from 'redux-thunk';
 import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
 // import ErrorableCheckbox from '@department-of-veterans-affairs/formation-react/ErrorableCheckbox';
 // import ErrorableTextArea from '@department-of-veterans-affairs/formation-react/ErrorableTextArea';
-// import ProgressButton from '@department-of-veterans-affairs/formation-react/ProgressButton';
+import ProgressButton from '@department-of-veterans-affairs/formation-react/ProgressButton';
 
 import * as actions from '../../actions';
 // import { includesOauthAPI } from '../../apiDefs/query';
 import { IBenefits, IErrorableInput, IRootState } from '../../types';
 // import { APPLY_FIELDS_TO_URL_FRAGMENTS } from '../../types/constants';
 // import ApplyHeader from './ApplyHeader';
-import DeveloperInfo from './DeveloperInfo';
+import DeveloperReview from './DeveloperReview';
 // import OAuthAppInfo from './OAuthAppInfo';
 // import SelectedApis from './SelectedApis';
 
@@ -51,13 +51,13 @@ const mapStateToProps = (state: IRootState) => {
   };
 };
 
-class UploadBenefitsForm extends React.Component<IBenefitsProps> {
+class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
   constructor(props: IBenefitsProps) {
     super(props);
   }
 
   public render() {
-    // const { ...props } = this.props;
+    const { ...props } = this.props;
     const applyClasses = classNames('vads-l-grid-container', 'vads-u-padding--4');
 
     return (
@@ -90,7 +90,13 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                     'vads-u-padding-y--0p5',
                   )}
                 />
-                <div className={classNames('progress-segment', 'vads-u-padding-y--0p5')} />
+                <div
+                  className={classNames(
+                    'progress-segment',
+                    'progress-segment-complete',
+                    'vads-u-padding-y--0p5',
+                  )}
+                />
               </div>
               <div
                 className={classNames(
@@ -111,11 +117,11 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                       'vads-u-padding-x--0',
                     )}
                   />
-                  <strong className={classNames('fa-stack-1x', 'vads-u-color--white')}>1</strong>
+                  <strong className={classNames('fa-stack-1x', 'vads-u-color--white')}>2</strong>
                 </div>
                 <div>of 2</div>
                 <h4 className={classNames('vads-u-margin-x--1', 'vads-u-margin-y--0')}>
-                  Upload Form
+                  Submit to the VA
                 </h4>
               </div>
               <div
@@ -130,7 +136,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                 <span className={classNames('vads-u-margin-x--4')}>Form T4NG</span>
               </div>
               {/* <div className={classNames('usa-form')}> */}
-              <DeveloperInfo />
+              <DeveloperReview />
               {/* </div> */}
               <div
                 className={classNames(
@@ -154,25 +160,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                     </span>
                   </Link>
                 </div>
-                <Link
-                  to="/review-benefits-form"
-                  className={classNames('usa-button', 'usa-button-secondary')}
-                >
-                  <span
-                    className={classNames(
-                      'vads-u-display--flex',
-                      'vads-u-align-items--center',
-                      'vads-u-flex-wrap--nowrap',
-                    )}
-                  >
-                    Continue
-                    <i
-                      className={classNames('fa', 'fa-angle-double-right', 'vads-u-margin-x--2')}
-                    />
-                  </span>
-                </Link>
-
-                {/* <ProgressButton
+                <ProgressButton
                   buttonText={
                     props.sending ? (
                       'Sending...'
@@ -184,7 +172,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                           'vads-u-flex-wrap--nowrap',
                         )}
                       >
-                        Continue
+                        Submit
                         <i
                           className={classNames(
                             'fa',
@@ -195,10 +183,9 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                       </span>
                     )
                   }
-                  disabled={!this.readyToSubmit() || props.sending}
                   onButtonClick={props.submitForm}
                   buttonClass="usa-button-primary"
-                /> */}
+                />
               </div>
             </form>
             {this.renderError()}
@@ -291,4 +278,4 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
   // }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UploadBenefitsForm);
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewBenefitsForm);
