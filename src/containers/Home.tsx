@@ -120,10 +120,12 @@ class Home extends React.Component {
       <div className="home">
         {/* <Hero /> */}
         {/* <VeteransNotice /> */}
-        <HomeSection ariaLabel="An API platform" title="S">
+        <HomeSection ariaLabel="Upload Benefits Form" title="S">
           <h3>Submit a Widget Claim Form (T4NG)</h3>
-          <h4>Have you submitted a form before?</h4>
-          <Link to="/apply">Check the status of your submission</Link>
+          <div className="feature">
+            <h4>Have you submitted a form before?</h4>
+            <Link to="/apply">Check the status of your submission</Link>
+          </div>
           <ol className="process">
             <li className="process-step list-one">
               <b>Prepare</b>

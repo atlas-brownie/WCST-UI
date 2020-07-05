@@ -6,6 +6,8 @@ import ErrorableTextInput from '@department-of-veterans-affairs/formation-react/
 import * as actions from '../../actions';
 import { IErrorableInput, IRootState } from '../../types';
 
+import classNames from 'classnames';
+
 interface IDeveloperInfoProps {
   veteranFirstName: IErrorableInput;
   veteranLastName: IErrorableInput;
@@ -51,6 +53,42 @@ class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
   public render() {
     return (
       <React.Fragment>
+        <div>
+          Drag and drop your completed Form T4NG in the box below, or click to select the file from
+          your device.
+        </div>
+        <div className="feature">
+          <h4>Drag and drop files here, or click to select files for upload.</h4>
+          <div className={classNames('usa-input')}>
+            {/* <span
+              className="usa-input-message undefined"
+              role="alert"
+              id="file-input-149-error-message"
+            >
+              <span className="sr-only">Error</span>
+              PDF document is required.
+            </span> */}
+            <label
+              role="button"
+              tabIndex={0}
+              htmlFor="file-input-pdf"
+              className={classNames('usa-button usa-button-primary')}
+            >
+              <span>
+                Select file to upload <i className={classNames('fa fa-plus fa-xs')} />
+              </span>
+            </label>
+            <input
+              type="file"
+              multiple={false}
+              style={{ display: 'none' }}
+              accept="application/pdf"
+              id="file-input-pdf"
+              name="Name"
+            />
+          </div>
+        </div>
+
         <ErrorableTextInput
           label="First name"
           field={this.props.veteranFirstName}

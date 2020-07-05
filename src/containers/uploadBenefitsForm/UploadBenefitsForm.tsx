@@ -14,7 +14,7 @@ import * as actions from '../../actions';
 // import { includesOauthAPI } from '../../apiDefs/query';
 import { IBenefits, IErrorableInput, IRootState } from '../../types';
 // import { APPLY_FIELDS_TO_URL_FRAGMENTS } from '../../types/constants';
-import ApplyHeader from './ApplyHeader';
+// import ApplyHeader from './ApplyHeader';
 import DeveloperInfo from './DeveloperInfo';
 // import OAuthAppInfo from './OAuthAppInfo';
 // import SelectedApis from './SelectedApis';
@@ -62,7 +62,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
 
     return (
       <div role="region" aria-labelledby="apply-header" className={applyClasses}>
-        <ApplyHeader />
+        {/* <ApplyHeader /> */}
         <div className="vads-l-row">
           <div
             className={classNames(
@@ -72,14 +72,59 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
             )}
           >
             <form className="usa-form">
-              <h2>Application</h2>
+              <div
+                className={classNames(
+                  'vads-u-display--flex',
+                  'vads-u-align-items--center',
+                  'vads-u-flex-wrap--nowrap',
+                  'vads-u-margin-y--2',
+                )}
+              >
+                <h2>Widget Claim</h2>
+                <span className={classNames('vads-u-margin-x--4')}>Form T4NG</span>
+              </div>
               <DeveloperInfo />
-              <ProgressButton
-                buttonText={props.sending ? 'Sending...' : 'Submit'}
-                disabled={!this.readyToSubmit() || props.sending}
-                onButtonClick={props.submitForm}
-                buttonClass="usa-button-primary"
-              />
+              <div
+                className={classNames(
+                  'vads-u-display--flex',
+                  'vads-u-flex-wrap--nowrap',
+                  'vads-u-margin-y--2',
+                )}
+              >
+                <div className={classNames('va-api-nav-secondary')}>
+                  <Link to="/" className={classNames('usa-button', 'usa-button-secondary')}>
+                    <span
+                      className={classNames('vads-u-display--flex', 'vads-u-flex-wrap--nowrap')}
+                    >
+                      <i className={classNames('fa', 'fa-angle-double-left')} />
+                      <span className={classNames('vads-u-margin-x--2')}>Back</span>
+                    </span>
+                  </Link>
+                </div>
+                <ProgressButton
+                  buttonText={
+                    props.sending ? (
+                      'Sending...'
+                    ) : (
+                      <span
+                        className={classNames('vads-u-display--flex', 'vads-u-flex-wrap--nowrap')}
+                      >
+                        Continue
+                        <i
+                          className={classNames(
+                            'fa',
+                            'fa-angle-double-right',
+                            'vads-u-margin-x--2',
+                          )}
+                        />
+                      </span>
+                    )
+                  }
+                  disabled={!this.readyToSubmit() || props.sending}
+                  onButtonClick={props.submitForm}
+                  buttonClass="usa-button-primary"
+                />
+              </div>
             </form>
             {this.renderError()}
           </div>
@@ -90,7 +135,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
               'vads-u-padding-x--2p5',
             )}
           >
-            <div className="feature">
+            {/* <div className="feature">
               <h3>Stay In Touch</h3>
               <p>
                 Want to get news and updates about VA API Program? Sign up to receive email updates.
@@ -101,7 +146,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
               >
                 Sign Up
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
