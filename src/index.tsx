@@ -1,20 +1,34 @@
-import React from 'react';
-// import React, { StrictMode } from 'react';
-import ReactDOM from 'react-dom';
-// import { store } from './app/shared';
-// import { Provider } from 'react-redux';
-import './app/index.scss';
-import { App } from './app/app.container';
-import * as serviceWorker from './app/serviceWorker';
-import { loadConfiguration, pingServer$ } from './app/app.service';
-// import NoSsr from '@material-ui/core/NoSsr';
+import * as Sentry from '@sentry/browser';
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
 
-loadConfiguration(() => {
-    pingServer$();
-    ReactDOM.render(<App />, document.getElementById('root'));
-});
+import { Provider } from 'react-redux';
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+import App from './App';
+import { unregister } from './registerServiceWorker';
+import store from './store';
+
+const { REACT_APP_SENTRY_DSN } = process.env;
+
+if (REACT_APP_SENTRY_DSN) {
+  Sentry.init({
+    dsn: REACT_APP_SENTRY_DSN,
+  });
+}
+try {
+  ReactDOM.render(
+    <Provider store={store}>
+      <App />
+    </Provider>,
+    document.getElementById('root') as HTMLElement,
+  );
+  /*
+   This is where the service worker is uninstalled. Note we don't register a new
+   service worker, only unregister any that have already been installed.
+  */
+  unregister();
+} catch (err) {
+  if (REACT_APP_SENTRY_DSN) {
+    Sentry.captureException(err);
+  }
+}
