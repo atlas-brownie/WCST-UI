@@ -22,6 +22,7 @@ import ReleaseNotes from './containers/releaseNotes/ReleaseNotes';
 import RoutedContent from './containers/RoutedContent';
 import Support from './containers/support/Support';
 
+import BenefitsStatusForm from './containers/checkBenefitsStatusForm/BenefitsStatusForm';
 import ReviewBenefitsForm from './containers/uploadBenefitsForm/ReviewBenefitsForm';
 import UploadBenefitsForm from './containers/uploadBenefitsForm/UploadBenefitsForm';
 
@@ -64,6 +65,16 @@ export function SiteRoutes() {
           <Flag
             name="signups_enabled"
             component={ReviewBenefitsForm}
+            fallbackComponent={DisabledApplyForm}
+          />
+        )}
+      />
+      <Route
+        path="/check-benefits-status"
+        render={() => (
+          <Flag
+            name="signups_enabled"
+            component={BenefitsStatusForm}
             fallbackComponent={DisabledApplyForm}
           />
         )}

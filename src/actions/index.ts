@@ -3,6 +3,7 @@ import * as constants from '../types/constants';
 
 export * from './apply';
 export * from './upload-benefits';
+export * from './benefits-status';
 
 export interface ISetRequestedApiVersion extends Action {
   type: constants.SET_REQUESTED_API_VERSION;

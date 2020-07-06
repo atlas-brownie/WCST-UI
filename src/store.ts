@@ -12,7 +12,9 @@ import { apiVersioning } from './reducers/api-versioning';
 
 import {
   application,
+  benefitsStatus,
   initialApplicationState,
+  initialBenefitsStatusState,
   initialUploadBenefitsState,
   uploadBenefits,
 } from './reducers';
@@ -97,11 +99,13 @@ const store = createStore(
   combineReducers<IRootState>({
     apiVersioning,
     application,
+    benefitsStatus,
     routing,
     uploadBenefits,
   }),
   {
     application: loadApplicationState().application,
+    benefitsStatus: initialBenefitsStatusState,
     routing: undefined,
     uploadBenefits: initialUploadBenefitsState,
   },

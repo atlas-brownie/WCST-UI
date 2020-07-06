@@ -3,6 +3,7 @@ import { IApplication, IApplyInputs, IErrorableInput } from '../types';
 import * as constants from '../types/constants';
 
 export * from './upload-benefits';
+export * from './benefits-status';
 
 const newErrorableInput: () => IErrorableInput = () => {
   return {

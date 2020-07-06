@@ -2,7 +2,7 @@ import * as Sentry from '@sentry/browser';
 import { Action, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
 import { history } from '../store';
-import { IErrorableInput, IRootState, IUploadBenefitsApiList } from '../types';
+import { IErrorableInput, IRootState } from '../types';
 import * as constants from '../types/constants';
 import { validateByPattern } from '../utils/validators';
 
@@ -32,23 +32,12 @@ export interface IUploadBenefitsZipCode extends Action {
   type: constants.UPDATE_BENEFITS_ZIP_CODE;
 }
 
-// export interface IToggleAcceptTos extends Action {
-//   type: constants.TOGGLE_ACCEPT_TOS;
-// }
-
-// export interface IToggleSelectedApi extends Action {
-//   type: constants.TOGGLE_SELECTED_API;
-//   apiId: string;
-// }
-
 export type UpdateBenefitsAction =
   | IUploadBenefitsContentFile
   | IUploadBenefitsFileNumber
   | IUploadBenefitsVeteranFirstName
   | IUploadBenefitsVeteranLastName
   | IUploadBenefitsZipCode;
-// | IToggleAcceptTos
-// | IToggleSelectedApi;
 
 export interface ISubmitBenefitsForm extends Action {
   type: constants.SUBMIT_BENEFITS_BEGIN;
@@ -78,15 +67,8 @@ export type SubmitBenefitsFormThunk = ThunkAction<
   SubmitBenefitsFormAction
 >;
 
-const apisToList = (apis: IUploadBenefitsApiList) => {
-  return Object.keys(apis)
-    .filter(key => apis[key])
-    .join(',');
-};
-
 function buildBenefitsBody({ application }: IRootState) {
   const benefitsBody: any = {};
-  benefitsBody.apis = apisToList(application.inputs.apis);
   ['fileNumber', 'veteranFirstName', 'veteranLastName', 'zipCode'].forEach(property => {
     if (application.inputs[property]) {
       benefitsBody[property] = application.inputs[property].value;

@@ -10,22 +10,22 @@ import ProgressButton from '@department-of-veterans-affairs/formation-react/Prog
 
 import * as actions from '../../actions';
 import { history } from '../../store';
-import { IBenefits, IErrorableInput, IRootState } from '../../types';
-import UploadBenefitsFormFields from './UploadBenefitsFormFields';
+import { IBenefitsStatus, IErrorableInput, IRootState } from '../../types';
+import BenefitsStatusFormFields from './BenefitsStatusFormFields';
 
-interface IBenefitsProps extends IBenefits {
+interface IBenefitsStatusProps extends IBenefitsStatus {
   submitForm: () => void;
   toggleAcceptTos: () => void;
   updateDescription: (value: IErrorableInput) => void;
 }
 
-type BenefitsDispatch = ThunkDispatch<
+type BenefitsStatusDispatch = ThunkDispatch<
   IRootState,
   undefined,
   actions.SubmitFormAction | actions.UpdateApplicationAction
 >;
 
-const mapDispatchToProps = (dispatch: BenefitsDispatch) => {
+const mapDispatchToProps = (dispatch: BenefitsStatusDispatch) => {
   return {
     submitForm: () => {
       dispatch(actions.submitForm());
@@ -41,11 +41,15 @@ const mapDispatchToProps = (dispatch: BenefitsDispatch) => {
 
 const mapStateToProps = (state: IRootState) => {
   return {
-    ...state.uploadBenefits,
+    ...state.benefitsStatus,
   };
 };
 
-class UploadBenefitsForm extends React.Component<IBenefitsProps> {
+class BenefitsStatusForm extends React.Component<IBenefitsStatusProps> {
+  constructor(props: IBenefitsStatusProps) {
+    super(props);
+  }
+
   public render() {
     const { ...props } = this.props;
     return (
@@ -63,59 +67,14 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
               <div
                 className={classNames(
                   'vads-u-display--flex',
-                  'vads-u-flex-direction--row',
                   'vads-u-align-items--center',
                   'vads-u-flex-wrap--nowrap',
                   'vads-u-margin-y--2',
                 )}
               >
-                <div
-                  className={classNames(
-                    'progress-segment',
-                    'progress-segment-complete',
-                    'vads-u-padding-y--0p5',
-                  )}
-                />
-                <div className={classNames('progress-segment', 'vads-u-padding-y--0p5')} />
+                <h2>Check the Status of Your Widget Claim Form (T4NG)</h2>
               </div>
-              <div
-                className={classNames(
-                  'vads-u-display--flex',
-                  'vads-u-flex-direction--row',
-                  'vads-u-align-items--center',
-                  'vads-u-flex-wrap--nowrap',
-                  'vads-u-margin-y--2',
-                )}
-              >
-                <div className="fa-stack">
-                  <i
-                    className={classNames(
-                      'fa',
-                      'fa-circle',
-                      'fa-stack-2x',
-                      'vads-u-color--primary',
-                      'vads-u-padding-x--0',
-                    )}
-                  />
-                  <strong className={classNames('fa-stack-1x', 'vads-u-color--white')}>1</strong>
-                </div>
-                <div>of 2</div>
-                <h4 className={classNames('vads-u-margin-x--1', 'vads-u-margin-y--0')}>
-                  Upload Form
-                </h4>
-              </div>
-              <div
-                className={classNames(
-                  'vads-u-display--flex',
-                  'vads-u-align-items--center',
-                  'vads-u-flex-wrap--nowrap',
-                  'vads-u-margin-y--2',
-                )}
-              >
-                <h2>Widget Claim</h2>
-                <span className={classNames('vads-u-margin-x--4')}>Form T4NG</span>
-              </div>
-              <UploadBenefitsFormFields />
+              <BenefitsStatusFormFields />
               <div
                 className={classNames(
                   'vads-u-display--flex',
@@ -124,7 +83,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                   'vads-u-margin-y--2',
                 )}
               >
-                <div className={classNames('va-api-nav-secondary')}>
+                {/* <div className={classNames('va-api-nav-secondary')}>
                   <Link to="/" className={classNames('usa-button', 'usa-button-secondary')}>
                     <span
                       className={classNames(
@@ -137,33 +96,13 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                       <span className={classNames('vads-u-margin-x--2')}>Back</span>
                     </span>
                   </Link>
-                </div>
+                </div> */}
                 <ProgressButton
-                  buttonText={
-                    props.sending ? (
-                      'Sending...'
-                    ) : (
-                      <span
-                        className={classNames(
-                          'vads-u-display--flex',
-                          'vads-u-align-items--center',
-                          'vads-u-flex-wrap--nowrap',
-                        )}
-                      >
-                        Continue
-                        <i
-                          className={classNames(
-                            'fa',
-                            'fa-angle-double-right',
-                            'vads-u-margin-x--2',
-                          )}
-                        />
-                      </span>
-                    )
-                  }
+                  buttonText={props.sending ? 'Sending...' : <span>Check Status</span>}
                   disabled={!this.readyToSubmit() || props.sending}
                   onButtonClick={(evt: MouseEvent) => {
                     evt.preventDefault();
+                    console.log('TODO: submit to check status');
                     history.push('/review-benefits-form');
                   }}
                   buttonClass="usa-button-primary"
@@ -204,7 +143,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
   }
 
   private allFieldsComplete() {
-    const fieldNames = ['fileNumber', 'veteranFirstName', 'veteranLastName', 'zipCode'];
+    const fieldNames = ['confirmationCode'];
     const incompleteFields = fieldNames.filter(fieldName => {
       return !this.props.inputs[fieldName].value;
     });
@@ -212,16 +151,9 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
   }
 
   private readyToSubmit() {
-    const {
-      inputs: { contentFile, fileNumber },
-    } = this.props;
-
-    console.log('readyToSubmit contentFile.lastModified=', contentFile.lastModified);
-    const fileNumberComplete = fileNumber.value.length !== 0 && fileNumber.validation === undefined;
-    const contentFileComplete = contentFile.lastModified !== -1;
-
-    return this.allFieldsComplete() && fileNumberComplete && contentFileComplete;
+    console.log('readyToSubmit this.props=', this.props);
+    return this.allFieldsComplete();
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(UploadBenefitsForm);
+export default connect(mapStateToProps, mapDispatchToProps)(BenefitsStatusForm);
