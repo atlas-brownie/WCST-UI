@@ -2,30 +2,18 @@ import classNames from 'classnames';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-// import { Flag } from 'flag';
-// import apiDefinitions, { apiCategoryOrder } from '../apiDefs/data/categories';
-// import padlockImg from '../assets/homepage-padlock.svg';
-// import apiImg from '../assets/homepage-reliable-api.svg';
-// import CardLink from '../components/CardLink';
-// import Hero from '../components/Hero';
-
-const leftColumnClasses = classNames(
-  'medium-screen:vads-l-col--2',
-  'small-screen:vads-l-col--4',
-  'va-api-u-margin-y--auto',
-);
-const rightColumnClasses = classNames(
+const columnClasses = classNames(
   'medium-screen:vads-l-col--8',
   'small-screen:vads-u-padding-left--2',
   'small-screen:vads-l-col--6',
   'va-api-u-margin-y--auto',
+  'vads-u-margin-x--auto',
 );
 const flexContainer = classNames(
   'vads-l-grid-container',
   'vads-u-margin-top--6',
   'vads-u-margin-x--auto',
 );
-const imageClasses = classNames('medium-screen:vads-u-width--auto', 'va-api-u-width--200');
 
 const formUrl = 'https://www.va.gov/vaforms/form_detail.asp?FormNo=29-4364';
 
@@ -43,76 +31,12 @@ function HomeSection({
     <section role="region" aria-label={ariaLabel}>
       <div className={flexContainer}>
         <div className="vads-l-row">
-          <div className={leftColumnClasses}>
-            <img className={imageClasses} src={imageSrc} alt="" role="presentation" />
-          </div>
-          <div className={rightColumnClasses}>{children}</div>
+          <div className={columnClasses}>{children}</div>
         </div>
       </div>
     </section>
   );
 }
-
-// function ApiList() {
-//   return (
-//     <section>
-//       <div className={classNames(flexContainer, 'vads-u-margin-bottom--6')}>
-//         <div className="vads-l-row">
-//           <div className="medium-screen:vads-l-col--4" />
-//           <div className="medium-screen:vads-l-col--8">
-//             <div className="vads-l-row">
-//               {apiCategoryOrder.map((apiCategoryKey: string) => {
-//                 const { name, content } = apiDefinitions[apiCategoryKey];
-//                 return (
-//                   <Flag name={`categories.${apiCategoryKey}`} key={apiCategoryKey}>
-//                     <CardLink
-//                       className="medium-screen:vads-l-col--5"
-//                       name={`VA ${name}`}
-//                       url={`/explore/${apiCategoryKey}`}
-//                     >
-//                       {content.placardText}
-//                     </CardLink>
-//                   </Flag>
-//                 );
-//               })}
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
-
-// function VeteransNotice() {
-//   return (
-//     <section
-//       className="vads-u-display--none medium-screen:vads-u-display--block"
-//       role="region"
-//       aria-label="Veterans Notice"
-//     >
-//       <div
-//         className={classNames(
-//           'vads-u-background-color--primary',
-//           'vads-u-font-size--lg',
-//           'vads-u-padding-y--0p5',
-//           'vads-u-text-align--center',
-//           'vads-u-color--white',
-//         )}
-//       >
-//         <div className="vads-u-margin-y--2p5">
-//           Are you a Veteran looking to submit a claim, manage benefits or access your health data?
-//           &nbsp;
-//           <a
-//             className={classNames('vads-u-font-weight--bold', 'vads-u-color--white')}
-//             href="https://www.va.gov/"
-//           >
-//             Visit VA.gov
-//           </a>
-//         </div>
-//       </div>
-//     </section>
-//   );
-// }
 
 class Home extends React.Component {
   public render() {

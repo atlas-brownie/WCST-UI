@@ -14,7 +14,7 @@
     and sizes should either be multiples of 10 or multiples of 8 that correspond to VADS margin/padding sizes
 */
 
-// Fonts 
+// Fonts
 
 .va-api-u-font-family--mono {
   font-family: monospace !important;
@@ -41,6 +41,10 @@
 
 .va-api-u-min-width--200 {
   min-width: 20rem !important;
+}
+
+.va-api-u-min-width--400 {
+  min-width: 40rem !important;
 }
 
 .va-api-u-max-width--150 {

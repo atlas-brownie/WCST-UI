@@ -52,22 +52,18 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
 
   public render() {
     const { ...props } = this.props;
-    const applyClasses = classNames('vads-l-grid-container', 'vads-u-padding--4');
-
     return (
-      <div role="region" aria-labelledby="apply-header" className={applyClasses}>
+      <div role="region" aria-labelledby="benefits-header">
         {/* <ApplyHeader /> */}
 
-        <div
-          className={classNames(
-            'vads-l-col--12',
-            'medium-screen:vads-l-col--8',
-            'vads-u-padding-x--2p5',
-            'vads-u-margin-x--4',
-          )}
-        >
+        <div className={classNames('medium-screen:vads-l-col--12', 'vads-u-padding-x--2p5')}>
           <div className="vads-l-row">
-            <form>
+            <form
+              className={classNames(
+                'vads-u-margin-x--auto',
+                'medium-screen:va-api-u-min-width--400',
+              )}
+            >
               <div
                 className={classNames(
                   'vads-u-display--flex',
