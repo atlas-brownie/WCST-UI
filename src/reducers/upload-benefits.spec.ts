@@ -6,7 +6,7 @@ import * as constants from '../types/constants';
 import { uploadBenefits } from './upload-benefits';
 
 const getMetadataFile = (metadata: any) => {
-  const file = new File([metadata], 'metadata.json', { type: 'application/json' });
+  const file = new File([metadata], 'test.json', { type: 'application/json' });
   return file;
 };
 

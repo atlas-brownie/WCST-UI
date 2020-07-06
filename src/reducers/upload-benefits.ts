@@ -10,7 +10,7 @@ const newErrorableInput: () => IErrorableInput = () => {
 };
 
 const getMetadataFile = (metadata: any) => {
-  const file = new File([metadata], 'metadata.json', {
+  const file = new File([metadata], 'empty.json', {
     lastModified: -1,
     type: 'application/json',
   });

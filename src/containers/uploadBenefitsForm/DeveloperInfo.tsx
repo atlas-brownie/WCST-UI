@@ -59,10 +59,25 @@ const mapDispatchToProps = (dispatch: DeveloperInfoDispatch) => {
   };
 };
 
+const getRequiredSpan = (props: IDeveloperInfoProps) => {
+  const { contentFile } = props;
+  let requiredSpan;
+  if (contentFile.lastModified === -1) {
+    requiredSpan = (
+      <span className="usa-input-error-message undefined" role="alert">
+        <span className="sr-only">Error</span>
+        PDF document is required.
+      </span>
+    );
+  }
+  return requiredSpan;
+};
+
 class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
   constructor(props: IDeveloperInfoProps) {
     super(props);
     this.handleChangeContentFile = this.handleChangeContentFile.bind(this);
+    console.log('props=', props);
   }
 
   public render() {
@@ -70,16 +85,9 @@ class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
       <React.Fragment>
         <div>Click to select the file from your device.</div>
         <div className="feature">
-          <h4>Drag and drop files here, or click to select files for upload.</h4>
+          <h4>Click to select files for upload.</h4>
           <div className={classNames('usa-input')}>
-            {/* <span
-              className="usa-input-message undefined"
-              role="alert"
-              id="file-input-149-error-message"
-            >
-              <span className="sr-only">Error</span>
-              PDF document is required.
-            </span> */}
+            {getRequiredSpan(this.props)}
             <label
               role="button"
               tabIndex={0}
@@ -96,7 +104,7 @@ class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
               style={{ display: 'none' }}
               accept="application/pdf"
               id="file-input-pdf"
-              name="Name"
+              name="contentFile"
               onChange={this.handleChangeContentFile}
             />
           </div>
