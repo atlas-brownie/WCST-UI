@@ -1,7 +1,7 @@
 import * as Sentry from '@sentry/browser';
 import { Action, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { history } from '../store';
+// import { history } from '../store';
 import { IErrorableInput, IRootState } from '../types';
 import * as constants from '../types/constants';
 import { validateByPattern } from '../utils/validators';
@@ -142,12 +142,14 @@ export const submitBenefitsForm: ActionCreator<SubmitBenefitsFormThunk> = () => 
         console.log('upload-benefits json=', json);
 
         if (json.token || json.clientID) {
+          console.log('upload-benefits ready to dispatch success=', json);
           const result = dispatch(
             submitBenefitsFormSuccess(json.token, json.clientID, json.clientSecret),
           );
-          history.push('/applied');
+          // history.push('/applied');
           return result;
         } else {
+          console.log('upload-benefits ready to dispatch error=', json);
           return dispatch(submitBenefitsFormError(json.errorMessage));
         }
       })

@@ -11,8 +11,8 @@ import { defaultFlexContainer } from '../styles/vadsUtils';
 
 import headerLogo from '../assets/header-logo.png';
 
-// import Banner from './Banner';
-// import VeteransCrisisLine from './crisisLine/VeteransCrisisLine';
+import Banner from './Banner';
+import VeteransCrisisLine from './crisisLine/VeteransCrisisLine';
 // import NavBar from './NavBar';
 // import Search from './Search';
 
@@ -80,8 +80,8 @@ export default class Header extends React.Component<{}, IHeaderState> {
           >
             Skip to main content
           </HashLink>
-          {/* <Banner />
-          <VeteransCrisisLine /> */}
+          <Banner />
+          <VeteransCrisisLine />
           <div
             className={classNames(
               defaultFlexContainer(true),

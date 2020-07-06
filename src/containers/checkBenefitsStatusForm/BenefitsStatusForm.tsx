@@ -2,7 +2,6 @@ import * as React from 'react';
 
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import { ThunkDispatch } from 'redux-thunk';
 
 import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
@@ -66,6 +65,7 @@ class BenefitsStatusForm extends React.Component<IBenefitsStatusProps> {
                 <h2>Check the Status of Your Widget Claim Form (T4NG)</h2>
               </div>
               <BenefitsStatusFormFields />
+              {this.renderError()}
               <div
                 className={classNames(
                   'vads-u-display--flex',
@@ -99,7 +99,6 @@ class BenefitsStatusForm extends React.Component<IBenefitsStatusProps> {
                 />
               </div>
             </form>
-            {this.renderError()}
           </div>
           <div
             className={classNames(
@@ -114,17 +113,15 @@ class BenefitsStatusForm extends React.Component<IBenefitsStatusProps> {
   }
 
   private renderError() {
-    const assistanceTrailer = (
-      <span>
-        Do you want assistance? Create an issue through our <Link to="/support">Support page</Link>
-      </span>
-    );
+    const assistanceTrailer = <span>&nbsp;</span>;
 
     if (this.props.errorStatus) {
       return (
         <AlertBox
           status="error"
-          headline={'We encountered a server error while saving your form. Please try again later.'}
+          headline={
+            'We are currently unable to check the status of the file you submitted. Please try again later.'
+          }
           content={assistanceTrailer}
         />
       );

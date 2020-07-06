@@ -1,7 +1,6 @@
 import * as Sentry from '@sentry/browser';
 import { Action, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { history } from '../store';
 import { IErrorableInput, IRootState } from '../types';
 import * as constants from '../types/constants';
 
@@ -40,6 +39,25 @@ export type SubmitBenefitsStatusFormThunk = ThunkAction<
   SubmitBenefitsStatusFormAction
 >;
 
+enum RESPONSE {
+  FAILED,
+  SUCCEEDED,
+}
+
+const getResponseStatus = (responseJson: any): any => {
+  const { hasError, message, payload } = responseJson;
+  if (hasError) {
+    return { status: RESPONSE.FAILED, message, payload };
+  } else {
+    const formStatus = payload[0];
+    if (formStatus === 'error') {
+      return { status: RESPONSE.FAILED, message, payload };
+    } else {
+      return { status: RESPONSE.SUCCEEDED, message, payload };
+    }
+  }
+};
+
 export const submitBenefitsStatusForm: ActionCreator<SubmitBenefitsStatusFormThunk> = () => {
   return (dispatch, state) => {
     dispatch(submitBenefitsStatusFormBegin());
@@ -60,14 +78,15 @@ export const submitBenefitsStatusForm: ActionCreator<SubmitBenefitsStatusFormThu
       .then(response => response.json())
       .then(json => {
         console.log('benefits-status json=', json);
-        if (json.token || json.clientID) {
+        const responseStatus = getResponseStatus(json);
+        if (responseStatus.status) {
           const result = dispatch(
             submitBenefitsStatusFormSuccess(json.token, json.clientID, json.clientSecret),
           );
-          history.push('/');
+          // history.push('/');
           return result;
         } else {
-          return dispatch(submitBenefitsStatusFormError(json.errorMessage));
+          return dispatch(submitBenefitsStatusFormError(responseStatus.message));
         }
       })
       .catch(error => {
