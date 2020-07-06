@@ -24,6 +24,7 @@ import Support from './containers/support/Support';
 
 import BenefitsStatusForm from './containers/checkBenefitsStatusForm/BenefitsStatusForm';
 import ReviewBenefitsForm from './containers/uploadBenefitsForm/ReviewBenefitsForm';
+import SubmissionSuccessForm from './containers/uploadBenefitsForm/SubmissionSuccessForm';
 import UploadBenefitsForm from './containers/uploadBenefitsForm/UploadBenefitsForm';
 
 export function SiteRoutes() {
@@ -37,6 +38,7 @@ export function SiteRoutes() {
       <Route path="/whats-new" render={() => <Redirect to="/news" />} />
 
       {/* Current routes: */}
+      <Route path="/upload-benefits-form-success" component={SubmissionSuccessForm} />
       <Route path="/go-live" component={RoutedContent} />
       <Route path="/terms-of-service" component={RoutedContent} />
       <Route

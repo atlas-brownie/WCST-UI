@@ -38,7 +38,7 @@ export default class Header extends React.Component<{}, IHeaderState> {
       isOn: false,
       mobileNavVisible: false,
       open: false,
-      version: '1.0.1',
+      version: 'Version 1.0.1',
     };
 
     // This binding is necessary to make `this` work in the callback

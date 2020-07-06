@@ -1,0 +1,33 @@
+.submissions-form {
+  padding: 25px 250px 25px 160px;
+
+  .top-container {
+    width: 75%;
+  }
+
+  .message-container {
+    width: 85%;
+
+    .short-message {
+      margin-right: 25px;
+    }
+  }
+
+  .confirmation-container {
+    background: #e2f3f8;
+    color: #2e3743;
+    padding: 25px;
+    width: 45%;
+    font-weight: bold;
+
+    .title {
+      font-size: 21px;
+      letter-spacing: 1px;
+    }
+
+    .code {
+      font-size: 45px;
+      letter-spacing: 8px;
+    }
+  }
+}
