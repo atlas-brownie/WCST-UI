@@ -1,52 +1,57 @@
-# WCST
+# Developer Portal
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Developer Portal is the documentation and help portal for the VA API Platform. The repo hosts the code base that the website it built on.
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+The Developer Portal was bootstrapped with [create-react-app](https://github.com/facebook/create-react-app) and requires [Node v10+](https://nodejs.org/en/download/).
 
-### `npm start`
+First install the dependencies:
+```
+npm install
+```
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Next, create a `.env.local` file with the following contents (don't worry about what these mean yet):
+```
+PORT=3001
+REACT_APP_VETSGOV_SWAGGER_API=https://dev-api.vets.gov
+REACT_APP_DEVELOPER_PORTAL_SELF_SERVICE_URL=https://dev-api.va.gov
+REACT_APP_SALESFORCE_ENV=VICDEV
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+Now start the app:
+```
+npm start
+```
 
-### `npm test`
+At this point you should have a browser open, with the developer portal loaded. If you make changes to the
+code, your browser should auto-reload the page.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To learn how to make meaningful changes to the portal, please review the [Development Guide](docs/development.md).
 
-### `npm run build`
+Before submitting a pull request, please review the [Testing Guide](docs/testing.md).
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Service Worker
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+A service worker was used at one point for file caching. This caching was causing problems when
+updates to the site were made. It took multiple visits to the site for the update to be applied.
+This causes an issue when a time sensitive update needs to be shown on the site, say when we want
+to display an incident banner on the developer portal. Most users will never see the banner
+because of the service worker. To prevent this issue in the future the service worker was removed.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Revproxy Routing
 
-### `npm run eject`
+The developer portal sits behind an Nginx reverse proxy. Nginx is configured to route all requests to `/static` through to `/static`. All other paths are routed to `index.html`. This allows react to be in control of `404`ing any bad paths. However there are a group of paths at the root that need to be routed to (favicon.ico, google analytics, etc...). Ngnix is configured to explicitly route to these files. If you need to add an additional file hosted at the root of the developer portal do so [here](https://github.com/department-of-veterans-affairs/devops/blob/master/ansible/deployment/config/revproxy-vagov/vars/developer_portal_root_routes.yml). The vars in that file are used where the developer-portal [is configured](https://github.com/department-of-veterans-affairs/devops/blob/master/ansible/deployment/config/revproxy-vagov/templates/nginx_revproxy.conf.j2#L668) in the revproxy (search for `developer_portal_root_routes`)
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Adding Additional APIs to the Apply Page
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Adding a new API to the apply page requires changes in a few different places. You'll need to add the API in the following places:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+ * `actions/index.ts` - To control the toggling of the checkbox when signing up
+ * `containers/ApplyForm.ts` - Get the new API's checkbox on the apply page
+ * `containers/ApplySuccess.ts` - Show's the new API key if needed after it has been generated
+ * `reducers/index.ts` - Controls which APIs have been checked on the apply page
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## Running the Backend Locally
 
-## Enhance Developer Experience
-
-Install Chrome React DevTools Extension: https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en
-
-Install Chrome Redux DevTools Extension: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+Sometimes you will need to test the apply page locally. To do so you can fire up the backend and point the developer portal at it. Clone the `developer-portal-lambda-backend` repo. Run `docker-compose up` and local DynamoDB, Kong and lambda containers will spin up. If you update `.env.local` with `REACT_APP_DEVELOPER_PORTAL_SELF_SERVICE_URL=http://localhost:9000` (You'll need to restart your locally running developer portal) you can test the apply page locally. See the [backend repo](https://github.com/department-of-veterans-affairs/developer-portal-lambda-backend#local-interation) for more information about running the backend locally.

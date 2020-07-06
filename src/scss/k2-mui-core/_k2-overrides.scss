@@ -1,9 +1,0 @@
-/* overwrite the material-ui row grid so that the items within the row are 100% of it's space */
-.MuiGrid-item {
-    width: 100%;
-}
-
-// to allow justify=center to work on K2Row
-.MuiGrid-justify-xs-center {
-    text-align: center;
-}
