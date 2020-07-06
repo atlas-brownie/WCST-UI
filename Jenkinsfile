@@ -15,12 +15,12 @@ pipeline {
             }
         }
         
-        stage('Install Packages') {
-            steps {
-                sh 'npm install'
-                sh 'npm audit fix'
-            }
-        }
+//        stage('Install Packages') {
+//            steps {
+//                sh 'npm install'
+//                sh 'npm audit fix'
+//            }
+//        }
         
         stage('Test') {
             steps {
