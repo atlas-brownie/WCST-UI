@@ -1,17 +1,5 @@
 import { IErrorableInput } from './form';
 
-export interface IUploadBenefitsApiList {
-  appeals: boolean;
-  benefits: boolean;
-  claims: boolean;
-  confirmation: boolean;
-  facilities: boolean;
-  health: boolean;
-  vaForms: boolean;
-  verification: boolean;
-  communityCare: boolean;
-}
-
 export interface IUploadBenefitsInputs {
   contentFile: File;
   docType: string;

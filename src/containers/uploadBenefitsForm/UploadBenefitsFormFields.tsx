@@ -116,6 +116,7 @@ class UploadBenefitsFormFields extends React.Component<IUploadBenefitsFormFields
         <div className={classNames('usa-form-small')}>
           <ErrorableTextInput
             label="First name"
+            placeholder="Type First name"
             field={this.props.veteranFirstName}
             onValueChange={this.props.updateVeteranFirstName}
             required={true}
@@ -123,6 +124,7 @@ class UploadBenefitsFormFields extends React.Component<IUploadBenefitsFormFields
 
           <ErrorableTextInput
             label="Last name"
+            placeholder="Type Last name"
             field={this.props.veteranLastName}
             onValueChange={this.props.updateVeteranLastName}
             required={true}
@@ -131,6 +133,7 @@ class UploadBenefitsFormFields extends React.Component<IUploadBenefitsFormFields
           <ErrorableTextInput
             errorMessage={this.props.fileNumber.validation}
             label="Social Security Number"
+            placeholder="Social Security Number (numbers only)"
             field={this.props.fileNumber}
             onValueChange={this.props.updateFileNumber(this.props.fileNumber.validation)}
             required={true}
@@ -140,6 +143,7 @@ class UploadBenefitsFormFields extends React.Component<IUploadBenefitsFormFields
 
           <ErrorableTextInput
             label="Postal Code"
+            placeholder="Type Postal Code"
             field={this.props.zipCode}
             onValueChange={this.props.updateZipCode}
             required={true}

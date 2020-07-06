@@ -6,6 +6,9 @@ import { HashLink } from 'react-router-hash-link';
 
 // import { defaultFlexContainer, desktopOnly, mobileOnly } from '../styles/vadsUtils';
 import { defaultFlexContainer } from '../styles/vadsUtils';
+
+import headerLogo from '../assets/header-logo.png';
+
 // import Banner from './Banner';
 // import VeteransCrisisLine from './crisisLine/VeteransCrisisLine';
 // import NavBar from './NavBar';
@@ -78,10 +81,7 @@ export default class Header extends React.Component<{}, IHeaderState> {
                   'medium-screen:vads-u-font-size--2xl',
                 )}
               >
-                <img
-                  src="https://prod-va-gov-assets.s3-us-gov-west-1.amazonaws.com/img/header-logo.png"
-                  alt="Department of Veterans Affairs"
-                />
+                <img src={headerLogo} alt="Department of Veterans Affairs" />
               </Link>
             </div>
             {/* <div className={desktopOnly()}>

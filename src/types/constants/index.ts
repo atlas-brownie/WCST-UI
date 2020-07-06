@@ -1,5 +1,6 @@
 export * from './actions/apply';
 export * from './actions/upload-benefits';
+export * from './actions/benefits-status';
 
 export const SET_REQUESTED_API_VERSION = 'SET_REQUESTED_APIVERSION';
 export type SET_REQUESTED_API_VERSION = typeof SET_REQUESTED_API_VERSION;
