@@ -67,14 +67,13 @@ export type SubmitBenefitsFormThunk = ThunkAction<
   SubmitBenefitsFormAction
 >;
 
-function buildBenefitsBody({ application }: IRootState) {
+function buildBenefitsBody({ uploadBenefits }: IRootState) {
   const benefitsBody: any = {};
   ['fileNumber', 'veteranFirstName', 'veteranLastName', 'zipCode'].forEach(property => {
-    if (application.inputs[property]) {
-      benefitsBody[property] = application.inputs[property].value;
+    if (uploadBenefits.inputs[property]) {
+      benefitsBody[property] = uploadBenefits.inputs[property].value;
     }
   });
-  benefitsBody.termsOfService = application.inputs.termsOfService;
   return benefitsBody;
 }
 

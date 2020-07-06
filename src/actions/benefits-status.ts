@@ -40,14 +40,13 @@ export type SubmitBenefitsStatusFormThunk = ThunkAction<
   SubmitBenefitsStatusFormAction
 >;
 
-function buildBenefitsStatusBody({ application }: IRootState) {
+function buildBenefitsStatusBody({ benefitsStatus }: IRootState) {
   const benefitsStatusBody: any = {};
   ['confirmationCode'].forEach(property => {
-    if (application.inputs[property]) {
-      benefitsStatusBody[property] = application.inputs[property].value;
+    if (benefitsStatus.inputs[property]) {
+      benefitsStatusBody[property] = benefitsStatus.inputs[property].value;
     }
   });
-  benefitsStatusBody.termsOfService = application.inputs.termsOfService;
   return benefitsStatusBody;
 }
 

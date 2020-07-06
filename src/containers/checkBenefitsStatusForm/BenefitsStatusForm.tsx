@@ -9,14 +9,13 @@ import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
 import ProgressButton from '@department-of-veterans-affairs/formation-react/ProgressButton';
 
 import * as actions from '../../actions';
-import { history } from '../../store';
-import { IBenefitsStatus, IErrorableInput, IRootState } from '../../types';
+import { IBenefitsStatus, IRootState } from '../../types';
 import BenefitsStatusFormFields from './BenefitsStatusFormFields';
 
 interface IBenefitsStatusProps extends IBenefitsStatus {
   submitForm: () => void;
-  toggleAcceptTos: () => void;
-  updateDescription: (value: IErrorableInput) => void;
+  // toggleAcceptTos: () => void;
+  // updateDescription: (value: IErrorableInput) => void;
 }
 
 type BenefitsStatusDispatch = ThunkDispatch<
@@ -28,13 +27,7 @@ type BenefitsStatusDispatch = ThunkDispatch<
 const mapDispatchToProps = (dispatch: BenefitsStatusDispatch) => {
   return {
     submitForm: () => {
-      dispatch(actions.submitForm());
-    },
-    toggleAcceptTos: () => {
-      dispatch(actions.toggleAcceptTos());
-    },
-    updateDescription: (value: IErrorableInput) => {
-      dispatch(actions.updateApplicationDescription(value));
+      dispatch(actions.submitBenefitsStatusForm());
     },
   };
 };
@@ -102,8 +95,7 @@ class BenefitsStatusForm extends React.Component<IBenefitsStatusProps> {
                   disabled={!this.readyToSubmit() || props.sending}
                   onButtonClick={(evt: MouseEvent) => {
                     evt.preventDefault();
-                    console.log('TODO: submit to check status');
-                    history.push('/review-benefits-form');
+                    props.submitForm();
                   }}
                   buttonClass="usa-button-primary"
                 />

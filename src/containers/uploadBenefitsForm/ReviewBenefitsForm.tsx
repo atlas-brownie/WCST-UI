@@ -9,13 +9,11 @@ import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
 import ProgressButton from '@department-of-veterans-affairs/formation-react/ProgressButton';
 
 import * as actions from '../../actions';
-import { IBenefits, IErrorableInput, IRootState } from '../../types';
+import { IBenefits, IRootState } from '../../types';
 import ReviewBenefitsFormFields from './ReviewBenefitsFormFields';
 
 interface IBenefitsProps extends IBenefits {
   submitForm: () => void;
-  toggleAcceptTos: () => void;
-  updateDescription: (value: IErrorableInput) => void;
 }
 
 type BenefitsDispatch = ThunkDispatch<
@@ -27,13 +25,7 @@ type BenefitsDispatch = ThunkDispatch<
 const mapDispatchToProps = (dispatch: BenefitsDispatch) => {
   return {
     submitForm: () => {
-      dispatch(actions.submitForm());
-    },
-    toggleAcceptTos: () => {
-      dispatch(actions.toggleAcceptTos());
-    },
-    updateDescription: (value: IErrorableInput) => {
-      dispatch(actions.updateApplicationDescription(value));
+      dispatch(actions.submitBenefitsForm());
     },
   };
 };

@@ -48,7 +48,7 @@ class Home extends React.Component {
           <h3>Submit a Widget Claim Form (T4NG)</h3>
           <div className="feature">
             <h4>Have you submitted a form before?</h4>
-            <Link to="/apply">Check the status of your submission</Link>
+            <Link to="/check-benefits-status">Check the status of your submission</Link>
           </div>
           <ol className="process">
             <li className="process-step list-one">
