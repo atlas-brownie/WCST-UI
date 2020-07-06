@@ -46,10 +46,9 @@ pipeline {
         }
         
         stage('Upload') {
-            when { expression { env.BRANCH_NAME != 'master' } } 
-            stage('Dev') {
-                steps {
-                    withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
+            when { branch != 'master' } } 
+            steps {
+                withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
                     // Delete files from directory first.
                     s3Delete(bucket:"dev.mblsto2020.com", path:'**/*')
                     // Upload files from working directory 'dist' in your project workspace
@@ -59,18 +58,16 @@ pipeline {
                               message: 'Jenkins pipeline build completed'
                 }
             }
-            when { expressions { env.BRANCH_NAME == 'master' } }
-            stage('Prod') {
-                steps {
-                    withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
-                    // Delete files from directory first.
-                    s3Delete(bucket:"prod.mblsto2020.com", path:'**/*')
-                    // Upload files from working directory 'dist' in your project workspace
-                    s3Upload(bucket:"prod.mblsto2020.com", workingDir:'build', includePathPattern:'**/*');
+            when { branch == 'master' }
+            steps {
+                withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
+                // Delete files from directory first.
+                s3Delete(bucket:"prod.mblsto2020.com", path:'**/*')
+                // Upload files from working directory 'dist' in your project workspace
+                s3Upload(bucket:"prod.mblsto2020.com", workingDir:'build', includePathPattern:'**/*');
                 }
-                    slackSend channel: '#prod-notifications',
-                              message: 'Jenkins pipeline build completed'
-                }
+                slackSend channel: '#prod-notifications',
+                          message: 'Jenkins pipeline build completed'
             }
         }
     }
