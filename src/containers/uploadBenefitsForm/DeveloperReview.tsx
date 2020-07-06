@@ -6,6 +6,7 @@ import { IErrorableInput, IRootState } from '../../types';
 import classNames from 'classnames';
 
 interface IDeveloperReviewProps {
+  contentFile: File;
   docType: string;
   fileNumber: IErrorableInput;
   source: string;
@@ -16,6 +17,7 @@ interface IDeveloperReviewProps {
 
 const mapStateToProps = (state: IRootState) => {
   return {
+    contentFile: state.uploadBenefits.inputs.contentFile,
     docType: state.uploadBenefits.inputs.docType,
     fileNumber: state.uploadBenefits.inputs.fileNumber,
     source: state.uploadBenefits.inputs.source,
@@ -33,7 +35,7 @@ class DeveloperReview extends React.Component<IDeveloperReviewProps> {
         <div className={classNames('usa-form-small')}>
           <label className={classNames('vads-u-color--gray-light')}>Uploaded File</label>
           <input
-            value={'Content.pdf'}
+            value={this.props.contentFile.name}
             disabled={true}
             className={classNames('vads-u-background-color--gray-lighter')}
           />

@@ -9,12 +9,14 @@ import { IErrorableInput, IRootState } from '../../types';
 import classNames from 'classnames';
 
 interface IDeveloperInfoProps {
+  contentFile: File;
   docType: string;
   fileNumber: IErrorableInput;
   source: string;
   veteranFirstName: IErrorableInput;
   veteranLastName: IErrorableInput;
   zipCode: IErrorableInput;
+  updateContentFile: (value: File) => void;
   updateVeteranFirstName: (value: IErrorableInput) => void;
   updateVeteranLastName: (value: IErrorableInput) => void;
   updateFileNumber: (oldValidation?: string) => (value: IErrorableInput) => void;
@@ -23,6 +25,7 @@ interface IDeveloperInfoProps {
 
 const mapStateToProps = (state: IRootState) => {
   return {
+    contentFile: state.uploadBenefits.inputs.contentFile,
     docType: state.uploadBenefits.inputs.docType,
     fileNumber: state.uploadBenefits.inputs.fileNumber,
     source: state.uploadBenefits.inputs.source,
@@ -36,6 +39,9 @@ type DeveloperInfoDispatch = ThunkDispatch<IRootState, undefined, actions.Update
 
 const mapDispatchToProps = (dispatch: DeveloperInfoDispatch) => {
   return {
+    updateContentFile: (value: File) => {
+      dispatch(actions.updateBenefitsContentFile(value));
+    },
     updateFileNumber: (oldValidation?: string) => {
       return (value: IErrorableInput) => {
         dispatch(actions.updateBenefitsFileNumber(value, oldValidation));
@@ -54,13 +60,15 @@ const mapDispatchToProps = (dispatch: DeveloperInfoDispatch) => {
 };
 
 class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
+  constructor(props: IDeveloperInfoProps) {
+    super(props);
+    this.handleChangeContentFile = this.handleChangeContentFile.bind(this);
+  }
+
   public render() {
     return (
       <React.Fragment>
-        <div>
-          Drag and drop your completed Form T4NG in the box below, or click to select the file from
-          your device.
-        </div>
+        <div>Click to select the file from your device.</div>
         <div className="feature">
           <h4>Drag and drop files here, or click to select files for upload.</h4>
           <div className={classNames('usa-input')}>
@@ -89,6 +97,7 @@ class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
               accept="application/pdf"
               id="file-input-pdf"
               name="Name"
+              onChange={this.handleChangeContentFile}
             />
           </div>
         </div>
@@ -126,13 +135,22 @@ class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
             maxLength={10}
           />
 
-          <div>TODO: Hide these fields after testing:</div>
-          <input type="text" name="docType" defaultValue={this.props.docType} />
+          <input
+            type="hidden"
+            name="docType"
+            autoComplete="off"
+            defaultValue={this.props.docType}
+          />
           <br />
-          <input type="text" name="source" defaultValue={this.props.source} />
+          <input type="hidden" name="source" autoComplete="off" defaultValue={this.props.source} />
         </div>
       </React.Fragment>
     );
+  }
+  private handleChangeContentFile(event: React.ChangeEvent<HTMLInputElement>) {
+    if (event && event.target && event.target.files) {
+      this.props.updateContentFile(event.target.files[0]);
+    }
   }
 }
 

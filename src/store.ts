@@ -3,7 +3,8 @@ import { routerMiddleware, routerReducer as routing } from 'react-router-redux';
 import { applyMiddleware, combineReducers, compose, createStore } from 'redux';
 import thunk, { ThunkMiddleware } from 'redux-thunk';
 
-import { IApplication, IBenefits, IRootState } from './types';
+// import { IApplication, IBenefits, IRootState } from './types';
+import { IApplication, IRootState } from './types';
 
 import { createBrowserHistory } from 'history';
 
@@ -55,42 +56,42 @@ function saveApplicationState(state: IRootState) {
   }
 }
 
-function loadUploadBenefitsState(): { uploadBenefits: IBenefits } {
-  try {
-    const serializedState = sessionStorage.getItem('state');
-    if (serializedState == null) {
-      return { uploadBenefits: initialUploadBenefitsState };
-    } else {
-      const state = JSON.parse(serializedState);
-      if (
-        isEqual(
-          Object.keys(state.uploadBenefits.inputs),
-          Object.keys(initialUploadBenefitsState.inputs),
-        )
-      ) {
-        return { uploadBenefits: state.uploadBenefits };
-      } else {
-        return { uploadBenefits: initialUploadBenefitsState };
-      }
-    }
-  } catch (err) {
-    return { uploadBenefits: initialUploadBenefitsState };
-  }
-}
+// function loadUploadBenefitsState(): { uploadBenefits: IBenefits } {
+//   try {
+//     const serializedState = sessionStorage.getItem('state');
+//     if (serializedState == null) {
+//       return { uploadBenefits: initialUploadBenefitsState };
+//     } else {
+//       const state = JSON.parse(serializedState);
+//       if (
+//         isEqual(
+//           Object.keys(state.uploadBenefits.inputs),
+//           Object.keys(initialUploadBenefitsState.inputs),
+//         )
+//       ) {
+//         return { uploadBenefits: state.uploadBenefits };
+//       } else {
+//         return { uploadBenefits: initialUploadBenefitsState };
+//       }
+//     }
+//   } catch (err) {
+//     return { uploadBenefits: initialUploadBenefitsState };
+//   }
+// }
 
-function saveUploadBenefitsState(state: IRootState) {
-  try {
-    const stateToSerialize = {
-      uploadBenefits: {
-        inputs: state.uploadBenefits.inputs,
-      },
-    };
-    const serializedState = JSON.stringify(stateToSerialize);
-    sessionStorage.setItem('state', serializedState);
-  } catch (err) {
-    // swallow the error.
-  }
-}
+// function saveUploadBenefitsState(state: IRootState) {
+//   try {
+//     const stateToSerialize = {
+//       uploadBenefits: {
+//         inputs: state.uploadBenefits.inputs,
+//       },
+//     };
+//     const serializedState = JSON.stringify(stateToSerialize);
+//     sessionStorage.setItem('state', serializedState);
+//   } catch (err) {
+//     // swallow the error.
+//   }
+// }
 
 const store = createStore(
   combineReducers<IRootState>({
@@ -102,7 +103,7 @@ const store = createStore(
   {
     application: loadApplicationState().application,
     routing: undefined,
-    uploadBenefits: loadUploadBenefitsState().uploadBenefits,
+    uploadBenefits: initialUploadBenefitsState,
   },
   compose(applyMiddleware(middleware), applyMiddleware(thunk as ThunkMiddleware<IRootState>)),
 );
@@ -110,7 +111,7 @@ const store = createStore(
 store.subscribe(
   debounce(() => {
     saveApplicationState(store.getState());
-    saveUploadBenefitsState(store.getState());
+    // saveUploadBenefitsState(store.getState());
   }),
 );
 

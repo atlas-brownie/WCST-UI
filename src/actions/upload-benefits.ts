@@ -6,6 +6,11 @@ import { IErrorableInput, IRootState, IUploadBenefitsApiList } from '../types';
 import * as constants from '../types/constants';
 import { validateByPattern } from '../utils/validators';
 
+export interface IUploadBenefitsContentFile extends Action {
+  newValue: File;
+  type: constants.UPDATE_BENEFITS_CONTENT_FILE;
+}
+
 export interface IUploadBenefitsVeteranFirstName extends Action {
   newValue: IErrorableInput;
   type: constants.UPDATE_BENEFITS_VETERAN_FIRST_NAME;
@@ -37,6 +42,7 @@ export interface IUploadBenefitsZipCode extends Action {
 // }
 
 export type UpdateBenefitsAction =
+  | IUploadBenefitsContentFile
   | IUploadBenefitsFileNumber
   | IUploadBenefitsVeteranFirstName
   | IUploadBenefitsVeteranLastName
@@ -190,6 +196,15 @@ export const submitBenefitsFormError: ActionCreator<ISubmitBenefitsFormError> = 
   tl;dr dirty doesn't mean dirty, it means validate, and we shouldn't use it for 
   anything else.
 */
+export const updateBenefitsContentFile: ActionCreator<IUploadBenefitsContentFile> = (
+  newValue: File,
+) => {
+  return {
+    newValue,
+    type: constants.UPDATE_BENEFITS_CONTENT_FILE,
+  };
+};
+
 export const updateBenefitsFileNumber: ActionCreator<IUploadBenefitsFileNumber> = (
   newValue: IErrorableInput,
   previousValidation?: string,
@@ -209,15 +224,6 @@ export const updateBenefitsFileNumber: ActionCreator<IUploadBenefitsFileNumber> 
   };
 };
 
-// export const updateBenefitsDescription: ActionCreator<IUploadBenefitsDescription> = (
-//   newValue: IErrorableInput,
-// ) => {
-//   return {
-//     newValue,
-//     type: constants.UPLOAD_BENEFITS_DESCRIPTION,
-//   };
-// };
-
 export const updateBenefitsVeteranFirstName: ActionCreator<IUploadBenefitsVeteranFirstName> = (
   newValue: IErrorableInput,
 ) => {
@@ -236,34 +242,6 @@ export const updateBenefitsVeteranLastName: ActionCreator<IUploadBenefitsVeteran
   };
 };
 
-// export const updateBenefitsOAuthBenefitsType: ActionCreator<IUploadBenefitsOAuthBenefitsType> = (
-//   newValue: IErrorableInput,
-// ) => {
-//   return {
-//     newValue,
-//     type: constants.UPLOAD_BENEFITS_OAUTH_BENEFITS_TYPE,
-//   };
-// };
-
-// see note on update/validate above on updateBenefitsEmail
-// export const updateBenefitsOAuthRedirectURI: ActionCreator<IUploadBenefitsOAuthRedirectURI> = (
-//   newValue: IErrorableInput,
-//   previousValidation?: string,
-// ) => {
-//   if (newValue.dirty) {
-//     newValue = validateOAuthRedirectURI(newValue);
-//     newValue.dirty = false;
-//   } else {
-//     // the newValue passed by IErrorableInput doesn't include validation
-//     newValue.validation = previousValidation;
-//   }
-
-//   return {
-//     newValue,
-//     type: constants.UPLOAD_BENEFITS_OAUTH_REDIRECT_URI,
-//   };
-// };
-
 export const updateBenefitsZipCode: ActionCreator<IUploadBenefitsZipCode> = (
   newValue: IErrorableInput,
 ) => {
@@ -272,16 +250,3 @@ export const updateBenefitsZipCode: ActionCreator<IUploadBenefitsZipCode> = (
     type: constants.UPDATE_BENEFITS_ZIP_CODE,
   };
 };
-
-// export const toggleSelectedApi: ActionCreator<IToggleSelectedApi> = (apiId: string) => {
-//   return {
-//     apiId,
-//     type: constants.TOGGLE_SELECTED_API,
-//   };
-// };
-
-// export const toggleAcceptTos: ActionCreator<IToggleAcceptTos> = () => {
-//   return {
-//     type: constants.TOGGLE_ACCEPT_TOS,
-//   };
-// };

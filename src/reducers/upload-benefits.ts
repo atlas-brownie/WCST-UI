@@ -9,7 +9,16 @@ const newErrorableInput: () => IErrorableInput = () => {
   };
 };
 
+const getMetadataFile = (metadata: any) => {
+  const file = new File([metadata], 'metadata.json', {
+    lastModified: -1,
+    type: 'application/json',
+  });
+  return file;
+};
+
 const initialUploadBenefitsInputs: IUploadBenefitsInputs = {
+  contentFile: getMetadataFile({}),
   docType: '29-4364',
   fileNumber: newErrorableInput(),
   source: 'MBL-WCST',
@@ -28,6 +37,8 @@ export function uploadBenefitsInput(
   action: UpdateBenefitsAction,
 ): IUploadBenefitsInputs {
   switch (action.type) {
+    case constants.UPDATE_BENEFITS_CONTENT_FILE:
+      return { ...inputs, contentFile: action.newValue };
     case constants.UPDATE_BENEFITS_FILE_NUMBER:
       return { ...inputs, fileNumber: action.newValue };
     case constants.UPDATE_BENEFITS_VETERAN_FIRST_NAME:

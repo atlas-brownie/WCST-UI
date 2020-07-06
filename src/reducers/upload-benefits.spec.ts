@@ -5,8 +5,14 @@ import { IBenefits } from '../types';
 import * as constants from '../types/constants';
 import { uploadBenefits } from './upload-benefits';
 
+const getMetadataFile = (metadata: any) => {
+  const file = new File([metadata], 'metadata.json', { type: 'application/json' });
+  return file;
+};
+
 const app: IBenefits = {
   inputs: {
+    contentFile: getMetadataFile({ veteranFirstName: 'Tony' }),
     docType: '',
     fileNumber: {
       dirty: false,

@@ -13,6 +13,7 @@ export interface IUploadBenefitsApiList {
 }
 
 export interface IUploadBenefitsInputs {
+  contentFile: File;
   docType: string;
   fileNumber: IErrorableInput;
   source: string;
