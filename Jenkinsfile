@@ -46,7 +46,7 @@ pipeline {
         }
         
         stage('Upload') {
-            when { branch != 'master' } 
+            when { branch != 'master' }
             steps {
                 withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
                     // Delete files from directory first.
@@ -56,7 +56,6 @@ pipeline {
                     }
                     slackSend channel: '#dev-notifications',
                               message: 'Jenkins pipeline build completed'
-                }
             }
             when { branch == 'master' }
             steps {
