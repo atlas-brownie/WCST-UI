@@ -9,9 +9,11 @@ import { IErrorableInput, IRootState } from '../../types';
 import classNames from 'classnames';
 
 interface IDeveloperInfoProps {
+  docType: string;
+  fileNumber: IErrorableInput;
+  source: string;
   veteranFirstName: IErrorableInput;
   veteranLastName: IErrorableInput;
-  fileNumber: IErrorableInput;
   zipCode: IErrorableInput;
   updateVeteranFirstName: (value: IErrorableInput) => void;
   updateVeteranLastName: (value: IErrorableInput) => void;
@@ -21,7 +23,9 @@ interface IDeveloperInfoProps {
 
 const mapStateToProps = (state: IRootState) => {
   return {
+    docType: state.uploadBenefits.inputs.docType,
     fileNumber: state.uploadBenefits.inputs.fileNumber,
+    source: state.uploadBenefits.inputs.source,
     veteranFirstName: state.uploadBenefits.inputs.veteranFirstName,
     veteranLastName: state.uploadBenefits.inputs.veteranLastName,
     zipCode: state.uploadBenefits.inputs.zipCode,
@@ -111,7 +115,6 @@ class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
             required={true}
             minLength={8}
             maxLength={9}
-            defaultValue="124332533"
           />
 
           <ErrorableTextInput
@@ -121,8 +124,12 @@ class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
             required={true}
             minLength={5}
             maxLength={10}
-            defaultValue="90265"
           />
+
+          <div>TODO: Hide these fields after testing:</div>
+          <input type="text" name="docType" defaultValue={this.props.docType} />
+          <br />
+          <input type="text" name="source" defaultValue={this.props.source} />
         </div>
       </React.Fragment>
     );

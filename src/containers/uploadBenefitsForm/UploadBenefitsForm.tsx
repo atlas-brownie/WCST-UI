@@ -6,18 +6,11 @@ import { Link } from 'react-router-dom';
 import { ThunkDispatch } from 'redux-thunk';
 
 import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
-// import ErrorableCheckbox from '@department-of-veterans-affairs/formation-react/ErrorableCheckbox';
-// import ErrorableTextArea from '@department-of-veterans-affairs/formation-react/ErrorableTextArea';
 import ProgressButton from '@department-of-veterans-affairs/formation-react/ProgressButton';
 
 import * as actions from '../../actions';
-// import { includesOauthAPI } from '../../apiDefs/query';
 import { IBenefits, IErrorableInput, IRootState } from '../../types';
-// import { APPLY_FIELDS_TO_URL_FRAGMENTS } from '../../types/constants';
-// import ApplyHeader from './ApplyHeader';
 import DeveloperInfo from './DeveloperInfo';
-// import OAuthAppInfo from './OAuthAppInfo';
-// import SelectedApis from './SelectedApis';
 
 interface IBenefitsProps extends IBenefits {
   submitForm: () => void;
@@ -129,9 +122,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                 <h2>Widget Claim</h2>
                 <span className={classNames('vads-u-margin-x--4')}>Form T4NG</span>
               </div>
-              {/* <div className={classNames('usa-form')}> */}
               <DeveloperInfo />
-              {/* </div> */}
               <div
                 className={classNames(
                   'vads-u-display--flex',
@@ -154,25 +145,6 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                     </span>
                   </Link>
                 </div>
-                {/* <Link
-                  to="/review-benefits-form"
-                  aria-disabled={true}
-                  className={classNames('usa-button-primary', 'usa-button-disabled')}
-                >
-                  <span
-                    className={classNames(
-                      'vads-u-display--flex',
-                      'vads-u-align-items--center',
-                      'vads-u-flex-wrap--nowrap',
-                    )}
-                  >
-                    Continue
-                    <i
-                      className={classNames('fa', 'fa-angle-double-right', 'vads-u-margin-x--2')}
-                    />
-                  </span>
-                </Link> */}
-
                 <ProgressButton
                   buttonText={
                     props.sending ? (
@@ -213,20 +185,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
               'medium-screen:vads-l-col--4',
               'vads-u-padding-x--2p5',
             )}
-          >
-            {/* <div className="feature">
-              <h3>Stay In Touch</h3>
-              <p>
-                Want to get news and updates about VA API Program? Sign up to receive email updates.
-              </p>
-              <a
-                className="usa-button"
-                href="https://public.govdelivery.com/accounts/USVAOIT/subscriber/new?topic_id=USVAOIT_20"
-              >
-                Sign Up
-              </a>
-            </div> */}
-          </div>
+          />
         </div>
       </div>
     );
@@ -251,23 +210,6 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
     return null;
   }
 
-  // private selectedApis() {
-  //   const apis = this.props.inputs.apis;
-  //   return Object.keys(apis).filter(apiName => apis[apiName]);
-  // }
-
-  // private anyOAuthApisSelected() {
-  //   const apiIdsByField = this.selectedApis().flatMap(
-  //     formField => APPLY_FIELDS_TO_URL_FRAGMENTS[formField],
-  //   );
-  //   return includesOauthAPI(apiIdsByField);
-  // }
-
-  // private anyApiSelected() {
-  //   const numSelected = this.selectedApis().length;
-  //   return numSelected > 0;
-  // }
-
   private allFieldsComplete() {
     const fieldNames = ['fileNumber', 'veteranFirstName', 'veteranLastName', 'zipCode'];
     const incompleteFields = fieldNames.filter(fieldName => {
@@ -283,21 +225,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
     } = this.props;
     let fileNumberComplete = fileNumber.value.length !== 0 && fileNumber.validation === undefined;
 
-    // const {
-    //   inputs: { oAuthApplicationType, oAuthRedirectURI, termsOfService },
-    // } = this.props;
-    // let applicationTypeComplete = true;
-    // let redirectURIComplete = true;
-    // if (this.anyOAuthApisSelected()) {
-    //   applicationTypeComplete = oAuthApplicationType.value.length !== 0;
-    //   redirectURIComplete =
-    //     oAuthRedirectURI.value.length !== 0 && oAuthRedirectURI.validation === undefined;
-    // }
     return this.allFieldsComplete() && fileNumberComplete;
-    // this.anyApiSelected() &&
-    // termsOfService &&
-    // applicationTypeComplete &&
-    // redirectURIComplete
   }
 }
 

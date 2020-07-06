@@ -13,15 +13,12 @@ export interface IUploadBenefitsApiList {
 }
 
 export interface IUploadBenefitsInputs {
-  // apis: IApiList;
-  // description: IErrorableInput;
+  docType: string;
   fileNumber: IErrorableInput;
+  source: string;
   veteranFirstName: IErrorableInput;
   veteranLastName: IErrorableInput;
-  // oAuthApplicationType: IErrorableInput;
-  // oAuthRedirectURI: IErrorableInput;
   zipCode: IErrorableInput;
-  // termsOfService: boolean;
 }
 
 export interface IUploadBenefitsSuccessResult {

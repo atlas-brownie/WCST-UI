@@ -10,14 +10,12 @@ const newErrorableInput: () => IErrorableInput = () => {
 };
 
 const initialUploadBenefitsInputs: IUploadBenefitsInputs = {
-  // description: newErrorableInput(),
+  docType: '29-4364',
   fileNumber: newErrorableInput(),
+  source: 'MBL-WCST',
   veteranFirstName: newErrorableInput(),
   veteranLastName: newErrorableInput(),
-  // oAuthApplicationType: newErrorableInput(),
-  // oAuthRedirectURI: newErrorableInput(),
   zipCode: newErrorableInput(),
-  // termsOfService: false,
 };
 
 export const initialUploadBenefitsState: IBenefits = {

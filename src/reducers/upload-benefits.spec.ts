@@ -7,10 +7,12 @@ import { uploadBenefits } from './upload-benefits';
 
 const app: IBenefits = {
   inputs: {
+    docType: '',
     fileNumber: {
       dirty: false,
       value: '',
     },
+    source: '',
     veteranFirstName: {
       dirty: false,
       value: '',
@@ -30,9 +32,9 @@ const app: IBenefits = {
 describe('upload benefits', () => {
   it('should update uploadBenefits state when inputs are changed', () => {
     const inputToActionMap: any[] = [
+      ['fileNumber', constants.UPDATE_BENEFITS_FILE_NUMBER],
       ['veteranFirstName', constants.UPDATE_BENEFITS_VETERAN_FIRST_NAME],
       ['veteranLastName', constants.UPDATE_BENEFITS_VETERAN_LAST_NAME],
-      ['fileNumber', constants.UPDATE_BENEFITS_FILE_NUMBER],
       ['zipCode', constants.UPDATE_BENEFITS_ZIP_CODE],
     ];
 
