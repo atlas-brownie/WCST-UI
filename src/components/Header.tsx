@@ -4,13 +4,15 @@ import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
+import DropDownPanel from '@department-of-veterans-affairs/formation-react/DropDownPanel';
+
 // import { defaultFlexContainer, desktopOnly, mobileOnly } from '../styles/vadsUtils';
 import { defaultFlexContainer } from '../styles/vadsUtils';
 
 import headerLogo from '../assets/header-logo.png';
 
-// import Banner from './Banner';
-// import VeteransCrisisLine from './crisisLine/VeteransCrisisLine';
+import Banner from './Banner';
+import VeteransCrisisLine from './crisisLine/VeteransCrisisLine';
 // import NavBar from './NavBar';
 // import Search from './Search';
 
@@ -18,15 +20,39 @@ import './Header.scss';
 import TestingNotice from './TestingNotice';
 
 interface IHeaderState {
+  apiRequestString: string;
+  apiResponseString: string;
   mobileNavVisible: boolean;
+  open: boolean;
+  version: string;
+  isOn: boolean;
 }
 
 export default class Header extends React.Component<{}, IHeaderState> {
   constructor(props: {}) {
     super(props);
     this.state = {
+      apiRequestString:
+        "curl -X POST 'https://sandbox-api.va.gov/services/vba_documents/v1/uploads'  --data-row '{}'",
+      apiResponseString: 'example response',
+      isOn: false,
       mobileNavVisible: false,
+      open: false,
+      version: '1.0.1',
     };
+
+    // This binding is necessary to make `this` work in the callback
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  // public handleClick() {
+  //   this.setState({ isOn: !this.state.isOn });
+  // }
+
+  public handleClick() {
+    this.setState(prevState => {
+      return { isOn: !prevState.isOn };
+    });
   }
 
   public render() {
@@ -54,8 +80,8 @@ export default class Header extends React.Component<{}, IHeaderState> {
           >
             Skip to main content
           </HashLink>
-          {/* <Banner />
-          <VeteransCrisisLine /> */}
+          <Banner />
+          <VeteransCrisisLine />
           <div
             className={classNames(
               defaultFlexContainer(true),
@@ -110,6 +136,40 @@ export default class Header extends React.Component<{}, IHeaderState> {
                 Menu
               </button>
             </div> */}
+
+            <div style={{ backgroundColor: '#112e51' }}>
+              <DropDownPanel
+                buttonText="Product Owner"
+                cssClass="va-dropdown"
+                isOpen={this.state.open}
+                contents="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ullamcorper at eros eu suscipit. Ut imperdiet libero et luctus pretium."
+                clickHandler={() => this.setState({ open: !this.state.open })}
+              >
+                <div>
+                  {/* <span style={{ position: 'relative', top: '15px' }}>API is: </span>
+
+                  <button
+                    type="button"
+                    className="usa-button"
+                    style={{ float: 'right' }}
+                    onClick={this.handleClick}
+                  >
+                    {this.state.isOn ? 'ON' : 'OFF'}
+                  </button> */}
+                </div>
+
+                <div>
+                  <span className="ta-label">API REQUEST</span>
+                  <textarea readOnly={true}>{this.state.apiRequestString}</textarea>
+                </div>
+
+                <div>
+                  <span className="ta-label">API RESPONSE</span>
+                  <textarea readOnly={true}>{this.state.apiResponseString}</textarea>
+                </div>
+              </DropDownPanel>
+              <div style={{ display: 'inline-block', color: '#fff' }}>{this.state.version}</div>
+            </div>
           </div>
           {/* <NavBar isMobileMenuVisible={this.state.mobileNavVisible} onClose={navBarCloseHandler} /> */}
         </header>

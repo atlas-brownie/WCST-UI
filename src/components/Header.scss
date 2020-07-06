@@ -1,3 +1,7 @@
+header {
+  padding: 0 128px;
+}
+
 .va-api-logo {
   max-width: 264px;
   a {
@@ -30,4 +34,24 @@ a.va-api-skipnav {
   &:hover {
     background-color: #f9f9f9;
   }
+}
+
+.va-dropdown {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.va-dropdown-panel {
+  width: 300px;
+}
+
+.ta-label {
+  font-weight: bold;
+  color: #2e3743;
+}
+
+textarea {
+  background: #2e3743;
+  color: #fff !important;
+  max-height: 90px;
 }

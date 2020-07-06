@@ -1,7 +1,6 @@
 import * as Sentry from '@sentry/browser';
 import { Action, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { history } from '../store';
 import { IErrorableInput, IRootState } from '../types';
 import * as constants from '../types/constants';
 
@@ -40,35 +39,36 @@ export type SubmitBenefitsStatusFormThunk = ThunkAction<
   SubmitBenefitsStatusFormAction
 >;
 
-function buildBenefitsStatusBody({ application }: IRootState) {
-  const benefitsStatusBody: any = {};
-  ['confirmationCode'].forEach(property => {
-    if (application.inputs[property]) {
-      benefitsStatusBody[property] = application.inputs[property].value;
-    }
-  });
-  benefitsStatusBody.termsOfService = application.inputs.termsOfService;
-  return benefitsStatusBody;
+enum RESPONSE {
+  FAILED,
+  SUCCEEDED,
 }
+
+const getResponseStatus = (responseJson: any): any => {
+  const { hasError, message, payload } = responseJson;
+  if (hasError) {
+    return { status: RESPONSE.FAILED, message, payload };
+  } else {
+    const formStatus = payload[0];
+    if (formStatus === 'error') {
+      return { status: RESPONSE.FAILED, message, payload };
+    } else {
+      return { status: RESPONSE.SUCCEEDED, message, payload };
+    }
+  }
+};
 
 export const submitBenefitsStatusForm: ActionCreator<SubmitBenefitsStatusFormThunk> = () => {
   return (dispatch, state) => {
     dispatch(submitBenefitsStatusFormBegin());
 
-    const applicationBody = buildBenefitsStatusBody(state());
+    const { benefitsStatus } = state();
+    const confirmationCode = benefitsStatus.inputs.confirmationCode.value;
 
-    const request = new Request(
-      `${process.env.REACT_APP_DEVELOPER_PORTAL_SELF_SERVICE_URL}/internal/developer-portal-backend/developer_application`,
-      {
-        body: JSON.stringify(applicationBody),
-        headers: {
-          accept: 'application/json',
-          'content-type': 'application/json',
-        },
-        method: 'POST',
-      },
-    );
-    return fetch(request)
+    // const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads/${confirmationCode}`;
+    const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads/va/${confirmationCode}`;
+
+    return fetch(url)
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -77,17 +77,20 @@ export const submitBenefitsStatusForm: ActionCreator<SubmitBenefitsStatusFormThu
       })
       .then(response => response.json())
       .then(json => {
-        if (json.token || json.clientID) {
+        console.log('benefits-status json=', json);
+        const responseStatus = getResponseStatus(json);
+        if (responseStatus.status) {
           const result = dispatch(
             submitBenefitsStatusFormSuccess(json.token, json.clientID, json.clientSecret),
           );
-          history.push('/applied');
+          // history.push('/');
           return result;
         } else {
-          return dispatch(submitBenefitsStatusFormError(json.errorMessage));
+          return dispatch(submitBenefitsStatusFormError(responseStatus.message));
         }
       })
       .catch(error => {
+        console.log('benefits-status error=', error);
         Sentry.withScope(scope => {
           scope.setLevel(Sentry.Severity.fromString('warning'));
           Sentry.captureException(error);

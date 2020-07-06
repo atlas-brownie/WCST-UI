@@ -133,12 +133,12 @@ class UploadBenefitsFormFields extends React.Component<IUploadBenefitsFormFields
           <ErrorableTextInput
             errorMessage={this.props.fileNumber.validation}
             label="Social Security Number"
-            placeholder="Social Security Number (numbers only)"
+            placeholder="###-##-####"
             field={this.props.fileNumber}
             onValueChange={this.props.updateFileNumber(this.props.fileNumber.validation)}
             required={true}
-            minLength={8}
-            maxLength={9}
+            minLength={9}
+            maxLength={11}
           />
 
           <ErrorableTextInput

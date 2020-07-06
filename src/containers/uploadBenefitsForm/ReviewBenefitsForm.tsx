@@ -9,13 +9,11 @@ import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
 import ProgressButton from '@department-of-veterans-affairs/formation-react/ProgressButton';
 
 import * as actions from '../../actions';
-import { IBenefits, IErrorableInput, IRootState } from '../../types';
+import { IBenefits, IRootState } from '../../types';
 import ReviewBenefitsFormFields from './ReviewBenefitsFormFields';
 
 interface IBenefitsProps extends IBenefits {
   submitForm: () => void;
-  toggleAcceptTos: () => void;
-  updateDescription: (value: IErrorableInput) => void;
 }
 
 type BenefitsDispatch = ThunkDispatch<
@@ -27,13 +25,7 @@ type BenefitsDispatch = ThunkDispatch<
 const mapDispatchToProps = (dispatch: BenefitsDispatch) => {
   return {
     submitForm: () => {
-      dispatch(actions.submitForm());
-    },
-    toggleAcceptTos: () => {
-      dispatch(actions.toggleAcceptTos());
-    },
-    updateDescription: (value: IErrorableInput) => {
-      dispatch(actions.updateApplicationDescription(value));
+      dispatch(actions.submitBenefitsForm());
     },
   };
 };
@@ -125,6 +117,7 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
                 <h2>Widget Claim</h2>
                 <span className={classNames('vads-u-margin-x--4')}>Form T4NG</span>
               </div>
+              {this.renderError()}
               <ReviewBenefitsFormFields />
               <div
                 className={classNames(
@@ -179,7 +172,6 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
                 />
               </div>
             </form>
-            {this.renderError()}
           </div>
           <div
             className={classNames(
@@ -194,22 +186,20 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
   }
 
   private renderError() {
-    const assistanceTrailer = (
-      <span>
-        Do you want assistance? Create an issue through our <Link to="/support">Support page</Link>
-      </span>
-    );
+    console.log('in renderError this.props=', this.props);
+    const assistanceTrailer = <span>&nbsp;</span>;
 
     if (this.props.errorStatus) {
       return (
         <AlertBox
-          status="error"
-          headline={'We encountered a server error while saving your form. Please try again later.'}
+          status="success"
+          headline={'We encountered an issue saving your form. Please try again later.'}
           content={assistanceTrailer}
         />
       );
+    } else {
+      return null;
     }
-    return null;
   }
 }
 
