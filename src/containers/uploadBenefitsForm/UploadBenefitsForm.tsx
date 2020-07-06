@@ -8,7 +8,7 @@ import { ThunkDispatch } from 'redux-thunk';
 import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
 // import ErrorableCheckbox from '@department-of-veterans-affairs/formation-react/ErrorableCheckbox';
 // import ErrorableTextArea from '@department-of-veterans-affairs/formation-react/ErrorableTextArea';
-// import ProgressButton from '@department-of-veterans-affairs/formation-react/ProgressButton';
+import ProgressButton from '@department-of-veterans-affairs/formation-react/ProgressButton';
 
 import * as actions from '../../actions';
 // import { includesOauthAPI } from '../../apiDefs/query';
@@ -57,7 +57,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
   }
 
   public render() {
-    // const { ...props } = this.props;
+    const { ...props } = this.props;
     const applyClasses = classNames('vads-l-grid-container', 'vads-u-padding--4');
 
     return (
@@ -154,9 +154,10 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                     </span>
                   </Link>
                 </div>
-                <Link
+                {/* <Link
                   to="/review-benefits-form"
-                  className={classNames('usa-button', 'usa-button-secondary')}
+                  aria-disabled={true}
+                  className={classNames('usa-button-primary', 'usa-button-disabled')}
                 >
                   <span
                     className={classNames(
@@ -170,9 +171,9 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                       className={classNames('fa', 'fa-angle-double-right', 'vads-u-margin-x--2')}
                     />
                   </span>
-                </Link>
+                </Link> */}
 
-                {/* <ProgressButton
+                <ProgressButton
                   buttonText={
                     props.sending ? (
                       'Sending...'
@@ -196,9 +197,12 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                     )
                   }
                   disabled={!this.readyToSubmit() || props.sending}
-                  onButtonClick={props.submitForm}
+                  onButtonClick={(evt: MouseEvent) => {
+                    evt.preventDefault();
+                    console.log('clicked button');
+                  }}
                   buttonClass="usa-button-primary"
-                /> */}
+                />
               </div>
             </form>
             {this.renderError()}
@@ -264,31 +268,37 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
   //   return numSelected > 0;
   // }
 
-  // private allBioFieldsComplete() {
-  //   const bioFieldNames = ['fileNumber', 'veteranFirstName', 'veteranLastName', 'zipCode'];
-  //   const incompleteFields = bioFieldNames.filter(fieldName => {
-  //     return !this.props.inputs[fieldName].value;
-  //   });
-  //   return incompleteFields.length === 0;
-  // }
+  private allFieldsComplete() {
+    const fieldNames = ['fileNumber', 'veteranFirstName', 'veteranLastName', 'zipCode'];
+    const incompleteFields = fieldNames.filter(fieldName => {
+      return !this.props.inputs[fieldName].value;
+    });
+    return incompleteFields.length === 0;
+  }
 
-  // private readyToSubmit() {
-  //   // const {
-  //   //   inputs: { oAuthApplicationType, oAuthRedirectURI, termsOfService },
-  //   // } = this.props;
-  //   // let applicationTypeComplete = true;
-  //   // let redirectURIComplete = true;
-  //   // if (this.anyOAuthApisSelected()) {
-  //   //   applicationTypeComplete = oAuthApplicationType.value.length !== 0;
-  //   //   redirectURIComplete =
-  //   //     oAuthRedirectURI.value.length !== 0 && oAuthRedirectURI.validation === undefined;
-  //   // }
-  //   return this.allBioFieldsComplete();
-  //   // this.anyApiSelected() &&
-  //   // termsOfService &&
-  //   // applicationTypeComplete &&
-  //   // redirectURIComplete
-  // }
+  private readyToSubmit() {
+    console.log('readyToSubmit this.props=', this.props);
+    const {
+      inputs: { fileNumber },
+    } = this.props;
+    let fileNumberComplete = fileNumber.value.length !== 0 && fileNumber.validation === undefined;
+
+    // const {
+    //   inputs: { oAuthApplicationType, oAuthRedirectURI, termsOfService },
+    // } = this.props;
+    // let applicationTypeComplete = true;
+    // let redirectURIComplete = true;
+    // if (this.anyOAuthApisSelected()) {
+    //   applicationTypeComplete = oAuthApplicationType.value.length !== 0;
+    //   redirectURIComplete =
+    //     oAuthRedirectURI.value.length !== 0 && oAuthRedirectURI.validation === undefined;
+    // }
+    return this.allFieldsComplete() && fileNumberComplete;
+    // this.anyApiSelected() &&
+    // termsOfService &&
+    // applicationTypeComplete &&
+    // redirectURIComplete
+  }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(UploadBenefitsForm);

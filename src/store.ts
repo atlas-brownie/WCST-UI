@@ -7,13 +7,14 @@ import { IApplication, IBenefits, IRootState } from './types';
 
 import createBrowserHistory from 'history/createBrowserHistory';
 
+import { apiVersioning } from './reducers/api-versioning';
+
 import {
   application,
-  benefits,
   initialApplicationState,
   initialUploadBenefitsState,
+  uploadBenefits,
 } from './reducers';
-import { apiVersioning } from './reducers/api-versioning';
 
 export const history = createBrowserHistory({
   basename: process.env.PUBLIC_URL || '/',
@@ -77,12 +78,26 @@ function loadUploadBenefitsState(): { uploadBenefits: IBenefits } {
   }
 }
 
+function saveUploadBenefitsState(state: IRootState) {
+  try {
+    const stateToSerialize = {
+      uploadBenefits: {
+        inputs: state.uploadBenefits.inputs,
+      },
+    };
+    const serializedState = JSON.stringify(stateToSerialize);
+    sessionStorage.setItem('state', serializedState);
+  } catch (err) {
+    // swallow the error.
+  }
+}
+
 const store = createStore(
   combineReducers<IRootState>({
     apiVersioning,
     application,
     routing,
-    uploadBenefits: benefits,
+    uploadBenefits,
   }),
   {
     application: loadApplicationState().application,
@@ -95,6 +110,7 @@ const store = createStore(
 store.subscribe(
   debounce(() => {
     saveApplicationState(store.getState());
+    saveUploadBenefitsState(store.getState());
   }),
 );
 

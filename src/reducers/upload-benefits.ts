@@ -36,11 +36,14 @@ export function uploadBenefitsInput(
       return { ...inputs, veteranFirstName: action.newValue };
     case constants.UPDATE_BENEFITS_VETERAN_LAST_NAME:
       return { ...inputs, veteranLastName: action.newValue };
+    case constants.UPDATE_BENEFITS_ZIP_CODE:
+      return { ...inputs, zipCode: action.newValue };
+    default:
+      return inputs;
   }
-  return inputs;
 }
 
-export function benefits(
+export function uploadBenefits(
   state: IBenefits = initialUploadBenefitsState,
   action: SubmitBenefitsFormAction | UpdateBenefitsAction,
 ): IBenefits {

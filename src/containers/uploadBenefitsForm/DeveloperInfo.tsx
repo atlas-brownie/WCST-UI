@@ -28,23 +28,23 @@ const mapStateToProps = (state: IRootState) => {
   };
 };
 
-type DeveloperInfoDispatch = ThunkDispatch<IRootState, undefined, actions.UpdateApplicationAction>;
+type DeveloperInfoDispatch = ThunkDispatch<IRootState, undefined, actions.UpdateBenefitsAction>;
 
 const mapDispatchToProps = (dispatch: DeveloperInfoDispatch) => {
   return {
     updateFileNumber: (oldValidation?: string) => {
       return (value: IErrorableInput) => {
-        dispatch(actions.updateApplicationEmail(value, oldValidation));
+        dispatch(actions.updateBenefitsFileNumber(value, oldValidation));
       };
     },
     updateVeteranFirstName: (value: IErrorableInput) => {
-      dispatch(actions.updateApplicationFirstName(value));
+      dispatch(actions.updateBenefitsVeteranFirstName(value));
     },
     updateVeteranLastName: (value: IErrorableInput) => {
-      dispatch(actions.updateApplicationLastName(value));
+      dispatch(actions.updateBenefitsVeteranLastName(value));
     },
     updateZipCode: (value: IErrorableInput) => {
-      dispatch(actions.updateApplicationOrganization(value));
+      dispatch(actions.updateBenefitsZipCode(value));
     },
   };
 };
@@ -109,6 +109,9 @@ class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
             field={this.props.fileNumber}
             onValueChange={this.props.updateFileNumber(this.props.fileNumber.validation)}
             required={true}
+            minLength={8}
+            maxLength={9}
+            defaultValue="124332533"
           />
 
           <ErrorableTextInput
@@ -116,6 +119,9 @@ class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
             field={this.props.zipCode}
             onValueChange={this.props.updateZipCode}
             required={true}
+            minLength={5}
+            maxLength={10}
+            defaultValue="90265"
           />
         </div>
       </React.Fragment>

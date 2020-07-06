@@ -1,4 +1,5 @@
 .va-api-logo {
+  max-width: 264px;
   a {
     font-weight: 300;
   }
@@ -20,7 +21,7 @@ a.va-api-skipnav {
   position: absolute;
   z-index: 100;
   top: -100px;
-  
+
   &:focus {
     top: 0;
     outline-offset: 0;

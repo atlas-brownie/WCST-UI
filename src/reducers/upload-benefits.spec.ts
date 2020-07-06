@@ -3,7 +3,7 @@ import 'jest';
 // import { IToggleSelectedApi } from '../actions';
 import { IBenefits } from '../types';
 import * as constants from '../types/constants';
-import { benefits } from './index';
+import { uploadBenefits } from './upload-benefits';
 
 const app: IBenefits = {
   inputs: {
@@ -42,7 +42,7 @@ describe('upload benefits', () => {
         value: 'test',
       };
 
-      const inputs = benefits(app, { newValue, type: actionName }).inputs;
+      const inputs = uploadBenefits(app, { newValue, type: actionName }).inputs;
 
       const expectedSubObject = { [fieldName]: newValue };
 
@@ -88,7 +88,7 @@ describe('upload benefits', () => {
   // });
 
   it('should set state to sending when application send begins', () => {
-    expect(benefits(app, { type: constants.SUBMIT_BENEFITS_BEGIN })).toEqual(
+    expect(uploadBenefits(app, { type: constants.SUBMIT_BENEFITS_BEGIN })).toEqual(
       expect.objectContaining({
         sending: true,
       }),
@@ -96,11 +96,11 @@ describe('upload benefits', () => {
   });
 
   it('should set errorStatus application send errors', () => {
-    const newApp = benefits(app, {
+    const newApp = uploadBenefits(app, {
       type: constants.SUBMIT_BENEFITS_BEGIN,
     });
     expect(
-      benefits(newApp, {
+      uploadBenefits(newApp, {
         status: 'Error happened',
         type: constants.SUBMIT_BENEFITS_ERROR,
       }),
@@ -113,11 +113,11 @@ describe('upload benefits', () => {
   });
 
   it('should set token and OAuth credentials on a successful submit', () => {
-    const newApp = benefits(app, {
+    const newApp = uploadBenefits(app, {
       type: constants.SUBMIT_BENEFITS_BEGIN,
     });
     expect(
-      benefits(newApp, {
+      uploadBenefits(newApp, {
         clientID: 'clientID',
         clientSecret: 'clientSecret',
         token: 'test-token',

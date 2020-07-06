@@ -6,8 +6,8 @@ import { HashLink } from 'react-router-hash-link';
 
 // import { defaultFlexContainer, desktopOnly, mobileOnly } from '../styles/vadsUtils';
 import { defaultFlexContainer } from '../styles/vadsUtils';
-import Banner from './Banner';
-import VeteransCrisisLine from './crisisLine/VeteransCrisisLine';
+// import Banner from './Banner';
+// import VeteransCrisisLine from './crisisLine/VeteransCrisisLine';
 // import NavBar from './NavBar';
 // import Search from './Search';
 
@@ -51,14 +51,14 @@ export default class Header extends React.Component<{}, IHeaderState> {
           >
             Skip to main content
           </HashLink>
-          <Banner />
-          <VeteransCrisisLine />
+          {/* <Banner />
+          <VeteransCrisisLine /> */}
           <div
             className={classNames(
               defaultFlexContainer(true),
               'vads-u-justify-content--space-between',
               'medium-screen:vads-u-padding-x--4',
-              'medium-screen:vads-u-margin-y--3',
+              'medium-screen:vads-u-margin-y--2',
             )}
           >
             <div
@@ -69,7 +69,7 @@ export default class Header extends React.Component<{}, IHeaderState> {
               )}
             >
               <Link
-                to="/"
+                to="https://www.va.gov"
                 title="Digital VA home page"
                 className={classNames(
                   'vads-u-color--white',
@@ -78,13 +78,10 @@ export default class Header extends React.Component<{}, IHeaderState> {
                   'medium-screen:vads-u-font-size--2xl',
                 )}
               >
-                <a href="https://www.va.gov">
-                  <img
-                    src="https://prod-va-gov-assets.s3-us-gov-west-1.amazonaws.com/img/header-logo.png"
-                    className="va-api-header-logo"
-                    alt="Department of Veterans Affairs"
-                  />
-                </a>
+                <img
+                  src="https://prod-va-gov-assets.s3-us-gov-west-1.amazonaws.com/img/header-logo.png"
+                  alt="Department of Veterans Affairs"
+                />
               </Link>
             </div>
             {/* <div className={desktopOnly()}>
