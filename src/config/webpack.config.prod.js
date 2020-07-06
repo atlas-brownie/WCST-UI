@@ -23,7 +23,7 @@ const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent')
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const paths = require('./paths');
-const getClientEnvironment = require('../src/config/env');
+const getClientEnvironment = require('./env');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const SitemapBuilderPlugin = require('../SitemapBuilderWebpackPlugin');
 
@@ -107,11 +107,6 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 // The development configuration is different and lives in a separate file.
 module.exports = envName => {
   return {
-    alias: {
-      // Support React Native Web
-      // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
-      'react-native': 'react-native-web',
-    },
     // Don't attempt to continue if there are any errors.
     bail: true,
     // We generate sourcemaps in production. This is slow but gives good results.
@@ -324,7 +319,7 @@ module.exports = envName => {
       // To fix this, we prevent you from importing files out of src/ -- if you'd like to,
       // please link the files into your node_modules/ and let module-resolution kick in.
       // Make sure your source files are compiled, as they will not be processed in any way.
-      new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
+      // new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
       new TsconfigPathsPlugin({ configFile: paths.appTsConfig }),
       new HtmlWebpackPlugin({
         inject: true,
@@ -432,6 +427,11 @@ module.exports = envName => {
       }),
     ].filter(Boolean),
     resolve: {
+      alias: {
+        // Support React Native Web
+        // https://www.smashingmagazine.com/2016/08/a-glimpse-into-the-future-with-react-native-for-web/
+        'react-native': 'react-native-web',
+      },
       // These are the reasonable defaults supported by the Node ecosystem.
       // We also include JSX as a common component filename extension to support
       // some tools, although we do not recommend using it, see:

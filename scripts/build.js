@@ -12,14 +12,14 @@ process.on('unhandledRejection', err => {
 });
 
 // Ensure environment variables are read.
-require('../config/env');
+require('../src/config/env');
 
 const path = require('path');
 const chalk = require('chalk');
 const fs = require('fs-extra');
 const webpack = require('webpack');
-const config = require('../config/webpack.config.prod')(process.argv[2] || 'dev');
-const paths = require('../config/paths');
+const config = require('../src/config/webpack.config.prod')(process.argv[2] || 'dev');
+const paths = require('../src/config/paths');
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const formatWebpackMessages = require('react-dev-utils/formatWebpackMessages');
 const printHostingInstructions = require('react-dev-utils/printHostingInstructions');
@@ -60,12 +60,10 @@ measureFileSizesBeforeBuild(appBuild)
         console.log(
           '\nSearch for the ' +
             chalk.underline(chalk.yellow('keywords')) +
-            ' to learn more about each warning.'
+            ' to learn more about each warning.',
         );
         console.log(
-          'To ignore, add ' +
-            chalk.cyan('// eslint-disable-next-line') +
-            ' to the line before.\n'
+          'To ignore, add ' + chalk.cyan('// eslint-disable-next-line') + ' to the line before.\n',
         );
       } else {
         console.log(chalk.green('Compiled successfully.\n'));
@@ -77,7 +75,7 @@ measureFileSizesBeforeBuild(appBuild)
         previousFileSizes,
         appBuild,
         WARN_AFTER_BUNDLE_GZIP_SIZE,
-        WARN_AFTER_CHUNK_GZIP_SIZE
+        WARN_AFTER_CHUNK_GZIP_SIZE,
       );
       console.log();
 
@@ -85,18 +83,13 @@ measureFileSizesBeforeBuild(appBuild)
       const publicUrl = paths.publicUrl;
       const publicPath = config.output.publicPath;
       const buildFolder = path.relative(process.cwd(), appBuild);
-      printHostingInstructions(
-        appPackage,
-        publicUrl,
-        publicPath,
-        buildFolder,
-      );
+      printHostingInstructions(appPackage, publicUrl, publicPath, buildFolder);
     },
     err => {
       console.log(chalk.red('Failed to compile.\n'));
       printBuildError(err);
       process.exit(1);
-    }
+    },
   );
 
 // Create the production build and print the deployment instructions.
@@ -120,15 +113,14 @@ function build(previousFileSizes) {
       }
       if (
         process.env.CI &&
-        (typeof process.env.CI !== 'string' ||
-          process.env.CI.toLowerCase() !== 'false') &&
+        (typeof process.env.CI !== 'string' || process.env.CI.toLowerCase() !== 'false') &&
         messages.warnings.length
       ) {
         console.log(
           chalk.yellow(
             '\nTreating warnings as errors because process.env.CI = true.\n' +
-              'Most CI servers set it automatically.\n'
-          )
+              'Most CI servers set it automatically.\n',
+          ),
         );
         return reject(new Error(messages.warnings.join('\n\n')));
       }

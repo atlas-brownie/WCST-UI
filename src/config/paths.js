@@ -44,7 +44,7 @@ function getServedPath(appPackageJson) {
 module.exports = {
   ansiStyles: resolveApp('node_modules/ansi-styles'),
   appBuild: resolveApp('build'),
-  appConfigScripts: resolveApp('config'),
+  appConfigScripts: resolveApp('src/config'),
   appHtml: resolveApp('public/index.html'),
   appIndexJs: resolveApp('src/index.tsx'),
   appNodeModules: resolveApp('node_modules'),
