@@ -9,6 +9,7 @@ import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
 import ProgressButton from '@department-of-veterans-affairs/formation-react/ProgressButton';
 
 import * as actions from '../../actions';
+import { history } from '../../store';
 import { IBenefits, IErrorableInput, IRootState } from '../../types';
 import DeveloperInfo from './DeveloperInfo';
 
@@ -172,6 +173,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                   onButtonClick={(evt: MouseEvent) => {
                     evt.preventDefault();
                     console.log('clicked button');
+                    history.push('/review-benefits-form');
                   }}
                   buttonClass="usa-button-primary"
                 />

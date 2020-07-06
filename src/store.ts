@@ -5,7 +5,7 @@ import thunk, { ThunkMiddleware } from 'redux-thunk';
 
 import { IApplication, IBenefits, IRootState } from './types';
 
-import createBrowserHistory from 'history/createBrowserHistory';
+import { createBrowserHistory } from 'history';
 
 import { apiVersioning } from './reducers/api-versioning';
 

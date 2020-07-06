@@ -1,54 +1,31 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { ThunkDispatch } from 'redux-thunk';
 
-import * as actions from '../../actions';
 import { IErrorableInput, IRootState } from '../../types';
 
 import classNames from 'classnames';
 
-interface IDeveloperInfoProps {
+interface IDeveloperReviewProps {
+  docType: string;
+  fileNumber: IErrorableInput;
+  source: string;
   veteranFirstName: IErrorableInput;
   veteranLastName: IErrorableInput;
-  fileNumber: IErrorableInput;
   zipCode: IErrorableInput;
-  updateVeteranFirstName: (value: IErrorableInput) => void;
-  updateVeteranLastName: (value: IErrorableInput) => void;
-  updateFileNumber: (oldValidation?: string) => (value: IErrorableInput) => void;
-  updateZipCode: (value: IErrorableInput) => void;
 }
 
 const mapStateToProps = (state: IRootState) => {
   return {
+    docType: state.uploadBenefits.inputs.docType,
     fileNumber: state.uploadBenefits.inputs.fileNumber,
+    source: state.uploadBenefits.inputs.source,
     veteranFirstName: state.uploadBenefits.inputs.veteranFirstName,
     veteranLastName: state.uploadBenefits.inputs.veteranLastName,
     zipCode: state.uploadBenefits.inputs.zipCode,
   };
 };
 
-type DeveloperInfoDispatch = ThunkDispatch<IRootState, undefined, actions.UpdateApplicationAction>;
-
-const mapDispatchToProps = (dispatch: DeveloperInfoDispatch) => {
-  return {
-    updateFileNumber: (oldValidation?: string) => {
-      return (value: IErrorableInput) => {
-        dispatch(actions.updateApplicationEmail(value, oldValidation));
-      };
-    },
-    updateVeteranFirstName: (value: IErrorableInput) => {
-      dispatch(actions.updateApplicationFirstName(value));
-    },
-    updateVeteranLastName: (value: IErrorableInput) => {
-      dispatch(actions.updateApplicationLastName(value));
-    },
-    updateZipCode: (value: IErrorableInput) => {
-      dispatch(actions.updateApplicationOrganization(value));
-    },
-  };
-};
-
-class DeveloperReview extends React.Component<IDeveloperInfoProps> {
+class DeveloperReview extends React.Component<IDeveloperReviewProps> {
   public render() {
     return (
       <React.Fragment>
@@ -94,4 +71,4 @@ class DeveloperReview extends React.Component<IDeveloperInfoProps> {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeveloperReview);
+export default connect(mapStateToProps)(DeveloperReview);

@@ -6,18 +6,11 @@ import { Link } from 'react-router-dom';
 import { ThunkDispatch } from 'redux-thunk';
 
 import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
-// import ErrorableCheckbox from '@department-of-veterans-affairs/formation-react/ErrorableCheckbox';
-// import ErrorableTextArea from '@department-of-veterans-affairs/formation-react/ErrorableTextArea';
 import ProgressButton from '@department-of-veterans-affairs/formation-react/ProgressButton';
 
 import * as actions from '../../actions';
-// import { includesOauthAPI } from '../../apiDefs/query';
 import { IBenefits, IErrorableInput, IRootState } from '../../types';
-// import { APPLY_FIELDS_TO_URL_FRAGMENTS } from '../../types/constants';
-// import ApplyHeader from './ApplyHeader';
 import DeveloperReview from './DeveloperReview';
-// import OAuthAppInfo from './OAuthAppInfo';
-// import SelectedApis from './SelectedApis';
 
 interface IBenefitsProps extends IBenefits {
   submitForm: () => void;
@@ -135,9 +128,7 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
                 <h2>Widget Claim</h2>
                 <span className={classNames('vads-u-margin-x--4')}>Form T4NG</span>
               </div>
-              {/* <div className={classNames('usa-form')}> */}
               <DeveloperReview />
-              {/* </div> */}
               <div
                 className={classNames(
                   'vads-u-display--flex',
@@ -147,7 +138,10 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
                 )}
               >
                 <div className={classNames('va-api-nav-secondary')}>
-                  <Link to="/" className={classNames('usa-button', 'usa-button-secondary')}>
+                  <Link
+                    to="/upload-benefits-form"
+                    className={classNames('usa-button', 'usa-button-secondary')}
+                  >
                     <span
                       className={classNames(
                         'vads-u-display--flex',
@@ -196,20 +190,7 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
               'medium-screen:vads-l-col--4',
               'vads-u-padding-x--2p5',
             )}
-          >
-            {/* <div className="feature">
-              <h3>Stay In Touch</h3>
-              <p>
-                Want to get news and updates about VA API Program? Sign up to receive email updates.
-              </p>
-              <a
-                className="usa-button"
-                href="https://public.govdelivery.com/accounts/USVAOIT/subscriber/new?topic_id=USVAOIT_20"
-              >
-                Sign Up
-              </a>
-            </div> */}
-          </div>
+          />
         </div>
       </div>
     );
@@ -233,49 +214,6 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
     }
     return null;
   }
-
-  // private selectedApis() {
-  //   const apis = this.props.inputs.apis;
-  //   return Object.keys(apis).filter(apiName => apis[apiName]);
-  // }
-
-  // private anyOAuthApisSelected() {
-  //   const apiIdsByField = this.selectedApis().flatMap(
-  //     formField => APPLY_FIELDS_TO_URL_FRAGMENTS[formField],
-  //   );
-  //   return includesOauthAPI(apiIdsByField);
-  // }
-
-  // private anyApiSelected() {
-  //   const numSelected = this.selectedApis().length;
-  //   return numSelected > 0;
-  // }
-
-  // private allBioFieldsComplete() {
-  //   const bioFieldNames = ['fileNumber', 'veteranFirstName', 'veteranLastName', 'zipCode'];
-  //   const incompleteFields = bioFieldNames.filter(fieldName => {
-  //     return !this.props.inputs[fieldName].value;
-  //   });
-  //   return incompleteFields.length === 0;
-  // }
-
-  // private readyToSubmit() {
-  //   // const {
-  //   //   inputs: { oAuthApplicationType, oAuthRedirectURI, termsOfService },
-  //   // } = this.props;
-  //   // let applicationTypeComplete = true;
-  //   // let redirectURIComplete = true;
-  //   // if (this.anyOAuthApisSelected()) {
-  //   //   applicationTypeComplete = oAuthApplicationType.value.length !== 0;
-  //   //   redirectURIComplete =
-  //   //     oAuthRedirectURI.value.length !== 0 && oAuthRedirectURI.validation === undefined;
-  //   // }
-  //   return this.allBioFieldsComplete();
-  //   // this.anyApiSelected() &&
-  //   // termsOfService &&
-  //   // applicationTypeComplete &&
-  //   // redirectURIComplete
-  // }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ReviewBenefitsForm);
