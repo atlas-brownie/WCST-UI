@@ -8,7 +8,7 @@ import { IErrorableInput, IRootState } from '../../types';
 
 import classNames from 'classnames';
 
-interface IDeveloperInfoProps {
+interface IUploadBenefitsFormFieldsProps {
   contentFile: File;
   docType: string;
   fileNumber: IErrorableInput;
@@ -35,9 +35,13 @@ const mapStateToProps = (state: IRootState) => {
   };
 };
 
-type DeveloperInfoDispatch = ThunkDispatch<IRootState, undefined, actions.UpdateBenefitsAction>;
+type UploadBenefitsFormFieldsDispatch = ThunkDispatch<
+  IRootState,
+  undefined,
+  actions.UpdateBenefitsAction
+>;
 
-const mapDispatchToProps = (dispatch: DeveloperInfoDispatch) => {
+const mapDispatchToProps = (dispatch: UploadBenefitsFormFieldsDispatch) => {
   return {
     updateContentFile: (value: File) => {
       dispatch(actions.updateBenefitsContentFile(value));
@@ -59,7 +63,7 @@ const mapDispatchToProps = (dispatch: DeveloperInfoDispatch) => {
   };
 };
 
-const getRequiredSpan = (props: IDeveloperInfoProps) => {
+const getRequiredSpan = (props: IUploadBenefitsFormFieldsProps) => {
   const { contentFile } = props;
   let requiredSpan;
   if (contentFile.lastModified === -1) {
@@ -73,8 +77,8 @@ const getRequiredSpan = (props: IDeveloperInfoProps) => {
   return requiredSpan;
 };
 
-class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
-  constructor(props: IDeveloperInfoProps) {
+class UploadBenefitsFormFields extends React.Component<IUploadBenefitsFormFieldsProps> {
+  constructor(props: IUploadBenefitsFormFieldsProps) {
     super(props);
     this.handleChangeContentFile = this.handleChangeContentFile.bind(this);
     console.log('props=', props);
@@ -162,4 +166,4 @@ class DeveloperInfo extends React.Component<IDeveloperInfoProps> {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DeveloperInfo);
+export default connect(mapStateToProps, mapDispatchToProps)(UploadBenefitsFormFields);
