@@ -10,7 +10,7 @@ import ProgressButton from '@department-of-veterans-affairs/formation-react/Prog
 
 import * as actions from '../../actions';
 import { IBenefits, IErrorableInput, IRootState } from '../../types';
-import DeveloperReview from './DeveloperReview';
+import ReviewBenefitsFormFields from './ReviewBenefitsFormFields';
 
 interface IBenefitsProps extends IBenefits {
   submitForm: () => void;
@@ -125,7 +125,7 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
                 <h2>Widget Claim</h2>
                 <span className={classNames('vads-u-margin-x--4')}>Form T4NG</span>
               </div>
-              <DeveloperReview />
+              <ReviewBenefitsFormFields />
               <div
                 className={classNames(
                   'vads-u-display--flex',

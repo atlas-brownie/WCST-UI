@@ -5,7 +5,7 @@ import { IErrorableInput, IRootState } from '../../types';
 
 import classNames from 'classnames';
 
-interface IDeveloperReviewProps {
+interface IReviewBenefitsFormFieldsProps {
   contentFile: File;
   docType: string;
   fileNumber: IErrorableInput;
@@ -27,7 +27,7 @@ const mapStateToProps = (state: IRootState) => {
   };
 };
 
-class DeveloperReview extends React.Component<IDeveloperReviewProps> {
+class ReviewBenefitsFormFields extends React.Component<IReviewBenefitsFormFieldsProps> {
   public render() {
     return (
       <React.Fragment>
@@ -73,4 +73,4 @@ class DeveloperReview extends React.Component<IDeveloperReviewProps> {
   }
 }
 
-export default connect(mapStateToProps)(DeveloperReview);
+export default connect(mapStateToProps)(ReviewBenefitsFormFields);
