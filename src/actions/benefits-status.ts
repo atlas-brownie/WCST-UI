@@ -40,34 +40,17 @@ export type SubmitBenefitsStatusFormThunk = ThunkAction<
   SubmitBenefitsStatusFormAction
 >;
 
-function buildBenefitsStatusBody({ benefitsStatus }: IRootState) {
-  const benefitsStatusBody: any = {};
-  ['confirmationCode'].forEach(property => {
-    if (benefitsStatus.inputs[property]) {
-      benefitsStatusBody[property] = benefitsStatus.inputs[property].value;
-    }
-  });
-  return benefitsStatusBody;
-}
-
 export const submitBenefitsStatusForm: ActionCreator<SubmitBenefitsStatusFormThunk> = () => {
   return (dispatch, state) => {
     dispatch(submitBenefitsStatusFormBegin());
 
-    const applicationBody = buildBenefitsStatusBody(state());
+    const { benefitsStatus } = state();
+    const confirmationCode = benefitsStatus.inputs.confirmationCode.value;
 
-    const request = new Request(
-      `${process.env.REACT_APP_DEVELOPER_PORTAL_SELF_SERVICE_URL}/internal/developer-portal-backend/developer_application`,
-      {
-        body: JSON.stringify(applicationBody),
-        headers: {
-          accept: 'application/json',
-          'content-type': 'application/json',
-        },
-        method: 'POST',
-      },
-    );
-    return fetch(request)
+    // const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads/${confirmationCode}`;
+    const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads/va/${confirmationCode}`;
+
+    return fetch(url)
       .then(response => {
         if (!response.ok) {
           throw Error(response.statusText);
@@ -76,17 +59,19 @@ export const submitBenefitsStatusForm: ActionCreator<SubmitBenefitsStatusFormThu
       })
       .then(response => response.json())
       .then(json => {
+        console.log('benefits-status json=', json);
         if (json.token || json.clientID) {
           const result = dispatch(
             submitBenefitsStatusFormSuccess(json.token, json.clientID, json.clientSecret),
           );
-          history.push('/applied');
+          history.push('/');
           return result;
         } else {
           return dispatch(submitBenefitsStatusFormError(json.errorMessage));
         }
       })
       .catch(error => {
+        console.log('benefits-status error=', error);
         Sentry.withScope(scope => {
           scope.setLevel(Sentry.Severity.fromString('warning'));
           Sentry.captureException(error);

@@ -14,8 +14,6 @@ import BenefitsStatusFormFields from './BenefitsStatusFormFields';
 
 interface IBenefitsStatusProps extends IBenefitsStatus {
   submitForm: () => void;
-  // toggleAcceptTos: () => void;
-  // updateDescription: (value: IErrorableInput) => void;
 }
 
 type BenefitsStatusDispatch = ThunkDispatch<

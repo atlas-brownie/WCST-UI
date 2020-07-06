@@ -67,35 +67,71 @@ export type SubmitBenefitsFormThunk = ThunkAction<
   SubmitBenefitsFormAction
 >;
 
-function buildBenefitsBody({ uploadBenefits }: IRootState) {
-  const benefitsBody: any = {};
-  ['fileNumber', 'veteranFirstName', 'veteranLastName', 'zipCode'].forEach(property => {
-    if (uploadBenefits.inputs[property]) {
-      benefitsBody[property] = uploadBenefits.inputs[property].value;
-    }
-  });
-  return benefitsBody;
+// export const postWcstB$ = ({ metadataFile, contentFile }: { metadataFile: File; contentFile: File }) => {
+//   const locationUrl = ServiceState.documentUploadLocation.data.attributes.location;
+//   const formData = new FormData();
+//   formData.append('metadata', metadataFile);
+//   formData.append('content', contentFile);
+
+//   const oReq = new XMLHttpRequest();
+//   oReq.open('PUT', locationUrl, true);
+//   oReq.setRequestHeader('Content-Type', 'multipart/form-data');
+//   oReq.onload = function (oEvent) {
+//       if (oReq.status === 200) {
+//           console.log('success return from POST Files');
+//       } else {
+//           console.log('failed return from POST Files');
+//       }
+//   };
+
+//   oReq.send(formData);
+// };
+
+function buildBenefitsBody(applicationState: IRootState): FormData {
+  // const { uploadBenefits } = applicationState;
+  // const benefitsBody: any = {};
+
+  console.log('buildBenefitsBody applicationState=', applicationState);
+  const formData = new FormData();
+  const claimFile = applicationState.uploadBenefits.inputs.contentFile;
+  const firstName = applicationState.uploadBenefits.inputs.veteranFirstName.value;
+  const lastName = applicationState.uploadBenefits.inputs.veteranLastName.value;
+  const ssn = applicationState.uploadBenefits.inputs.fileNumber.value;
+  const zipCode = applicationState.uploadBenefits.inputs.zipCode.value;
+  formData.append('firstName', firstName);
+  formData.append('lastName', lastName);
+  formData.append('ssn', ssn);
+  formData.append('zipCode', zipCode);
+  formData.append('claimFile', claimFile);
+
+  // ['fileNumber', 'veteranFirstName', 'veteranLastName', 'zipCode'].forEach(property => {
+  //   if (uploadBenefits.inputs[property]) {
+  //     benefitsBody[property] = uploadBenefits.inputs[property].value;
+  //   }
+  // });
+  // return benefitsBody;
+  return formData;
 }
 
 export const submitBenefitsForm: ActionCreator<SubmitBenefitsFormThunk> = () => {
   return (dispatch, state) => {
     dispatch(submitBenefitsFormBegin());
 
-    const applicationBody = buildBenefitsBody(state());
+    const benefitsFormData = buildBenefitsBody(state());
 
-    const request = new Request(
-      `${process.env.REACT_APP_DEVELOPER_PORTAL_SELF_SERVICE_URL}/internal/developer-portal-backend/developer_application`,
-      {
-        body: JSON.stringify(applicationBody),
-        headers: {
-          accept: 'application/json',
-          'content-type': 'application/json',
-        },
-        method: 'POST',
+    const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads`;
+    console.log('url = ', url);
+
+    const request = new Request(url, {
+      body: benefitsFormData,
+      headers: {
+        accept: 'application/json',
       },
-    );
+      method: 'POST',
+    });
     return fetch(request)
       .then(response => {
+        console.log('upload-benefits response=', response);
         if (!response.ok) {
           throw Error(response.statusText);
         }
@@ -103,6 +139,8 @@ export const submitBenefitsForm: ActionCreator<SubmitBenefitsFormThunk> = () => 
       })
       .then(response => response.json())
       .then(json => {
+        console.log('upload-benefits json=', json);
+
         if (json.token || json.clientID) {
           const result = dispatch(
             submitBenefitsFormSuccess(json.token, json.clientID, json.clientSecret),
@@ -114,6 +152,7 @@ export const submitBenefitsForm: ActionCreator<SubmitBenefitsFormThunk> = () => 
         }
       })
       .catch(error => {
+        console.log('upload-benefits error=', error);
         Sentry.withScope(scope => {
           scope.setLevel(Sentry.Severity.fromString('warning'));
           Sentry.captureException(error);
@@ -192,7 +231,7 @@ export const updateBenefitsFileNumber: ActionCreator<IUploadBenefitsFileNumber> 
 ) => {
   if (newValue.dirty) {
     // validateByPattern mutates newValue
-    validateByPattern(newValue, /^\d{8,9}$/, 'Must be 8 or 9 digits');
+    validateByPattern(newValue, /^\d{3}-\d{2}-\d{4}$/, 'Format: ###-##-####');
     newValue.dirty = false;
   } else {
     // the newValue passed by IErrorableInput doesn't include validation
