@@ -5,6 +5,13 @@ pipeline {
     }
     
     stages {
+        stage('Notify Start') {
+            steps {
+                slackSend channel: '#prod-notifications',
+                          message: 'Jenkins UI pipeline build started'
+            }
+        }
+        
         stage('Initialize') {
             steps {
                 sh '''
@@ -55,12 +62,17 @@ pipeline {
                 }
             }
         }
-        
-        stage('Slack') {
-            steps {
-                slackSend channel: '#prod-notifications',
-                          message: 'Jenkins UI pipeline build completed'
-            }
+    }
+    
+    post {
+		    success {
+            slackSend channel: '#prod-notifications',
+                      message: 'Jenkins UI pipeline build completed'
         }
+		
+		    failure {
+			      slackSend channel: '#prod-notifications',
+					            message: 'Jenkins UI pipeline build failed'
+		    }
     }
 }
