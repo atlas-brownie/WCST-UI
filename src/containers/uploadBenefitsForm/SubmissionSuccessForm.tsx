@@ -89,8 +89,8 @@ class SubmissionSuccessForm extends React.Component<{}, ISubmissionSuccessFormSt
 
             <div className="message-container">
               <AlertBox
-                headline="Success alert"
-                content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam id felis pulvinar ligula ultricies sollicitudin eget nec dui. Cras augue velit, pellentesque sit amet nisl ut, tristique suscipit sem. Cras sollicitudin auctor mattis."
+                headline="Form submitted successfully"
+                content="Your form has been submitted to the VA."
                 status="success"
               />
 
