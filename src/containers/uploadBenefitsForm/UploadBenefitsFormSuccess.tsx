@@ -2,13 +2,12 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
-import './SubmissionForm.scss';
 
-interface ISubmissionSuccessFormState {
+interface IUploadBenefitsFormSuccessState {
   code: string;
 }
 
-class SubmissionSuccessForm extends React.Component<{}, ISubmissionSuccessFormState> {
+class UploadBenefitsFormSuccess extends React.Component<{}, IUploadBenefitsFormSuccessState> {
   constructor(props: {}) {
     super(props);
     this.state = {
@@ -20,7 +19,10 @@ class SubmissionSuccessForm extends React.Component<{}, ISubmissionSuccessFormSt
     const submitBtnText = '<< Submit Another Form';
 
     return (
-      <div className="vads-l-grid-container large-screen:vads-u-padding-x--0">
+      <div
+        className="vads-l-grid-container large-screen:vads-u-padding-x--0 vads-u-margin-x--auto"
+        style={{ margin: '20px' }}
+      >
         <div className="vads-l-row vads-u-margin-x--neg2p5">
           <div className="vads-l-col--12 vads-u-padding-x--2p5 medium-screen:vads-l-col--8">
             <div className="top-container">
@@ -96,7 +98,7 @@ class SubmissionSuccessForm extends React.Component<{}, ISubmissionSuccessFormSt
 
               <br />
 
-              <div className="message">
+              <div className="vads-u-margin-left--4">
                 Congratulations, your form has been successfully submitted to the VA for processing.
                 You can use the confirmation code below to check the status of your submission at
                 any time in the future.
@@ -119,4 +121,4 @@ class SubmissionSuccessForm extends React.Component<{}, ISubmissionSuccessFormSt
   }
 }
 
-export default SubmissionSuccessForm;
+export default UploadBenefitsFormSuccess;
