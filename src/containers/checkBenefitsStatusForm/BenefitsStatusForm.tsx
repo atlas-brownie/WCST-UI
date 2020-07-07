@@ -54,27 +54,28 @@ class BenefitsStatusForm extends React.Component<IBenefitsStatusProps> {
                 'medium-screen:va-api-u-min-width--400',
               )}
             >
-              <div
-                className={classNames(
-                  'vads-u-display--flex',
-                  'vads-u-align-items--center',
-                  'vads-u-flex-wrap--nowrap',
-                  'vads-u-margin-y--2',
-                )}
-              >
-                <h2>Check the Status of Your Widget Claim Form (T4NG)</h2>
-              </div>
-              <BenefitsStatusFormFields />
-              {this.renderError()}
-              <div
-                className={classNames(
-                  'vads-u-display--flex',
-                  'vads-u-flex-wrap--nowrap',
+              <fieldset>
+                <div
+                  className={classNames(
+                    'vads-u-display--flex',
+                    'vads-u-align-items--center',
+                    'vads-u-flex-wrap--nowrap',
+                    'vads-u-margin-y--2',
+                  )}
+                >
+                  <h2>Check the Status of Your Widget Claim Form (T4NG)</h2>
+                </div>
+                <BenefitsStatusFormFields />
+                {this.renderError()}
+                <div
+                  className={classNames(
+                    'vads-u-display--flex',
+                    'vads-u-flex-wrap--nowrap',
 
-                  'vads-u-margin-y--2',
-                )}
-              >
-                {/* <div className={classNames('va-api-nav-secondary')}>
+                    'vads-u-margin-y--2',
+                  )}
+                >
+                  {/* <div className={classNames('va-api-nav-secondary')}>
                   <Link to="/" className={classNames('usa-button', 'usa-button-secondary')}>
                     <span
                       className={classNames(
@@ -88,16 +89,18 @@ class BenefitsStatusForm extends React.Component<IBenefitsStatusProps> {
                     </span>
                   </Link>
                 </div> */}
-                <ProgressButton
-                  buttonText={props.sending ? 'Sending...' : <span>Check Status</span>}
-                  disabled={!this.readyToSubmit() || props.sending}
-                  onButtonClick={(evt: MouseEvent) => {
-                    evt.preventDefault();
-                    props.submitForm();
-                  }}
-                  buttonClass="usa-button-primary"
-                />
-              </div>
+                  <ProgressButton
+                    buttonText={props.sending ? 'Sending...' : <span>Check Status</span>}
+                    disabled={!this.readyToSubmit() || props.sending}
+                    onButtonClick={(evt: MouseEvent) => {
+                      evt.preventDefault();
+                      props.submitForm();
+                    }}
+                    buttonClass="usa-button-primary"
+                  />
+                </div>
+              </fieldset>
+              {this.renderInfo()}
             </form>
           </div>
           <div
@@ -127,6 +130,25 @@ class BenefitsStatusForm extends React.Component<IBenefitsStatusProps> {
       );
     }
     return null;
+  }
+
+  private renderInfo() {
+    const content = (
+      <React.Fragment>
+        <div>
+          Your confirmation code is 13 characters long and contains both letters and numbers.
+          <br />
+          It was displayed when you submitted your form. You may have printed the code or
+          <br />
+          saved it to a file. It looks like the example below.
+          <br />
+        </div>
+        <h3>Confirmation Code</h3>
+        <h1>AC4128-0F2B73</h1>
+      </React.Fragment>
+    );
+
+    return <AlertBox status="info" headline={'Need Help?'} content={content} />;
   }
 
   private allFieldsComplete() {
