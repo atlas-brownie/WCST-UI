@@ -1,6 +1,6 @@
 {
-  "name": "developer-portal",
-  "version": "0.1.0",
+  "name": "mbl-wcst",
+  "version": "1.0.2",
   "private": true,
   "homepage": "https://developer.va.gov/",
   "dependencies": {
@@ -123,7 +123,7 @@
     "test:e2e": "node scripts/test.js --projects=e2e.jest.config.js",
     "test:e2e:ci": "node scripts/test.js --projects=e2e.jest.config.js --ci --testResultsProcessor=\"./node_modules/jest-junit-reporter\"",
     "test:monitoring": "node scripts/test.js --projects=e2e.jest.config.js --testMatch='<rootDir>/src/App.e2e.ts'",
-    "test:accessibility": "node scripts/test.js --projects=e2e.jest.config.js --testMatch='<rootDir>/src/**/?(*.)(accessibility).(j|t)s?(x)'",
+    "test:accessibility": "node scripts/test.js --projects=e2e.jest.config.js --testMatch='<rootDir>/src/**/*.(accessibility).(j|t)s?(x)'",
     "test:accessibility:ci": "node scripts/test.js --projects=e2e.jest.config.js --testMatch='<rootDir>/src/**/?(*.)(accessibility).(j|t)s?(x)' --ci --testResultsProcessor='./node_modules/jest-junit-reporter' --forceExit",
     "test:visual": "node scripts/test.js --projects=visual.jest.config.js --runInBand"
   },
