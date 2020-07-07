@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import * as React from 'react';
 
 import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
+import { Link } from 'react-router-dom';
 
 interface IUploadBenefitsFormSuccessState {
   code: string;
@@ -16,15 +17,13 @@ class UploadBenefitsFormSuccess extends React.Component<{}, IUploadBenefitsFormS
   }
 
   public render() {
-    const submitBtnText = '<< Submit Another Form';
-
     return (
       <div
-        className="vads-l-grid-container large-screen:vads-u-padding-x--0 vads-u-margin-x--auto"
+        className="vads-l-grid-container vads-u-margin-top--6 vads-u-margin-x--auto"
         style={{ margin: '20px' }}
       >
-        <div className="vads-l-row vads-u-margin-x--neg2p5">
-          <div className="vads-l-col--12 vads-u-padding-x--2p5 medium-screen:vads-l-col--8">
+        <div className="vads-l-row">
+          <div className="medium-screen:vads-l-col--8 small-screen:vads-u-padding-left--2 small-screen:vads-l-col--6 va-api-u-margin-y--auto vads-u-margin-x--auto">
             <div className="top-container">
               <div
                 className={classNames(
@@ -110,11 +109,25 @@ class UploadBenefitsFormSuccess extends React.Component<{}, IUploadBenefitsFormS
               <h1>{this.state.code}</h1>
             </div>
 
-            <button className="usa-button-secondary">{submitBtnText}</button>
-
+            <div className={classNames('va-api-nav-secondary')}>
+              <Link
+                to="/upload-benefits-form"
+                className={classNames('usa-button', 'usa-button-secondary')}
+              >
+                <span
+                  className={classNames(
+                    'vads-u-display--flex',
+                    'vads-u-align-items--center',
+                    'vads-u-flex-wrap--nowrap',
+                  )}
+                >
+                  <i className={classNames('fa', 'fa-angle-double-left')} />
+                  <span className={classNames('vads-u-margin-x--2')}>Submit Another Form</span>
+                </span>
+              </Link>
+            </div>
             <br />
           </div>
-          <div className="vads-l-col--12 vads-u-padding-x--2p5 medium-screen:vads-l-col--4" />
         </div>
       </div>
     );
