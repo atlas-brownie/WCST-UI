@@ -1,8 +1,13 @@
 import * as Sentry from '@sentry/browser';
 import { Action, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-// import { history } from '../store';
-import { IErrorableInput, IRootState } from '../types';
+import { history } from '../store';
+import {
+  IErrorableInput,
+  IRootState,
+  IUploadBenefitsResponsePayload,
+  IUploadBenefitsSuccessResult,
+} from '../types';
 import * as constants from '../types/constants';
 import { validateByPattern } from '../utils/validators';
 
@@ -44,10 +49,8 @@ export interface ISubmitBenefitsForm extends Action {
 }
 
 export interface ISubmitBenefitsFormSuccess extends Action {
-  clientID: string;
-  clientSecret: string;
+  payloadResponse: IUploadBenefitsResponsePayload;
   type: constants.SUBMIT_BENEFITS_SUCCESS;
-  token: string;
 }
 
 export interface ISubmitBenefitsFormError extends Action {
@@ -67,49 +70,20 @@ export type SubmitBenefitsFormThunk = ThunkAction<
   SubmitBenefitsFormAction
 >;
 
-// export const postWcstB$ = ({ metadataFile, contentFile }: { metadataFile: File; contentFile: File }) => {
-//   const locationUrl = ServiceState.documentUploadLocation.data.attributes.location;
-//   const formData = new FormData();
-//   formData.append('metadata', metadataFile);
-//   formData.append('content', contentFile);
-
-//   const oReq = new XMLHttpRequest();
-//   oReq.open('PUT', locationUrl, true);
-//   oReq.setRequestHeader('Content-Type', 'multipart/form-data');
-//   oReq.onload = function (oEvent) {
-//       if (oReq.status === 200) {
-//           console.log('success return from POST Files');
-//       } else {
-//           console.log('failed return from POST Files');
-//       }
-//   };
-
-//   oReq.send(formData);
-// };
-
-function buildBenefitsBody(applicationState: IRootState): FormData {
-  // const { uploadBenefits } = applicationState;
-  // const benefitsBody: any = {};
-
-  console.log('buildBenefitsBody applicationState=', applicationState);
+function buildBenefitsBody({ uploadBenefits }: IRootState): FormData {
+  console.log('buildBenefitsBody uploadBenefits=', uploadBenefits);
   const formData = new FormData();
-  const claimFile = applicationState.uploadBenefits.inputs.contentFile;
-  const firstName = applicationState.uploadBenefits.inputs.veteranFirstName.value;
-  const lastName = applicationState.uploadBenefits.inputs.veteranLastName.value;
-  const ssn = applicationState.uploadBenefits.inputs.fileNumber.value;
-  const zipCode = applicationState.uploadBenefits.inputs.zipCode.value;
+  const claimFile = uploadBenefits.inputs.contentFile;
+  const firstName = uploadBenefits.inputs.veteranFirstName.value;
+  const lastName = uploadBenefits.inputs.veteranLastName.value;
+  const ssn = uploadBenefits.inputs.fileNumber.value;
+  const zipCode = uploadBenefits.inputs.zipCode.value;
   formData.append('firstName', firstName);
   formData.append('lastName', lastName);
   formData.append('ssn', ssn);
   formData.append('zipCode', zipCode);
   formData.append('claimFile', claimFile);
 
-  // ['fileNumber', 'veteranFirstName', 'veteranLastName', 'zipCode'].forEach(property => {
-  //   if (uploadBenefits.inputs[property]) {
-  //     benefitsBody[property] = uploadBenefits.inputs[property].value;
-  //   }
-  // });
-  // return benefitsBody;
   return formData;
 }
 
@@ -138,19 +112,17 @@ export const submitBenefitsForm: ActionCreator<SubmitBenefitsFormThunk> = () => 
         return response;
       })
       .then(response => response.json())
-      .then(json => {
-        console.log('upload-benefits json=', json);
-
-        if (json.token || json.clientID) {
-          console.log('upload-benefits ready to dispatch success=', json);
-          const result = dispatch(
-            submitBenefitsFormSuccess(json.token, json.clientID, json.clientSecret),
-          );
-          // history.push('/applied');
-          return result;
+      .then((responseJson: IUploadBenefitsSuccessResult) => {
+        console.log('upload-benefits responseJson=', responseJson);
+        if (responseJson.hasError) {
+          // TODO: route this to Error Message page once Error Message page is available
+          history.push('/');
+          return dispatch(submitBenefitsFormError(responseJson));
         } else {
-          console.log('upload-benefits ready to dispatch error=', json);
-          return dispatch(submitBenefitsFormError(json.errorMessage));
+          const payloadResponse = responseJson.payload[0];
+          history.push('/upload-benefits-form-success');
+          const result = dispatch(submitBenefitsFormSuccess(payloadResponse));
+          return result;
         }
       })
       .catch(error => {
@@ -170,15 +142,9 @@ export const submitBenefitsFormBegin: ActionCreator<ISubmitBenefitsForm> = () =>
   };
 };
 
-export const submitBenefitsFormSuccess: ActionCreator<ISubmitBenefitsFormSuccess> = (
-  token: string,
-  clientID: string,
-  clientSecret: string,
-) => {
+export const submitBenefitsFormSuccess: ActionCreator<ISubmitBenefitsFormSuccess> = payloadResponse => {
   return {
-    clientID,
-    clientSecret,
-    token,
+    payloadResponse,
     type: constants.SUBMIT_BENEFITS_SUCCESS,
   };
 };

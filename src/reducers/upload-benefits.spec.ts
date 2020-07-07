@@ -120,23 +120,31 @@ describe('upload benefits', () => {
     );
   });
 
-  it('should set token and OAuth credentials on a successful submit', () => {
+  it('should set response data on a successful submit', () => {
     const newApp = uploadBenefits(app, {
       type: constants.SUBMIT_BENEFITS_BEGIN,
     });
     expect(
       uploadBenefits(newApp, {
-        clientID: 'clientID',
-        clientSecret: 'clientSecret',
-        token: 'test-token',
+        payloadResponse: {
+          claimStatus: 'pending',
+          firstName: 'TestFirstName',
+          lastName: 'TestLastName',
+          submissionData: '',
+          trackingCode: 'TestTrackingCode',
+          vaTrackingCode: 'TestVATrackingCode',
+        },
         type: constants.SUBMIT_BENEFITS_SUCCESS,
       }),
     ).toEqual(
       expect.objectContaining({
         result: expect.objectContaining({
-          clientID: 'clientID',
-          clientSecret: 'clientSecret',
-          token: 'test-token',
+          claimStatus: 'pending',
+          firstName: 'TestFirstName',
+          lastName: 'TestLastName',
+          submissionData: '',
+          trackingCode: 'TestTrackingCode',
+          vaTrackingCode: 'TestVATrackingCode',
         }),
         sending: false,
       }),

@@ -10,11 +10,23 @@ export interface IUploadBenefitsInputs {
   zipCode: IErrorableInput;
 }
 
+export interface IUploadBenefitsResponsePayload {
+  claimStatus: string;
+  firstName: string;
+  lastName: string;
+  submissionData: string;
+  trackingCode: string;
+  vaTrackingCode: string;
+}
+
 export interface IUploadBenefitsSuccessResult {
-  fileNumber: string;
-  token: string;
-  clientID: string;
-  clientSecret: string;
+  dateTime: string;
+  errorMap: string[] | null;
+  hasError: boolean;
+  length: number;
+  message: string;
+  payload: IUploadBenefitsResponsePayload[];
+  payloadType: string;
 }
 
 export interface IBenefits {
