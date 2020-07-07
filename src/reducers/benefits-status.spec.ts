@@ -1,6 +1,7 @@
 import 'jest';
 
 // import { IToggleSelectedApi } from '../actions';
+// import { uploadBenefits } from '.';
 import { IBenefitsStatus } from '../types';
 import * as constants from '../types/constants';
 import { benefitsStatus } from './benefits-status';
@@ -97,28 +98,59 @@ describe('upload benefits', () => {
     );
   });
 
-  it('should set token and OAuth credentials on a successful submit', () => {
-    const newApp = benefitsStatus(app, {
-      type: constants.SUBMIT_BENEFITS_STATUS_BEGIN,
-    });
-    expect(
-      benefitsStatus(newApp, {
-        clientID: 'clientID',
-        clientSecret: 'clientSecret',
-        token: 'test-token',
-        type: constants.SUBMIT_BENEFITS_STATUS_SUCCESS,
-      }),
-    ).toEqual(
-      expect.objectContaining({
-        result: expect.objectContaining({
-          clientID: 'clientID',
-          clientSecret: 'clientSecret',
-          token: 'test-token',
-        }),
-        sending: false,
-      }),
-    );
-  });
+  // it('should set token and OAuth credentials on a successful submit', () => {
+  //   const newApp = benefitsStatus(app, {
+  //     type: constants.SUBMIT_BENEFITS_STATUS_BEGIN,
+  //   });
+  //   expect(
+  //     benefitsStatus(newApp, {
+  //       clientID: 'clientID',
+  //       clientSecret: 'clientSecret',
+  //       token: 'test-token',
+  //       type: constants.SUBMIT_BENEFITS_STATUS_SUCCESS,
+  //     }),
+  //   ).toEqual(
+  //     expect.objectContaining({
+  //       result: expect.objectContaining({
+  //         clientID: 'clientID',
+  //         clientSecret: 'clientSecret',
+  //         token: 'test-token',
+  //       }),
+  //       sending: false,
+  //     }),
+  //   );
+  // });
+
+  // TODO: it('should set response data on a successful submit', () => {
+  //   const newApp = uploadBenefits(app, {
+  //     type: constants.SUBMIT_BENEFITS_BEGIN,
+  //   });
+  //   expect(
+  //     uploadBenefits(newApp, {
+  //       payloadResponse: {
+  //         claimStatus: 'pending',
+  //         firstName: 'TestFirstName',
+  //         lastName: 'TestLastName',
+  //         submissionData: '',
+  //         trackingCode: 'TestTrackingCode',
+  //         vaTrackingCode: 'TestVATrackingCode',
+  //       },
+  //       type: constants.SUBMIT_BENEFITS_SUCCESS,
+  //     }),
+  //   ).toEqual(
+  //     expect.objectContaining({
+  //       result: expect.objectContaining({
+  //         claimStatus: 'pending',
+  //         firstName: 'TestFirstName',
+  //         lastName: 'TestLastName',
+  //         submissionData: '',
+  //         trackingCode: 'TestTrackingCode',
+  //         vaTrackingCode: 'TestVATrackingCode',
+  //       }),
+  //       sending: false,
+  //     }),
+  //   );
+  // });
 
   // it('should toggle termsOfService acceptance', () => {
   //   const newApp = benefits(app, { type: constants.TOGGLE_ACCEPT_TOS });
