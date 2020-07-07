@@ -19,7 +19,7 @@ interface IBenefitsProps extends IBenefits {
 type BenefitsDispatch = ThunkDispatch<
   IRootState,
   undefined,
-  actions.SubmitFormAction | actions.UpdateApplicationAction
+  actions.SubmitBenefitsFormAction | actions.UpdateBenefitsAction
 >;
 
 const mapDispatchToProps = (dispatch: BenefitsDispatch) => {
@@ -37,10 +37,6 @@ const mapStateToProps = (state: IRootState) => {
 };
 
 class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
-  constructor(props: IBenefitsProps) {
-    super(props);
-  }
-
   public render() {
     const { ...props } = this.props;
     return (
@@ -187,14 +183,23 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
 
   private renderError() {
     console.log('in renderError this.props=', this.props);
-    const assistanceTrailer = <span>&nbsp;</span>;
+    const headline = (
+      <div>
+        <span>We encountered an issue saving your form.</span>
+        <br />
+        <span>{this.props.errorStatus}</span>
+        <br />
+        <span>Please try again later.</span>
+      </div>
+    );
+    // const assistanceTrailer = <span>&nbsp;</span>;
 
     if (this.props.errorStatus) {
       return (
         <AlertBox
-          status="success"
-          headline={'We encountered an issue saving your form. Please try again later.'}
-          content={assistanceTrailer}
+          status="error"
+          headline={headline}
+          // content={assistanceTrailer}
         />
       );
     } else {

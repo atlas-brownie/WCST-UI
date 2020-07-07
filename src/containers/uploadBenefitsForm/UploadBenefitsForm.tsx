@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { ThunkDispatch } from 'redux-thunk';
 
-import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
 import ProgressButton from '@department-of-veterans-affairs/formation-react/ProgressButton';
 
 import * as actions from '../../actions';
@@ -14,27 +13,20 @@ import { IBenefits, IErrorableInput, IRootState } from '../../types';
 import UploadBenefitsFormFields from './UploadBenefitsFormFields';
 
 interface IBenefitsProps extends IBenefits {
-  submitForm: () => void;
-  toggleAcceptTos: () => void;
+  clearErrorMessage: () => void;
   updateDescription: (value: IErrorableInput) => void;
 }
 
 type BenefitsDispatch = ThunkDispatch<
   IRootState,
   undefined,
-  actions.SubmitFormAction | actions.UpdateApplicationAction
+  actions.SubmitBenefitsFormAction | actions.UpdateBenefitsAction
 >;
 
 const mapDispatchToProps = (dispatch: BenefitsDispatch) => {
   return {
-    submitForm: () => {
-      dispatch(actions.submitForm());
-    },
-    toggleAcceptTos: () => {
-      dispatch(actions.toggleAcceptTos());
-    },
-    updateDescription: (value: IErrorableInput) => {
-      dispatch(actions.updateApplicationDescription(value));
+    clearErrorMessage: () => {
+      dispatch(actions.submitBenefitsFormError(null));
     },
   };
 };
@@ -120,7 +112,6 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                 className={classNames(
                   'vads-u-display--flex',
                   'vads-u-flex-wrap--nowrap',
-
                   'vads-u-margin-y--2',
                 )}
               >
@@ -164,13 +155,14 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                   disabled={!this.readyToSubmit() || props.sending}
                   onButtonClick={(evt: MouseEvent) => {
                     evt.preventDefault();
+                    // clear any error message that may have been set for file upload
+                    this.props.clearErrorMessage();
                     history.push('/review-benefits-form');
                   }}
                   buttonClass="usa-button-primary"
                 />
               </div>
             </form>
-            {this.renderError()}
           </div>
           <div
             className={classNames(
@@ -182,25 +174,6 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
         </div>
       </div>
     );
-  }
-
-  private renderError() {
-    const assistanceTrailer = (
-      <span>
-        Do you want assistance? Create an issue through our <Link to="/support">Support page</Link>
-      </span>
-    );
-
-    if (this.props.errorStatus) {
-      return (
-        <AlertBox
-          status="error"
-          headline={'We encountered a server error while saving your form. Please try again later.'}
-          content={assistanceTrailer}
-        />
-      );
-    }
-    return null;
   }
 
   private allFieldsComplete() {

@@ -115,13 +115,11 @@ export const submitBenefitsForm: ActionCreator<SubmitBenefitsFormThunk> = () => 
       .then((responseJson: IUploadBenefitsSuccessResult) => {
         console.log('upload-benefits responseJson=', responseJson);
         if (responseJson.hasError) {
-          // TODO: route this to Error Message page once Error Message page is available
-          history.push('/');
-          return dispatch(submitBenefitsFormError(responseJson));
+          return dispatch(submitBenefitsFormError(responseJson.message));
         } else {
           const payloadResponse = responseJson.payload[0];
-          history.push('/upload-benefits-form-success');
           const result = dispatch(submitBenefitsFormSuccess(payloadResponse));
+          history.push('/upload-benefits-form-success');
           return result;
         }
       })

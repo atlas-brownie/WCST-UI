@@ -38,7 +38,7 @@ export default class Header extends React.Component<{}, IHeaderState> {
       isOn: false,
       mobileNavVisible: false,
       open: false,
-      version: 'Version 1.0.1',
+      version: 'Version 1.0.2',
     };
 
     // This binding is necessary to make `this` work in the callback
@@ -98,8 +98,8 @@ export default class Header extends React.Component<{}, IHeaderState> {
               )}
             >
               <Link
-                to="https://www.va.gov"
-                title="Digital VA home page"
+                to="/"
+                title="VA home page"
                 className={classNames(
                   'vads-u-color--white',
                   'vads-u-font-size--lg',
@@ -110,33 +110,6 @@ export default class Header extends React.Component<{}, IHeaderState> {
                 <img src={headerLogo} alt="Department of Veterans Affairs" />
               </Link>
             </div>
-            {/* <div className={desktopOnly()}>
-              <div className={classNames(
-                'vads-u-display--flex',
-                'vads-u-flex-direction--column',
-              )}>
-                <div className={defaultFlexContainer(true)}>
-                  <Link to="/apply" className={buttonClassnames}>Request an API Key</Link>
-                  <Search />
-                </div>
-              </div>
-            </div>
-            <div className={mobileOnly()}>
-              <button
-                className={classNames(
-                  'va-api-mobile-menu-button',
-                  'vads-u-font-size--sm',
-                  'vads-u-font-weight--normal',
-                  'vads-u-margin--0',
-                  'vads-u-padding--0',
-                  'vads-u-text-align--center',
-                )}
-                onClick={this.toggleMenuVisible}
-              >
-                Menu
-              </button>
-            </div> */}
-
             <div style={{ backgroundColor: '#112e51' }}>
               <DropDownPanel
                 buttonText="Product Owner"

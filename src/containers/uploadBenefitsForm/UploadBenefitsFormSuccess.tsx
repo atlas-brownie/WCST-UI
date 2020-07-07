@@ -1,22 +1,21 @@
-import classNames from 'classnames';
 import * as React from 'react';
+
+import classNames from 'classnames';
+import { connect } from 'react-redux';
 
 import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
 import { Link } from 'react-router-dom';
+import { IRootState, IUploadBenefitsResponsePayload } from 'src/types';
 
-interface IUploadBenefitsFormSuccessState {
-  code: string;
-}
+const mapStateToProps = (state: IRootState) => {
+  return {
+    ...(state.uploadBenefits.result || { trackingCode: 'No Confirmation Code Available' }),
+  };
+};
 
-class UploadBenefitsFormSuccess extends React.Component<{}, IUploadBenefitsFormSuccessState> {
-  constructor(props: {}) {
-    super(props);
-    this.state = {
-      code: 'cx901vP7',
-    };
-  }
-
+class UploadBenefitsFormSuccess extends React.Component<IUploadBenefitsResponsePayload> {
   public render() {
+    console.log('this.props=', this.props);
     return (
       <div
         className="vads-l-grid-container vads-u-margin-top--6 vads-u-margin-x--auto"
@@ -67,6 +66,7 @@ class UploadBenefitsFormSuccess extends React.Component<{}, IUploadBenefitsFormS
                   'vads-u-align-items--center',
                   'vads-u-flex-wrap--nowrap',
                   'vads-u-margin-y--2',
+                  'no-print',
                 )}
               >
                 <div className="fa-stack">
@@ -88,7 +88,7 @@ class UploadBenefitsFormSuccess extends React.Component<{}, IUploadBenefitsFormS
               </div>
             </div>
 
-            <div className="message-container">
+            <div className={classNames('message-container', 'no-print')}>
               <AlertBox
                 headline="Form submitted successfully"
                 content="Your form has been submitted to the VA."
@@ -106,25 +106,40 @@ class UploadBenefitsFormSuccess extends React.Component<{}, IUploadBenefitsFormS
 
             <div className="feature">
               <h3>Confirmation Code</h3>
-              <h1>{this.state.code}</h1>
+              <h1>{this.props.trackingCode}</h1>
             </div>
 
-            <div className={classNames('va-api-nav-secondary')}>
-              <Link
-                to="/upload-benefits-form"
-                className={classNames('usa-button', 'usa-button-secondary')}
-              >
-                <span
-                  className={classNames(
-                    'vads-u-display--flex',
-                    'vads-u-align-items--center',
-                    'vads-u-flex-wrap--nowrap',
-                  )}
+            <div
+              className={classNames(
+                'vads-u-display--flex',
+                'vads-u-flex-wrap--nowrap',
+                'vads-u-margin-y--2',
+                'no-print',
+              )}
+            >
+              <div className={classNames('va-api-nav-secondary')}>
+                <Link
+                  to="/upload-benefits-form"
+                  className={classNames('usa-button', 'usa-button-secondary')}
                 >
-                  <i className={classNames('fa', 'fa-angle-double-left')} />
-                  <span className={classNames('vads-u-margin-x--2')}>Submit Another Form</span>
-                </span>
-              </Link>
+                  <span
+                    className={classNames(
+                      'vads-u-display--flex',
+                      'vads-u-align-items--center',
+                      'vads-u-flex-wrap--nowrap',
+                    )}
+                  >
+                    <i className={classNames('fa', 'fa-angle-double-left')} />
+                    <span className={classNames('vads-u-margin-x--2')}>Submit Another Form</span>
+                  </span>
+                </Link>
+                <button
+                  className={classNames('usa-button', 'usa-button-primary')}
+                  onClick={window.print}
+                >
+                  Print Confirmation Code
+                </button>
+              </div>
             </div>
             <br />
           </div>
@@ -134,4 +149,4 @@ class UploadBenefitsFormSuccess extends React.Component<{}, IUploadBenefitsFormS
   }
 }
 
-export default UploadBenefitsFormSuccess;
+export default connect(mapStateToProps)(UploadBenefitsFormSuccess);
