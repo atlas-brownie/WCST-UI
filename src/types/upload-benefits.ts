@@ -33,5 +33,5 @@ export interface IBenefits {
   inputs: IUploadBenefitsInputs;
   sending: boolean;
   errorStatus?: string;
-  result?: IUploadBenefitsSuccessResult;
+  result?: IUploadBenefitsResponsePayload;
 }

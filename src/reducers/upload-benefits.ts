@@ -63,13 +63,7 @@ export function uploadBenefits(
       return {
         ...state,
         inputs: initialUploadBenefitsInputs,
-        // result: {
-        //   apis: state.inputs.apis,
-        //   clientID: action.clientID,
-        //   clientSecret: action.clientSecret,
-        //   fileNumber: state.inputs.fileNumber.value,
-        //   token: action.token,
-        // },
+        result: { ...action.payloadResponse },
         sending: false,
       };
     case constants.SUBMIT_BENEFITS_ERROR:
