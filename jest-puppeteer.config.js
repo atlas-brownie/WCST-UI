@@ -7,12 +7,19 @@ const puppeteerConfig = {
   },
 };
 
-if(!process.env.TEST_HOST) {
+if (!process.env.TEST_HOST) {
   puppeteerConfig.server = {
-    "command": "USE_LOCAL=false PORT=4444 BROWSER=false npm run-script start",
-    "port": 4444,
-    "launchTimeout": 120000,
+    command: 'npm run-script start',
+    port: 4444,
+    launchTimeout: 120000,
   };
 }
+// if (!process.env.TEST_HOST) {
+//   puppeteerConfig.server = {
+//     command: 'USE_LOCAL=false PORT=4444 BROWSER=false npm run-script start',
+//     port: 4444,
+//     launchTimeout: 120000,
+//   };
+// }
 
 module.exports = puppeteerConfig;
