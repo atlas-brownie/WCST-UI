@@ -85,7 +85,8 @@
     "test:monitoring": "node scripts/test.js --projects=e2e.jest.config.js --testMatch='<rootDir>/src/App.e2e.ts'",
     "test:accessibility": "node scripts/test.js --projects=e2e.jest.config.js --testMatch='<rootDir>/src/**/*.(accessibility).(j|t)s?(x)'",
     "test:accessibility:ci": "node scripts/test.js --projects=e2e.jest.config.js --testMatch='<rootDir>/src/**/?(*.)(accessibility).(j|t)s?(x)' --ci --testResultsProcessor='./node_modules/jest-junit-reporter' --forceExit",
-    "test:visual": "node scripts/test.js --projects=visual.jest.config.js --runInBand"
+    "test:visual": "node scripts/test.js --projects=visual.jest.config.js --runInBand",
+    "test:coverage": "node scripts/test.js --projects=unit.jest.config.js --coverage=true --reporters=jest-junit"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.10.4",
@@ -115,9 +116,13 @@
     "jest": "^25.5.4",
     "jest-fetch-mock": "^3.0.3",
     "jest-image-snapshot": "^3.1.0",
+    "jest-junit": "^11.0.1",
     "ts-jest": "^25.5.1",
     "typescript": "^3.9.6",
     "webpack-dev-server": "^3.11.0"
+  },
+  "jest-junit": {
+    "outputDirectory": "coverage"
   },
   "jest": {
     "projects": [
