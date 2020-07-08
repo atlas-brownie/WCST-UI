@@ -23,7 +23,6 @@
     "dotenv-expand": "4.2.0",
     "eslint-config-react-app": "^5.2.1",
     "file-loader": "2.0.0",
-    "flag": "^3.0.0-1",
     "fs-extra": "3.0.1",
     "highlight.js": "^9.18.1",
     "history": "^4.10.1",
