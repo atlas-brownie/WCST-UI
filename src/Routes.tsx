@@ -23,9 +23,9 @@ import RoutedContent from './containers/RoutedContent';
 import Support from './containers/support/Support';
 
 import BenefitsStatusForm from './containers/checkBenefitsStatusForm/BenefitsStatusForm';
+import BenefitsStatusFormSuccess from './containers/uploadBenefitsForm/BenefitsStatusFormSuccess';
 import ReviewBenefitsForm from './containers/uploadBenefitsForm/ReviewBenefitsForm';
 import UploadBenefitsForm from './containers/uploadBenefitsForm/UploadBenefitsForm';
-import UploadBenefitsFormError from './containers/uploadBenefitsForm/UploadBenefitsFormError';
 import UploadBenefitsFormSuccess from './containers/uploadBenefitsForm/UploadBenefitsFormSuccess';
 
 export function SiteRoutes() {
@@ -39,7 +39,6 @@ export function SiteRoutes() {
       <Route path="/whats-new" render={() => <Redirect to="/news" />} />
 
       {/* Current routes: */}
-      <Route path="/upload-benefits-form-error" component={UploadBenefitsFormError} />
       <Route path="/upload-benefits-form-success" component={UploadBenefitsFormSuccess} />
       <Route path="/go-live" component={RoutedContent} />
       <Route path="/terms-of-service" component={RoutedContent} />
@@ -83,6 +82,7 @@ export function SiteRoutes() {
           />
         )}
       />
+      <Route path="/check-benefits-status-form-success" component={BenefitsStatusFormSuccess} />
       <Route path="/applied" component={ApplySuccess} />
       <Route path="/beta" component={BetaPage} />
       <Route path="/beta-success" component={BetaSuccess} />

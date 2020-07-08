@@ -86,13 +86,13 @@ export function application(
       return {
         ...state,
         inputs: initialApplyInputs,
-        // result: {
-        //   apis: state.inputs.apis,
-        //   clientID: action.clientID,
-        //   clientSecret: action.clientSecret,
-        //   email: state.inputs.email.value,
-        //   token: action.token,
-        // },
+        result: {
+          apis: state.inputs.apis,
+          clientID: action.clientID,
+          clientSecret: action.clientSecret,
+          email: state.inputs.email.value,
+          token: action.token,
+        },
         sending: false,
       };
     case constants.SUBMIT_APPLICATION_ERROR:

@@ -21,7 +21,7 @@ export interface IUploadBenefitsResponsePayload {
 
 export interface IUploadBenefitsSuccessResult {
   dateTime: string;
-  errorMap: string[] | null;
+  errorMap: any;
   hasError: boolean;
   length: number;
   message: string;
@@ -33,5 +33,5 @@ export interface IBenefits {
   inputs: IUploadBenefitsInputs;
   sending: boolean;
   errorStatus?: string;
-  result?: IUploadBenefitsSuccessResult;
+  result?: IUploadBenefitsResponsePayload;
 }
