@@ -21,7 +21,7 @@ const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
+// const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
@@ -238,20 +238,20 @@ module.exports = envName => {
               ],
             },
             // Load .mdx files as components
-            {
-              include: paths.appSrc,
-              test: /\.mdx$/,
-              use: [
-                'babel-loader',
-                {
-                  loader: 'markdown-component-loader',
-                  options: {
-                    enabledMarkdownItRules: ['smartquotes', 'table'],
-                    markdownItPlugins: [[require('markdown-it-anchor'), { level: 2 }]],
-                  },
-                },
-              ],
-            },
+            // {
+            //   include: paths.appSrc,
+            //   test: /\.mdx$/,
+            //   use: [
+            //     'babel-loader',
+            //     {
+            //       loader: 'markdown-component-loader',
+            //       options: {
+            //         enabledMarkdownItRules: ['smartquotes', 'table'],
+            //         markdownItPlugins: [[require('markdown-it-anchor'), { level: 2 }]],
+            //       },
+            //     },
+            //   ],
+            // },
             {
               include: paths.appSrc,
               test: /\.ya?ml$/,
@@ -347,7 +347,7 @@ module.exports = envName => {
       new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
       // This gives some necessary context to module not found errors, such as
       // the requesting resource.
-      new ModuleNotFoundPlugin(paths.appPath),
+      // new ModuleNotFoundPlugin(paths.appPath),
       // Makes some environment variables available to the JS code, for example:
       // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
       // It is absolutely essential that NODE_ENV was set to production here.
