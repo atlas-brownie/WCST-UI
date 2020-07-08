@@ -3,6 +3,7 @@ import * as React from 'react';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
 
+import AdditionalInfo from '@department-of-veterans-affairs/formation-react/AdditionalInfo';
 import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
 import { Link } from 'react-router-dom';
 import { IRootState, IUploadBenefitsResponsePayload } from '../../../src/types';
@@ -11,13 +12,20 @@ import copy from 'copy-to-clipboard';
 
 const mapStateToProps = (state: IRootState) => {
   return {
-    ...(state.uploadBenefits.result || { trackingCode: 'No Confirmation Code Available' }),
+    ...(state.uploadBenefits.result || {
+      trackingCode: 'No Confirmation Code Available',
+      vaTrackingCode: 'No VA ID Available',
+    }),
   };
 };
 
 class UploadBenefitsFormSuccess extends React.Component<IUploadBenefitsResponsePayload> {
-  public copyCodeToClipboard = () => {
+  public copyConfirmationCode = () => {
     copy(this.props.trackingCode);
+  }
+
+  public copyVaId = () => {
+    copy(this.props.vaTrackingCode);
   }
 
   public render() {
@@ -114,21 +122,52 @@ class UploadBenefitsFormSuccess extends React.Component<IUploadBenefitsResponseP
               <h3>Confirmation Code</h3>
               <h1>{this.props.trackingCode}</h1>
 
-              <button
-                className={classNames('usa-button', 'usa-button-secondary')}
-                onClick={this.copyCodeToClipboard}
-              >
-                <span
-                  className={classNames(
-                    'vads-u-display--flex',
-                    'vads-u-align-items--center',
-                    'vads-u-flex-wrap--nowrap',
-                  )}
+              <AdditionalInfo triggerText="Additional Information">
+                <div>
+                  <div>{this.props.vaTrackingCode}</div>
+                  <div>
+                    Use the VA ID to refer to your form submission and document upload when
+                    contacting the VA. This longer identifier is used to track your submission in VA
+                    systems. It might be called a "guid" or "uuid" by VA personnel.
+                  </div>
+                </div>
+              </AdditionalInfo>
+
+              <br />
+
+              <div className={classNames('va-api-nav-secondary')}>
+                <button
+                  className={classNames('usa-button', 'usa-button-secondary')}
+                  onClick={this.copyConfirmationCode}
                 >
-                  <i className={classNames('fa', 'fa-paste')} />
-                  <span className={classNames('vads-u-margin-x--2')}>Copy to Clipboard</span>
-                </span>
-              </button>
+                  <span
+                    className={classNames(
+                      'vads-u-display--flex',
+                      'vads-u-align-items--center',
+                      'vads-u-flex-wrap--nowrap',
+                    )}
+                  >
+                    <i className={classNames('fa', 'fa-paste')} />
+                    <span className={classNames('vads-u-margin-x--2')}>Copy Confirmation Code</span>
+                  </span>
+                </button>
+
+                <button
+                  className={classNames('usa-button', 'usa-button-secondary')}
+                  onClick={this.copyVaId}
+                >
+                  <span
+                    className={classNames(
+                      'vads-u-display--flex',
+                      'vads-u-align-items--center',
+                      'vads-u-flex-wrap--nowrap',
+                    )}
+                  >
+                    <i className={classNames('fa', 'fa-paste')} />
+                    <span className={classNames('vads-u-margin-x--2')}>Copy VA ID</span>
+                  </span>
+                </button>
+              </div>
             </div>
 
             <div
