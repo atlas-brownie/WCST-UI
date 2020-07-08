@@ -1,5 +1,10 @@
 import { SubmitBenefitsFormAction, UpdateBenefitsAction } from '../actions';
-import { IBenefits, IErrorableInput, IUploadBenefitsInputs } from '../types';
+import {
+  IBenefits,
+  IErrorableInput,
+  IUploadBenefitsInputs,
+  IUploadBenefitsResponsePayload,
+} from '../types';
 import * as constants from '../types/constants';
 
 const newErrorableInput: () => IErrorableInput = () => {
@@ -30,6 +35,16 @@ const initialUploadBenefitsInputs: IUploadBenefitsInputs = {
 export const initialUploadBenefitsState: IBenefits = {
   inputs: initialUploadBenefitsInputs,
   sending: false,
+};
+
+export const defaultUploadBenefitsResponsePayload: IUploadBenefitsResponsePayload = {
+  claimStatus: '',
+  firstName: '',
+  journal: null,
+  lastName: '',
+  submissionData: '',
+  trackingCode: '',
+  vaTrackingCode: '',
 };
 
 export function uploadBenefitsInput(

@@ -6,6 +6,7 @@ export interface IBenefitsStatusInputs {
 
 export interface IBenefitsStatusResponsePayload {
   claimStatus: string;
+  journal: string[];
 }
 
 export interface IBenefitsStatusSuccessResult {

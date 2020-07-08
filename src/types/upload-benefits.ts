@@ -13,6 +13,7 @@ export interface IUploadBenefitsInputs {
 export interface IUploadBenefitsResponsePayload {
   claimStatus: string;
   firstName: string;
+  journal: string[] | null;
   lastName: string;
   submissionData: string;
   trackingCode: string;
