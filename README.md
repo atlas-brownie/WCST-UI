@@ -30,7 +30,7 @@ Now start the app:
 npm start
 ```
 
-At this point you should have a browser open, with the developer portal loaded. If you make changes to the
+At this point you should have a browser open to http://localhost:3000, with the developer portal loaded. If you make changes to the
 code, your browser should auto-reload the page.
 
 To learn how to make meaningful changes to the portal, please review the [Development Guide](docs/development.md).
