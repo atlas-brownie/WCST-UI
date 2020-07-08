@@ -35,10 +35,6 @@ npm start
 At this point you should have a browser open to http://localhost:3000, with the developer portal loaded. If you make changes to the
 code, your browser should auto-reload the page.
 
-To learn how to make meaningful changes to the portal, please review the [Development Guide](docs/development.md).
-
-Before submitting a pull request, please review the [Testing Guide](docs/testing.md).
-
 ## Learn More
 
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
