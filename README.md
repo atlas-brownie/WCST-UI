@@ -6,13 +6,15 @@ missions. This app specifically allows Verterans to submit their claim form (For
 
 ## Getting Started
 
-First clone the repo via ssh:
+First, clone the repo via SSH or HTTPS.
+
+SSH:
 
 ```
 git clone git@github.com:atlas-brownie/WCST-UI.git
 ```
 
-OR https:
+HTTPS:
 
 ```
 git clone https://github.com/atlas-brownie/WCST-UI.git
