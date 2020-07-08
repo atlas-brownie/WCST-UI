@@ -130,44 +130,42 @@ class UploadBenefitsFormSuccess extends React.Component<IUploadBenefitsResponseP
                     contacting the VA. This longer identifier is used to track your submission in VA
                     systems. It might be called a "guid" or "uuid" by VA personnel.
                   </div>
+
+                  <button
+                    className={classNames('usa-button', 'usa-button-secondary')}
+                    onClick={this.copyVaId}
+                  >
+                    <span
+                      className={classNames(
+                        'vads-u-display--flex',
+                        'vads-u-align-items--center',
+                        'vads-u-flex-wrap--nowrap',
+                      )}
+                    >
+                      <i className={classNames('fa', 'fa-paste')} />
+                      <span className={classNames('vads-u-margin-x--2')}>Copy VA ID</span>
+                    </span>
+                  </button>
                 </div>
               </AdditionalInfo>
 
               <br />
 
-              <div className={classNames('va-api-nav-secondary')}>
-                <button
-                  className={classNames('usa-button', 'usa-button-secondary')}
-                  onClick={this.copyConfirmationCode}
+              <button
+                className={classNames('usa-button', 'usa-button-secondary')}
+                onClick={this.copyConfirmationCode}
+              >
+                <span
+                  className={classNames(
+                    'vads-u-display--flex',
+                    'vads-u-align-items--center',
+                    'vads-u-flex-wrap--nowrap',
+                  )}
                 >
-                  <span
-                    className={classNames(
-                      'vads-u-display--flex',
-                      'vads-u-align-items--center',
-                      'vads-u-flex-wrap--nowrap',
-                    )}
-                  >
-                    <i className={classNames('fa', 'fa-paste')} />
-                    <span className={classNames('vads-u-margin-x--2')}>Copy Confirmation Code</span>
-                  </span>
-                </button>
-
-                <button
-                  className={classNames('usa-button', 'usa-button-secondary')}
-                  onClick={this.copyVaId}
-                >
-                  <span
-                    className={classNames(
-                      'vads-u-display--flex',
-                      'vads-u-align-items--center',
-                      'vads-u-flex-wrap--nowrap',
-                    )}
-                  >
-                    <i className={classNames('fa', 'fa-paste')} />
-                    <span className={classNames('vads-u-margin-x--2')}>Copy VA ID</span>
-                  </span>
-                </button>
-              </div>
+                  <i className={classNames('fa', 'fa-paste')} />
+                  <span className={classNames('vads-u-margin-x--2')}>Copy Confirmation Code</span>
+                </span>
+              </button>
             </div>
 
             <div
