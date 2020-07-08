@@ -1,38 +1,38 @@
-import classNames from 'classnames';
 import * as React from 'react';
+
+import classNames from 'classnames';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
 import DropDownPanel from '@department-of-veterans-affairs/formation-react/DropDownPanel';
 
-// import { defaultFlexContainer, desktopOnly, mobileOnly } from '../styles/vadsUtils';
-import { defaultFlexContainer } from '../styles/vadsUtils';
-
+import { IRootState, IUploadBenefitsResponsePayload } from 'src/types';
 import headerLogo from '../assets/header-logo.png';
+import { defaultFlexContainer } from '../styles/vadsUtils';
 
 import Banner from './Banner';
 import VeteransCrisisLine from './crisisLine/VeteransCrisisLine';
-// import NavBar from './NavBar';
-// import Search from './Search';
 
 import './Header.scss';
 
 interface IHeaderState {
-  apiRequestString: string;
-  apiResponseString: string;
   mobileNavVisible: boolean;
   open: boolean;
   version: string;
   isOn: boolean;
 }
 
-export default class Header extends React.Component<{}, IHeaderState> {
-  constructor(props: {}) {
+const mapStateToProps = (state: IRootState) => {
+  return {
+    ...(state.uploadBenefits.result || { journal: null }),
+  };
+};
+
+class Header extends React.Component<IUploadBenefitsResponsePayload, IHeaderState> {
+  constructor(props: IUploadBenefitsResponsePayload) {
     super(props);
     this.state = {
-      apiRequestString:
-        "curl -X POST 'https://sandbox-api.va.gov/services/vba_documents/v1/uploads'  --data-row '{}'",
-      apiResponseString: 'example response',
       isOn: false,
       mobileNavVisible: false,
       open: false,
@@ -54,13 +54,8 @@ export default class Header extends React.Component<{}, IHeaderState> {
   }
 
   public render() {
-    // const navBarCloseHandler = this.toggleMenuVisible.bind(this);
-    // const buttonClassnames = classNames(
-    //   'usa-button',
-    //   'vads-u-background-color--white',
-    //   'vads-u-color--primary-darkest',
-    //   'vads-u-margin-right--2',
-    // );
+    const apiRequestString = JSON.stringify(this.props.journal);
+    console.log('Header this.props=', this.props, apiRequestString);
 
     return (
       <React.Fragment>
@@ -128,13 +123,13 @@ export default class Header extends React.Component<{}, IHeaderState> {
 
                 <div>
                   <span className="ta-label">API REQUEST</span>
-                  <textarea readOnly={true} defaultValue={this.state.apiRequestString} />
+                  <textarea rows={50} readOnly={true} value={apiRequestString} />
                 </div>
 
-                <div>
+                {/* <div>
                   <span className="ta-label">API RESPONSE</span>
                   <textarea readOnly={true} defaultValue={this.state.apiResponseString} />
-                </div>
+                </div> */}
               </DropDownPanel>
               <div style={{ display: 'inline-block', color: '#fff' }}>{this.state.version}</div>
             </div>
@@ -159,3 +154,5 @@ export default class Header extends React.Component<{}, IHeaderState> {
     }
   }
 }
+
+export default connect(mapStateToProps)(Header);
