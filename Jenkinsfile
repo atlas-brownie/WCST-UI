@@ -5,35 +5,35 @@ pipeline {
     }
     
     stages {
-//        stage('Notify Start') {
-//            steps {
-//                slackSend channel: '#dev-notifications',
-//                          message: 'Jenkins UI pipeline build started'
-//            }
-//        }
+        stage('Notify Start') {
+            steps {
+                slackSend channel: '#dev-notifications',
+                          message: 'Jenkins UI pipeline build started'
+            }
+        }
 
-//        stage('Initialize') {
-//            steps {
-//                sh '''
-//                echo "PATH = ${PATH}"
-//                node -v
-//                npm -v
-//                '''
-//            }
-//        }
+        stage('Initialize') {
+            steps {
+                sh '''
+                echo "PATH = ${PATH}"
+                node -v
+                npm -v
+                '''
+            }
+        }
         
-//        stage('Install Packages') {
-//            steps {
-//                sh 'npm install'
-//                sh 'npm audit fix'
-//            }
-//        }
+        stage('Install Packages') {
+            steps {
+                sh 'npm install'
+                sh 'npm audit fix'
+            }
+        }
         
-//        stage('Test') {
-//            steps {
-//                sh 'npm run test'
-//            }
-//        }
+        stage('Test') {
+            steps {
+                sh 'npm run test'
+            }
+        }
         
 //        stage('Code Quality') {
 //            steps {
