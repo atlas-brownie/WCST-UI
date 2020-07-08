@@ -7,6 +7,8 @@ import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
 import { Link } from 'react-router-dom';
 import { IRootState, IUploadBenefitsResponsePayload } from '../../../src/types';
 
+import copy from 'copy-to-clipboard';
+
 const mapStateToProps = (state: IRootState) => {
   return {
     ...(state.uploadBenefits.result || { trackingCode: 'No Confirmation Code Available' }),
@@ -14,6 +16,10 @@ const mapStateToProps = (state: IRootState) => {
 };
 
 class UploadBenefitsFormSuccess extends React.Component<IUploadBenefitsResponsePayload> {
+  public copyCodeToClipboard = () => {
+    copy(this.props.trackingCode);
+  }
+
   public render() {
     console.log('this.props=', this.props);
     return (
@@ -107,6 +113,13 @@ class UploadBenefitsFormSuccess extends React.Component<IUploadBenefitsResponseP
             <div className="feature">
               <h3>Confirmation Code</h3>
               <h1>{this.props.trackingCode}</h1>
+
+              <button
+                className={classNames('usa-button', 'usa-button-secondary')}
+                onClick={this.copyCodeToClipboard}
+              >
+                Copy to Clipboard
+              </button>
             </div>
 
             <div
