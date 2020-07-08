@@ -49,9 +49,9 @@ pipeline {
             steps {
                 withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
                     // Delete files from directory first.
-                    s3Delete(bucket:"dev.mblsto2020.com", path:'*')
+                    s3Delete(bucket:"dev.mblsto2020.com", path:'/')
                     // Upload files from working directory 'dist' in your project workspace
-                    s3Upload(bucket:"dev.mblsto2020.com", workingDir:'build/dev', includePathPattern:'**/*');
+                    s3Upload(bucket:"dev.mblsto2020.com", workingDir:'build/dev', includePathPattern:'/');
                 }
             }
         }
