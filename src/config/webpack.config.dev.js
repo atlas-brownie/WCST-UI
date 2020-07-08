@@ -183,21 +183,6 @@ module.exports = {
               },
             ],
           },
-          // Load .mdx files as components
-          {
-            include: paths.appSrc,
-            test: /\.mdx$/,
-            use: [
-              'babel-loader',
-              {
-                loader: 'markdown-component-loader',
-                options: {
-                  enabledMarkdownItRules: ['smartquotes', 'table'],
-                  markdownItPlugins: [[require('markdown-it-anchor'), { level: 2 }]],
-                },
-              },
-            ],
-          },
           {
             include: paths.appSrc,
             test: /\.ya?ml$/,

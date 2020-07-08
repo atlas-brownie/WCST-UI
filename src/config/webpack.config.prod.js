@@ -25,7 +25,6 @@ const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const SitemapBuilderPlugin = require('../SitemapBuilderWebpackPlugin');
 
 // Webpack uses `output.publicPath`, from it's options object, to determine
 // where the app is being served from. It requires a trailing slash, or the
@@ -421,10 +420,6 @@ module.exports = envName => {
           }),
           watch: paths.appSrc,
         }),
-      new SitemapBuilderPlugin({
-        polyfillsFile: path.join(paths.appConfigScripts, 'polyfills.js'),
-        routesFile: path.join(paths.appSrc, 'Routes.tsx'),
-      }),
     ].filter(Boolean),
     resolve: {
       alias: {
