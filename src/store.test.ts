@@ -1,7 +1,7 @@
 import { initialBenefitsStatusState } from './reducers';
 
 // sessionStorage.getItem('state') is called when the store is imported at application start up.
-// To be able to pass in artibray values for testing purposes, the store is reset between tests 
+// To be able to pass in artibray values for testing purposes, the store is reset between tests
 // and then initialized after setting sessionStorage.
 
 beforeEach(() => {
@@ -15,4 +15,4 @@ describe('loadApplicationState', () => {
     const state = store.getState();
     expect(state.benefitsStatus).toEqual(initialBenefitsStatusState);
   });
-
+});
