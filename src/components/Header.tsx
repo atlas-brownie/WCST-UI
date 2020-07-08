@@ -7,11 +7,11 @@ import { HashLink } from 'react-router-hash-link';
 
 import DropDownPanel from '@department-of-veterans-affairs/formation-react/DropDownPanel';
 
-import { IRootState, IUploadBenefitsResponsePayload } from 'src/types';
+import { IRootState } from 'src/types';
 import headerLogo from '../assets/header-logo.png';
 import { defaultFlexContainer } from '../styles/vadsUtils';
 
-import Banner from './Banner';
+// import Banner from './Banner';
 import VeteransCrisisLine from './crisisLine/VeteransCrisisLine';
 
 import './Header.scss';
@@ -23,14 +23,32 @@ interface IHeaderState {
   isOn: boolean;
 }
 
+export interface IHeaderProps {
+  journal: string[];
+}
+
 const mapStateToProps = (state: IRootState) => {
+  // const uploadBenefitsJournal = state.uploadBenefits.result?.journal || [];
+  // const benefitsSuccessJournal = state.benefitsStatus.result?.journal || [];
+
+  const displayJournal = [].concat([], []).filter((item) => {
+    if (item) {
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  // return {
+  //   ...(state.uploadBenefits.result || { journal: null }),
+  // };
   return {
-    ...(state.uploadBenefits.result || { journal: null }),
+    journal: displayJournal,
   };
 };
 
-class Header extends React.Component<IUploadBenefitsResponsePayload, IHeaderState> {
-  constructor(props: IUploadBenefitsResponsePayload) {
+class Header extends React.Component<IHeaderProps, IHeaderState> {
+  constructor(props: IHeaderProps) {
     super(props);
     this.state = {
       isOn: false,
@@ -70,7 +88,7 @@ class Header extends React.Component<IUploadBenefitsResponsePayload, IHeaderStat
           >
             Skip to main content
           </HashLink>
-          <Banner />
+          {/* <Banner /> */}
           <VeteransCrisisLine />
           <div
             className={classNames(

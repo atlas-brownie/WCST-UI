@@ -14,7 +14,7 @@ interface IBenefitsStatusFormSuccessProps {
 
 const mapStateToProps = (state: IRootState) => {
   return {
-    claimStatus: state.benefitsStatus.result || 'unknown',
+    claimStatus: state.benefitsStatus.result?.claimStatus || 'unknown',
     confirmationCodeValue: state.benefitsStatus.inputs.confirmationCode.value || 'Unknown',
   };
 };
