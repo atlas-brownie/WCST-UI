@@ -2,7 +2,7 @@
 
 // import { mockSwagger, puppeteerHost, testPaths } from './e2eHelpers';
 
-jest.setTimeout(100000);
+// jest.setTimeout(100000);
 
 // const viewports = [
 //   { width: 1200, height: 800 },
