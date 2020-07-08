@@ -15,11 +15,7 @@ interface IBenefitsStatusProps extends IBenefitsStatus {
   submitForm: () => void;
 }
 
-type BenefitsStatusDispatch = ThunkDispatch<
-  IRootState,
-  undefined,
-  actions.SubmitFormAction | actions.UpdateApplicationAction
->;
+type BenefitsStatusDispatch = ThunkDispatch<IRootState, undefined, actions.BenefitsStatusAction>;
 
 const mapDispatchToProps = (dispatch: BenefitsStatusDispatch) => {
   return {

@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
 import { Link } from 'react-router-dom';
-import { IRootState } from 'src/types';
+import { IRootState } from '../../../src/types';
 
 interface IBenefitsStatusFormSuccessProps {
   claimStatus: string;

@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { Flag } from 'flag';
 import * as React from 'react';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
@@ -17,7 +16,6 @@ import VeteransCrisisLine from './crisisLine/VeteransCrisisLine';
 // import Search from './Search';
 
 import './Header.scss';
-import TestingNotice from './TestingNotice';
 
 interface IHeaderState {
   apiRequestString: string;
@@ -66,9 +64,6 @@ export default class Header extends React.Component<{}, IHeaderState> {
 
     return (
       <React.Fragment>
-        <Flag name="show_testing_notice">
-          <TestingNotice />
-        </Flag>
         <header
           role="banner"
           className={classNames('va-api-header', 'vads-u-background-color--primary-darkest')}
@@ -144,7 +139,6 @@ export default class Header extends React.Component<{}, IHeaderState> {
               <div style={{ display: 'inline-block', color: '#fff' }}>{this.state.version}</div>
             </div>
           </div>
-          {/* <NavBar isMobileMenuVisible={this.state.mobileNavVisible} onClose={navBarCloseHandler} /> */}
         </header>
       </React.Fragment>
     );

@@ -42,8 +42,6 @@ class Home extends React.Component {
   public render() {
     return (
       <div className="home">
-        {/* <Hero /> */}
-        {/* <VeteransNotice /> */}
         <HomeSection ariaLabel="Upload Benefits Form" title="S">
           <h3>Submit a Widget Claim Form (T4NG)</h3>
           <div className="feature">

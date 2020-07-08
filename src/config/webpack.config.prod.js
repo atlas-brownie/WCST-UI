@@ -21,11 +21,10 @@ const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const getCSSModuleLocalIdent = require('react-dev-utils/getCSSModuleLocalIdent');
 
 const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
-const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
+// const ModuleNotFoundPlugin = require('react-dev-utils/ModuleNotFoundPlugin');
 const paths = require('./paths');
 const getClientEnvironment = require('./env');
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
-const SitemapBuilderPlugin = require('../SitemapBuilderWebpackPlugin');
 
 // Webpack uses `output.publicPath`, from it's options object, to determine
 // where the app is being served from. It requires a trailing slash, or the
@@ -105,7 +104,7 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
 // The development configuration is different and lives in a separate file.
-module.exports = envName => {
+module.exports = (envName) => {
   return {
     // Don't attempt to continue if there are any errors.
     bail: true,
@@ -239,20 +238,20 @@ module.exports = envName => {
               ],
             },
             // Load .mdx files as components
-            {
-              include: paths.appSrc,
-              test: /\.mdx$/,
-              use: [
-                'babel-loader',
-                {
-                  loader: 'markdown-component-loader',
-                  options: {
-                    enabledMarkdownItRules: ['smartquotes', 'table'],
-                    markdownItPlugins: [[require('markdown-it-anchor'), { level: 2 }]],
-                  },
-                },
-              ],
-            },
+            // {
+            //   include: paths.appSrc,
+            //   test: /\.mdx$/,
+            //   use: [
+            //     'babel-loader',
+            //     {
+            //       loader: 'markdown-component-loader',
+            //       options: {
+            //         enabledMarkdownItRules: ['smartquotes', 'table'],
+            //         markdownItPlugins: [[require('markdown-it-anchor'), { level: 2 }]],
+            //       },
+            //     },
+            //   ],
+            // },
             {
               include: paths.appSrc,
               test: /\.ya?ml$/,
@@ -292,7 +291,7 @@ module.exports = envName => {
     output: {
       chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
       // Point sourcemap entries to original disk location (format as URL on Windows)
-      devtoolModuleFilenameTemplate: info =>
+      devtoolModuleFilenameTemplate: (info) =>
         path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/'),
       // Generated JS file names (with nested folders).
       // There will be one main bundle, and one file per asynchronous chunk.
@@ -304,7 +303,7 @@ module.exports = envName => {
       publicPath: publicPath,
     },
     performance: {
-      assetFilter: function(assetFilename) {
+      assetFilter: function (assetFilename) {
         // only check CSS bundle size, as our JS bundle is currently over 2M
         return assetFilename.endsWith('.css');
       },
@@ -348,7 +347,7 @@ module.exports = envName => {
       new InterpolateHtmlPlugin(HtmlWebpackPlugin, env.raw),
       // This gives some necessary context to module not found errors, such as
       // the requesting resource.
-      new ModuleNotFoundPlugin(paths.appPath),
+      // new ModuleNotFoundPlugin(paths.appPath),
       // Makes some environment variables available to the JS code, for example:
       // if (process.env.NODE_ENV === 'production') { ... }. See `./env.js`.
       // It is absolutely essential that NODE_ENV was set to production here.
@@ -377,7 +376,7 @@ module.exports = envName => {
       // solution that requires the user to opt into importing specific locales.
       // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
       // You can remove this if you don't use Moment.js:
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       // Generate a service worker script that will precache, and keep up to date,
       // the HTML & assets that are part of the Webpack build.
       new WorkboxWebpackPlugin.GenerateSW({
@@ -421,10 +420,6 @@ module.exports = envName => {
           }),
           watch: paths.appSrc,
         }),
-      new SitemapBuilderPlugin({
-        polyfillsFile: path.join(paths.appConfigScripts, 'polyfills.js'),
-        routesFile: path.join(paths.appSrc, 'Routes.tsx'),
-      }),
     ].filter(Boolean),
     resolve: {
       alias: {
