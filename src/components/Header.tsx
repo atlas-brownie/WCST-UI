@@ -144,7 +144,6 @@ export default class Header extends React.Component<{}, IHeaderState> {
               <div style={{ display: 'inline-block', color: '#fff' }}>{this.state.version}</div>
             </div>
           </div>
-          {/* <NavBar isMobileMenuVisible={this.state.mobileNavVisible} onClose={navBarCloseHandler} /> */}
         </header>
       </React.Fragment>
     );
