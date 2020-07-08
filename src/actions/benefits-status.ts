@@ -1,7 +1,13 @@
 import * as Sentry from '@sentry/browser';
 import { Action, ActionCreator } from 'redux';
 import { ThunkAction } from 'redux-thunk';
-import { IErrorableInput, IRootState } from '../types';
+import { history } from '../store';
+import {
+  IBenefitsStatusResponsePayload,
+  IBenefitsStatusSuccessResult,
+  IErrorableInput,
+  IRootState,
+} from '../types';
 import * as constants from '../types/constants';
 
 export interface IBenefitsStatusConfirmationCode extends Action {
@@ -16,10 +22,8 @@ export interface ISubmitBenefitsStatusForm extends Action {
 }
 
 export interface ISubmitBenefitsStatusFormSuccess extends Action {
-  clientID: string;
-  clientSecret: string;
+  payloadResponse: IBenefitsStatusResponsePayload;
   type: constants.SUBMIT_BENEFITS_STATUS_SUCCESS;
-  token: string;
 }
 
 export interface ISubmitBenefitsStatusFormError extends Action {
@@ -39,25 +43,6 @@ export type SubmitBenefitsStatusFormThunk = ThunkAction<
   SubmitBenefitsStatusFormAction
 >;
 
-enum RESPONSE {
-  FAILED,
-  SUCCEEDED,
-}
-
-const getResponseStatus = (responseJson: any): any => {
-  const { hasError, message, payload } = responseJson;
-  if (hasError) {
-    return { status: RESPONSE.FAILED, message, payload };
-  } else {
-    const formStatus = payload[0];
-    if (formStatus === 'error') {
-      return { status: RESPONSE.FAILED, message, payload };
-    } else {
-      return { status: RESPONSE.SUCCEEDED, message, payload };
-    }
-  }
-};
-
 export const submitBenefitsStatusForm: ActionCreator<SubmitBenefitsStatusFormThunk> = () => {
   return (dispatch, state) => {
     dispatch(submitBenefitsStatusFormBegin());
@@ -76,21 +61,20 @@ export const submitBenefitsStatusForm: ActionCreator<SubmitBenefitsStatusFormThu
         return response;
       })
       .then(response => response.json())
-      .then(json => {
-        console.log('benefits-status json=', json);
-        const responseStatus = getResponseStatus(json);
-        if (responseStatus.status) {
-          const result = dispatch(
-            submitBenefitsStatusFormSuccess(json.token, json.clientID, json.clientSecret),
-          );
-          // history.push('/');
-          return result;
+      .then((responseJson: IBenefitsStatusSuccessResult) => {
+        // .then(json => {
+        console.log('benefits-status responseJson=', responseJson);
+        // const responseStatus = getResponseStatus(json);
+        if (responseJson.hasError) {
+          return dispatch(submitBenefitsStatusFormError(responseJson.message));
         } else {
-          return dispatch(submitBenefitsStatusFormError(responseStatus.message));
+          const payloadResponse = responseJson.payload[0];
+          const result = dispatch(submitBenefitsStatusFormSuccess(payloadResponse));
+          history.push('/check-benefits-status-form-success');
+          return result;
         }
       })
       .catch(error => {
-        console.log('benefits-status error=', error);
         Sentry.withScope(scope => {
           scope.setLevel(Sentry.Severity.fromString('warning'));
           Sentry.captureException(error);
@@ -106,15 +90,9 @@ export const submitBenefitsStatusFormBegin: ActionCreator<ISubmitBenefitsStatusF
   };
 };
 
-export const submitBenefitsStatusFormSuccess: ActionCreator<ISubmitBenefitsStatusFormSuccess> = (
-  token: string,
-  clientID: string,
-  clientSecret: string,
-) => {
+export const submitBenefitsStatusFormSuccess: ActionCreator<ISubmitBenefitsStatusFormSuccess> = payloadResponse => {
   return {
-    clientID,
-    clientSecret,
-    token,
+    payloadResponse,
     type: constants.SUBMIT_BENEFITS_STATUS_SUCCESS,
   };
 };

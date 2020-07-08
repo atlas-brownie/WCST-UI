@@ -22,18 +22,12 @@ export function uploadBenefitsStatusInput(
   inputs: IBenefitsStatusInputs = initialBenefitsStatusInputs,
   action: BenefitsStatusAction,
 ): IBenefitsStatusInputs {
+  // NOTE: linting rules only allow switch statements if there are at least 3 cases
   if (action.type === constants.UPDATE_BENEFITS_STATUS_CONFIRMATION_CODE) {
     return { ...inputs, confirmationCode: action.newValue };
   } else {
     return inputs;
   }
-  // NOTE: linting rules only allow switch statements if there are at least 3 cases
-  // switch (action.type) {
-  //   case constants.UPDATE_BENEFITS_STATUS_CONFIRMATION_CODE:
-  //     return { ...inputs, confirmationCode: action.newValue };
-  //   default:
-  //     return inputs;
-  // }
 }
 
 export function benefitsStatus(
@@ -46,14 +40,8 @@ export function benefitsStatus(
     case constants.SUBMIT_BENEFITS_STATUS_SUCCESS:
       return {
         ...state,
-        inputs: initialBenefitsStatusInputs,
-        // result: {
-        //   apis: state.inputs.apis,
-        //   clientID: action.clientID,
-        //   clientSecret: action.clientSecret,
-        //   fileNumber: state.inputs.fileNumber.value,
-        //   token: action.token,
-        // },
+        inputs: state.inputs,
+        result: action.payloadResponse,
         sending: false,
       };
     case constants.SUBMIT_BENEFITS_STATUS_ERROR:
