@@ -4,7 +4,7 @@ pipeline {
         HOME = '.'
     }
     
-//    stages {
+    stages {
 //        stage('Notify Start') {
 //            steps {
 //                slackSend channel: '#dev-notifications',
