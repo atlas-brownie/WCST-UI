@@ -160,7 +160,6 @@ class BenefitsStatusForm extends React.Component<IBenefitsStatusProps> {
   }
 
   private readyToSubmit() {
-    console.log('readyToSubmit this.props=', this.props);
     return this.allFieldsComplete();
   }
 }

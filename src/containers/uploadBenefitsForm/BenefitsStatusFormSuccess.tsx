@@ -5,17 +5,22 @@ import { connect } from 'react-redux';
 
 import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
 import { Link } from 'react-router-dom';
-import { IRootState, IUploadBenefitsResponsePayload } from 'src/types';
+import { IRootState } from 'src/types';
+
+interface IBenefitsStatusFormSuccessProps {
+  claimStatus: string;
+  confirmationCodeValue: string;
+}
 
 const mapStateToProps = (state: IRootState) => {
   return {
-    ...(state.uploadBenefits.result || { trackingCode: 'No Confirmation Code Available' }),
+    claimStatus: state.benefitsStatus.result || 'unknown',
+    confirmationCodeValue: state.benefitsStatus.inputs.confirmationCode.value || 'Unknown',
   };
 };
 
-class BenefitsStatusFormSuccess extends React.Component<IUploadBenefitsResponsePayload> {
+class BenefitsStatusFormSuccess extends React.Component<IBenefitsStatusFormSuccessProps> {
   public render() {
-    console.log('this.props=', this.props);
     return (
       <div
         className="vads-l-grid-container vads-u-margin-top--6 vads-u-margin-x--auto"
@@ -38,13 +43,18 @@ class BenefitsStatusFormSuccess extends React.Component<IUploadBenefitsResponseP
 
             <div className="feature">
               <h3>Confirmation Code</h3>
-              <h1>{this.props.trackingCode}</h1>
+              <h1>{this.props.confirmationCodeValue}</h1>
             </div>
 
             <div className={classNames('message-container', 'no-print')}>
               <AlertBox
-                headline="Form submitted successfully"
-                content="Your form has been submitted to the VA."
+                headline={
+                  <span>
+                    <strong>Status:&nbsp;</strong>
+                    <span className="text-capitalize">{this.props.claimStatus}</span>
+                  </span>
+                }
+                content={this.getClaimStatusDescription()}
                 status="success"
               />
             </div>
@@ -57,7 +67,7 @@ class BenefitsStatusFormSuccess extends React.Component<IUploadBenefitsResponseP
                 'no-print',
               )}
             >
-              <div className={classNames('va-api-nav-secondary')}>
+              <div className={classNames('va-api-nav-secondary', 'vads-u-margin-y--2')}>
                 <Link
                   to="/check-benefits-status"
                   className={classNames('usa-button', 'usa-button-secondary')}
@@ -80,6 +90,19 @@ class BenefitsStatusFormSuccess extends React.Component<IUploadBenefitsResponseP
         </div>
       </div>
     );
+  }
+
+  private getClaimStatusDescription(): string {
+    switch (this.props.claimStatus) {
+      case 'unknown':
+        return 'The status of your claim is unkown at this point in time.';
+      case 'error':
+        return 'The VA has encountered an error processing your form.  We recommend you re-submit your form';
+      case 'received':
+        return 'Your form has been received by the VA but is not yet in processing';
+      default:
+        return 'Your form is complete!';
+    }
   }
 }
 
