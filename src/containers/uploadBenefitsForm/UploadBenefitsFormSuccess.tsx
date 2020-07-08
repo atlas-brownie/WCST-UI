@@ -20,13 +20,11 @@ const mapStateToProps = (state: IRootState) => {
 };
 
 class UploadBenefitsFormSuccess extends React.Component<IUploadBenefitsResponsePayload> {
-  public copyConfirmationCode = () => {
-    copy(this.props.trackingCode);
-  }
+  // public copyConfirmationCode = () => copy(this.props.trackingCode || this.props.vaTrackingCode)
 
-  public copyVaId = () => {
-    copy(this.props.vaTrackingCode);
-  }
+  // public copyVaId = () => {
+  //   copy(this.props.vaTrackingCode);
+  // };
 
   public render() {
     console.log('this.props=', this.props);
@@ -120,20 +118,21 @@ class UploadBenefitsFormSuccess extends React.Component<IUploadBenefitsResponseP
 
             <div className="feature">
               <h3>Confirmation Code</h3>
-              <h1>{this.props.trackingCode}</h1>
+              <h1>{this.props.trackingCode || this.props.vaTrackingCode}</h1>
 
               <AdditionalInfo triggerText="Additional Information">
                 <div>
                   <div>{this.props.vaTrackingCode}</div>
                   <div>
-                    Use the VA ID to refer to your form submission and document upload when
-                    contacting the VA. This longer identifier is used to track your submission in VA
-                    systems. It might be called a "guid" or "uuid" by VA personnel.
+                    Use the Widget Claim PDF form (Form T4NG) ID/Tracking ID to refer to your form
+                    submission and document upload when contacting the VA. This longer identifier is
+                    used to track your submission in VA systems. It might be called a "guid" or
+                    "uuid" by VA personnel.
                   </div>
 
                   <button
                     className={classNames('usa-button', 'usa-button-secondary')}
-                    onClick={this.copyVaId}
+                    onClick={copy.bind(null, this.props.vaTrackingCode)}
                   >
                     <span
                       className={classNames(
@@ -153,7 +152,7 @@ class UploadBenefitsFormSuccess extends React.Component<IUploadBenefitsResponseP
 
               <button
                 className={classNames('usa-button', 'usa-button-secondary')}
-                onClick={this.copyConfirmationCode}
+                onClick={copy.bind(null, this.props.trackingCode)}
               >
                 <span
                   className={classNames(
