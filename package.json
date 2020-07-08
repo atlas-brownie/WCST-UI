@@ -86,7 +86,7 @@
     "test:accessibility": "node scripts/test.js --projects=e2e.jest.config.js --testMatch='<rootDir>/src/**/*.(accessibility).(j|t)s?(x)'",
     "test:accessibility:ci": "node scripts/test.js --projects=e2e.jest.config.js --testMatch='<rootDir>/src/**/?(*.)(accessibility).(j|t)s?(x)' --ci --testResultsProcessor='./node_modules/jest-junit-reporter' --forceExit",
     "test:visual": "node scripts/test.js --projects=visual.jest.config.js --runInBand",
-    "test:coverage": "node scripts/test.js --projects=unit.jest.config.js --coverage=true --reporters=jest-junit"
+    "test:coverage": "node scripts/test.js --projects=unit.jest.config.js --coverage=true --reporters=jest-junit --collectCoverageFrom=src/**/*.ts --collectCoverageFrom=src/**/*.tsx  --collectCoverageFrom=!src/config/**"
   },
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.10.4",
