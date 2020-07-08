@@ -118,7 +118,16 @@ class UploadBenefitsFormSuccess extends React.Component<IUploadBenefitsResponseP
                 className={classNames('usa-button', 'usa-button-secondary')}
                 onClick={this.copyCodeToClipboard}
               >
-                Copy to Clipboard
+                <span
+                  className={classNames(
+                    'vads-u-display--flex',
+                    'vads-u-align-items--center',
+                    'vads-u-flex-wrap--nowrap',
+                  )}
+                >
+                  <i className={classNames('fa', 'fa-paste')} />
+                  <span className={classNames('vads-u-margin-x--2')}>Copy to Clipboard</span>
+                </span>
               </button>
             </div>
 
