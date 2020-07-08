@@ -3,7 +3,7 @@
   "linterOptions": {
     "exclude": ["config/**/*.js", "node_modules/**/*.ts"]
   },
-  "rulesDirectory": ["node_modules/tslint-microsoft-contrib"],
+  "rulesDirectory": ["/src/node_modules/tslint-microsoft-contrib"],
   "rules": {
     "indent": [true, "spaces", 2],
     "semicolon": [true, "always"],
