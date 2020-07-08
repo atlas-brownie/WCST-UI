@@ -5,7 +5,7 @@ import * as constants from '../types/constants';
 import * as actions from './upload-benefits';
 
 afterEach(() => {
-  fetchMock.resetMocks();
+  // fetchMock.resetMocks();
 });
 
 // const appState = {

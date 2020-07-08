@@ -5,7 +5,7 @@ import * as constants from '../types/constants';
 import * as actions from './benefits-status';
 
 afterEach(() => {
-  fetchMock.resetMocks();
+  // fetchMock.resetMocks();
 });
 
 describe('updateBenefitsStatusConfirmationCode', () => {
