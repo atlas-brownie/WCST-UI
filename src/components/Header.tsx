@@ -48,7 +48,7 @@ export default class Header extends React.Component<{}, IHeaderState> {
   // }
 
   public handleClick() {
-    this.setState(prevState => {
+    this.setState((prevState) => {
       return { isOn: !prevState.isOn };
     });
   }
@@ -128,12 +128,12 @@ export default class Header extends React.Component<{}, IHeaderState> {
 
                 <div>
                   <span className="ta-label">API REQUEST</span>
-                  <textarea readOnly={true}>{this.state.apiRequestString}</textarea>
+                  <textarea readOnly={true} defaultValue={this.state.apiRequestString} />
                 </div>
 
                 <div>
                   <span className="ta-label">API RESPONSE</span>
-                  <textarea readOnly={true}>{this.state.apiResponseString}</textarea>
+                  <textarea readOnly={true} defaultValue={this.state.apiResponseString} />
                 </div>
               </DropDownPanel>
               <div style={{ display: 'inline-block', color: '#fff' }}>{this.state.version}</div>
