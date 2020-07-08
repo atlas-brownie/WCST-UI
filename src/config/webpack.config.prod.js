@@ -104,7 +104,7 @@ const cssFilename = 'static/css/[name].[contenthash:8].css';
 // This is the production configuration.
 // It compiles slowly and is focused on producing a fast and minimal bundle.
 // The development configuration is different and lives in a separate file.
-module.exports = envName => {
+module.exports = (envName) => {
   return {
     // Don't attempt to continue if there are any errors.
     bail: true,
@@ -291,7 +291,7 @@ module.exports = envName => {
     output: {
       chunkFilename: 'static/js/[name].[chunkhash:8].chunk.js',
       // Point sourcemap entries to original disk location (format as URL on Windows)
-      devtoolModuleFilenameTemplate: info =>
+      devtoolModuleFilenameTemplate: (info) =>
         path.relative(paths.appSrc, info.absoluteResourcePath).replace(/\\/g, '/'),
       // Generated JS file names (with nested folders).
       // There will be one main bundle, and one file per asynchronous chunk.
@@ -303,7 +303,7 @@ module.exports = envName => {
       publicPath: publicPath,
     },
     performance: {
-      assetFilter: function(assetFilename) {
+      assetFilter: function (assetFilename) {
         // only check CSS bundle size, as our JS bundle is currently over 2M
         return assetFilename.endsWith('.css');
       },
@@ -376,7 +376,7 @@ module.exports = envName => {
       // solution that requires the user to opt into importing specific locales.
       // https://github.com/jmblog/how-to-optimize-momentjs-with-webpack
       // You can remove this if you don't use Moment.js:
-      new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+      // new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
       // Generate a service worker script that will precache, and keep up to date,
       // the HTML & assets that are part of the Webpack build.
       new WorkboxWebpackPlugin.GenerateSW({
