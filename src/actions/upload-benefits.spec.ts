@@ -8,6 +8,12 @@ afterEach(() => {
   fetchMock.resetMocks();
 });
 
+describe('upload-status actions', () => {
+  it('returns "actions"', () => {
+    expect(actions);
+  });
+});
+
 // const appState = {
 //   uploadBenefits: {
 //     inputs: {

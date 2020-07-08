@@ -8,6 +8,12 @@ afterEach(() => {
   fetchMock.resetMocks();
 });
 
+describe('benefits-status actions', () => {
+  it('returns "actions"', () => {
+    expect(actions);
+  });
+});
+
 describe('updateBenefitsStatusConfirmationCode', () => {
   it('should return the input value if the value is not dirty', () => {
     const newValue = {
