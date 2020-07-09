@@ -1,49 +1,39 @@
-# WCST
+# WCST React Application (Background)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The Veteran Widget Product Office (VWPO) is responsible for managing various digital
+products that help Department of Veterans Affairs (VA) business lines deliver on their
+missions. This app specifically allows Verterans to submit their claim form (Form T4NG) via pdf upload through a self-service public web-application: the Widget Claims Submission Tool (WCST). The form is submitted directly to the Verterans Benefits Adminstration's (VBA) claims intake process via the Benefits Intake Application Programming INterface (API).
 
-## Available Scripts
+## Getting Started
 
-In the project directory, you can run:
+First, clone the repo via SSH or HTTPS.
 
-### `npm start`
+SSH:
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```
+git clone git@github.com:atlas-brownie/WCST-UI.git
+```
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+HTTPS:
 
-### `npm test`
+```
+git clone https://github.com/atlas-brownie/WCST-UI.git
+```
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Next, go into the root of the project install the package.json modules:
 
-### `npm run build`
+```
+npm install
+```
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Now start the app:
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+```
+npm start
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Enhance Developer Experience
-
-Install Chrome React DevTools Extension: https://chrome.google.com/webstore/detail/react-developer-tools/fmkadmapgofadopljbjfkapdkoienihi?hl=en
-
-Install Chrome Redux DevTools Extension: https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd?hl=en
+At this point you should have a browser open to http://localhost:3000, with the developer portal loaded. If you make changes to the
+code, your browser should auto-reload the page.
 
 ## Learn More
 

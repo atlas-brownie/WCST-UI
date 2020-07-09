@@ -1,0 +1,34 @@
+import { Action, ActionCreator } from 'redux';
+import * as constants from '../types/constants';
+
+export * from './upload-benefits';
+export * from './benefits-status';
+
+export interface ISetRequestedApiVersion extends Action {
+  type: constants.SET_REQUESTED_API_VERSION;
+  version: string;
+}
+
+export interface ISetInitialVersioning extends Action {
+  docUrl: string;
+  metadata: any;
+  type: constants.SET_INITIAL_VERSIONING;
+}
+
+export const setRequstedApiVersion: ActionCreator<ISetRequestedApiVersion> = (version: string) => {
+  return {
+    type: constants.SET_REQUESTED_API_VERSION,
+    version,
+  };
+};
+
+export const setInitialVersioning: ActionCreator<ISetInitialVersioning> = (
+  docUrl: string,
+  metadata: any,
+) => {
+  return {
+    docUrl,
+    metadata,
+    type: constants.SET_INITIAL_VERSIONING,
+  };
+};

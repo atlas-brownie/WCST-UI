@@ -1,21 +1,22 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+# See https://help.github.com/ignore-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
-/.pnp
-.pnp.js
+node_modules
 
 # testing
-/coverage
-junit.xml
+coverage
+lint-results.xml
+test-report.xml
 
 # production
-/build
-/storybook-static
+build
+
+# css
+src/**/*.css
 
 # misc
 .DS_Store
-.env.local
+.env
 .env.development.local
 .env.test.local
 .env.production.local
@@ -23,3 +24,11 @@ junit.xml
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# Visual regression diffs
+src/__image_snapshots__/__diff_output__
+test/image_snapshots/diff_output
+test/image_snapshots/__diff_output__
+
+# Text editors
+.vscode/

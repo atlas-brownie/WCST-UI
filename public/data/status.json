@@ -1,6 +1,0 @@
-[
-  { "id": 1, "status": "Unassigned" },
-  { "id": 2, "status": "Open" },
-  { "id": 3, "status": "In Progress" },
-  { "id": 4, "status": "Closed" }
-]

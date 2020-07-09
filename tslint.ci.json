@@ -1,0 +1,12 @@
+{
+  "extends": ["./tslint.json"],
+  "rules": {
+    "no-console": {
+      "severity": "error"
+    },
+    "prefer-const": {
+      "severity": "error"
+    }
+  }
+}
+

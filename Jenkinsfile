@@ -3,14 +3,23 @@ pipeline {
     environment {
         HOME = '.'
     }
-    
+
     stages {
+        stage('Notify Start') {
+            steps {
+                slackSend channel: '#dev-notifications',
+                          message: 'Jenkins UI pipeline build started'
+            }
+        }
+
         stage('Initialize') {
             steps {
                 sh '''
                 echo "PATH = ${PATH}"
+                echo "${GIT_COMMIT}"
                 node -v
                 npm -v
+                sed -i "s/.*REACT_APP_VERSION.*/REACT_APP_VERSION=${GIT_COMMIT}/" .env.production    
                 '''
             }
         }
@@ -51,16 +60,21 @@ pipeline {
                     // Delete files from directory first.
                     s3Delete(bucket:"dev.mblsto2020.com", path:'/')
                     // Upload files from working directory 'dist' in your project workspace
-                    s3Upload(bucket:"dev.mblsto2020.com", workingDir:'build/dev', includePathPattern:'/');
+                    s3Upload(bucket:"dev.mblsto2020.com", workingDir:'build/dev', includePathPattern:'**/*');
                 }
             }
         }
-        
-        stage('Slack') {
-            steps {
-                slackSend channel: '#dev-notifications',
-                          message: 'Jenkins pipeline build completed'
-            }
+    }
+
+    post {
+		    success {
+            slackSend channel: '#dev-notifications',
+                      message: 'Jenkins UI pipeline build completed'
         }
+		
+		    failure {
+			      slackSend channel: '#dev-notifications',
+					            message: 'Jenkins UI pipeline build failed'
+		    }
     }
 }
