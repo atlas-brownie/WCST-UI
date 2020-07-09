@@ -3,11 +3,7 @@ pipeline {
     environment {
         HOME = '.'
     }
-    
-    def text = readFile ".env.dev"
-    text.replaceAll("REACT_APP_VERSION*", "REACT_APP_VERSION=${GIT_COMMIT}")
-    writeFile ".ev.dev" text
-    
+
     stages {
         stage('Notify Start') {
             steps {
@@ -24,6 +20,11 @@ pipeline {
                 node -v
                 npm -v
                 '''
+                script {
+                    def text = readFile ".env.dev"
+                    text.replaceAll("REACT_APP_VERSION*", "REACT_APP_VERSION=${GIT_COMMIT}")
+                    writeFile ".ev.dev" text
+                }
             }
         }
         
