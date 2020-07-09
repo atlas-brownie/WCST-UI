@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import classNames from 'classnames';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { ThunkDispatch } from 'redux-thunk';
 
 import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
@@ -71,20 +72,6 @@ class BenefitsStatusForm extends React.Component<IBenefitsStatusProps> {
                     'vads-u-margin-y--2',
                   )}
                 >
-                  {/* <div className={classNames('va-api-nav-secondary')}>
-                  <Link to="/" className={classNames('usa-button', 'usa-button-secondary')}>
-                    <span
-                      className={classNames(
-                        'vads-u-display--flex',
-                        'vads-u-align-items--center',
-                        'vads-u-flex-wrap--nowrap',
-                      )}
-                    >
-                      <i className={classNames('fa', 'fa-angle-double-left')} />
-                      <span className={classNames('vads-u-margin-x--2')}>Back</span>
-                    </span>
-                  </Link>
-                </div> */}
                   <ProgressButton
                     buttonText={props.sending ? 'Sending...' : <span>Check Status</span>}
                     disabled={!this.readyToSubmit() || props.sending}
@@ -97,6 +84,20 @@ class BenefitsStatusForm extends React.Component<IBenefitsStatusProps> {
                 </div>
               </fieldset>
               {this.renderInfo()}
+              <div className={classNames('va-api-nav-secondary', 'vads-u-margin-top--1')}>
+                <Link to="/" className={classNames('usa-button', 'usa-button-secondary')}>
+                  <span
+                    className={classNames(
+                      'vads-u-display--flex',
+                      'vads-u-align-items--center',
+                      'vads-u-flex-wrap--nowrap',
+                    )}
+                  >
+                    <i className={classNames('fa', 'fa-angle-double-left')} />
+                    <span className={classNames('vads-u-margin-x--2')}>Back</span>
+                  </span>
+                </Link>
+              </div>
             </form>
           </div>
           <div
@@ -149,7 +150,7 @@ class BenefitsStatusForm extends React.Component<IBenefitsStatusProps> {
 
   private allFieldsComplete() {
     const fieldNames = ['confirmationCode'];
-    const incompleteFields = fieldNames.filter(fieldName => {
+    const incompleteFields = fieldNames.filter((fieldName) => {
       return !this.props.inputs[fieldName].value;
     });
     return incompleteFields.length === 0;

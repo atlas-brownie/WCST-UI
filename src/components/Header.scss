@@ -1,6 +1,4 @@
-header {
-  padding: 0 128px;
-}
+@import '~@department-of-veterans-affairs/formation/sass/base/b-breakpoints';
 
 .va-api-logo {
   max-width: 264px;
@@ -42,12 +40,20 @@ a.va-api-skipnav {
 }
 
 .va-dropdown-panel {
-  width: 300px;
+  width: 800px;
+  right: -100px;
+  max-height: 80vh;
+  overflow-y: auto;
+
+  @media (max-width: $small-screen) {
+    width: 100vw;
+    left: 0;
+  }
 }
 
-.ta-label {
-  font-weight: bold;
-  color: #2e3743;
+.mobile-va-dropdown-panel {
+  max-height: 720px;
+  overflow-y: auto;
 }
 
 textarea {

@@ -1,9 +1,9 @@
 'use strict';
 
 // Do this as the first thing so that any code reading it knows the right env.
-process.env.BABEL_ENV = 'development';
-process.env.NODE_ENV = 'development';
-process.env.BUILD_ENV = 'dev';
+process.env.BABEL_ENV = process.env.BABEL_ENV || 'development';
+process.env.NODE_ENV = process.env.NODE_ENV  || 'development';
+process.env.BUILD_ENV = process.env.BUILD_ENV || 'dev';
 
 // explicitly use local environment variables in .env.local unless otherwise specified
 process.env.USE_LOCAL = process.env.USE_LOCAL || 'false';

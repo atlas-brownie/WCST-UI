@@ -160,7 +160,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                       this.props.clearErrorMessage();
                       history.push('/review-benefits-form');
                     }}
-                    buttonClass="usa-button-primary"
+                    buttonClass={classNames('usa-button-primary', 'vads-u-margin-left--2')}
                   />
                 </div>
               </fieldset>
@@ -180,7 +180,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
 
   private allFieldsComplete() {
     const fieldNames = ['fileNumber', 'veteranFirstName', 'veteranLastName', 'zipCode'];
-    const incompleteFields = fieldNames.filter(fieldName => {
+    const incompleteFields = fieldNames.filter((fieldName) => {
       return !this.props.inputs[fieldName].value;
     });
     return incompleteFields.length === 0;
@@ -188,14 +188,14 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
 
   private readyToSubmit() {
     const {
-      inputs: { contentFile, fileNumber },
+      inputs: { contentFile, fileNumber, zipCode },
     } = this.props;
 
-    console.log('readyToSubmit contentFile.lastModified=', contentFile.lastModified);
     const fileNumberComplete = fileNumber.value.length !== 0 && fileNumber.validation === undefined;
     const contentFileComplete = contentFile.lastModified !== -1;
+    const zipCodeComplete = zipCode.value.length !== 0 && zipCode.validation === undefined;
 
-    return this.allFieldsComplete() && fileNumberComplete && contentFileComplete;
+    return this.allFieldsComplete() && fileNumberComplete && contentFileComplete && zipCodeComplete;
   }
 }
 

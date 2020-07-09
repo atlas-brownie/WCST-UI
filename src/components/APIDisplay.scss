@@ -1,0 +1,25 @@
+@import '~@department-of-veterans-affairs/formation/sass/base/b-breakpoints';
+
+.content-wrapper {
+  background-color: #222222;
+  color: #ffffff;
+  overflow-wrap: break-word;
+}
+
+.ta-label {
+  font-weight: bold;
+}
+
+.item-label {
+  display: inline-block;
+  width: 20rem;
+}
+
+.item-value {
+  display: inline-block;
+  width: 50rem;
+
+  @media (max-width: $small-screen) {
+    width: 100%;
+  }
+}

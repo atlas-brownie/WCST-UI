@@ -9,6 +9,8 @@ import Header from './components/Header';
 import PageContent from './components/PageContent';
 import { history } from './store';
 
+// import { defaultUploadBenefitsResponsePayload } from './reducers';
+
 import 'highlight.js/styles/atom-one-dark-reasonable.css';
 import './styles/base.scss';
 

@@ -3,7 +3,7 @@ pipeline {
     environment {
         HOME = '.'
     }
-    
+
     stages {
         stage('Notify Start') {
             steps {
@@ -16,14 +16,21 @@ pipeline {
             steps {
                 sh '''
                 echo "PATH = ${PATH}"
+                echo "${GIT_COMMIT}"
                 node -v
                 npm -v
                 '''
+//                script {
+//                    def text = readFile ".env.dev"
+//                    text.replaceAll("REACT_APP_VERSION*", "REACT_APP_VERSION=${GIT_COMMIT}")
+//                    writeFile file: ".env.dev", text: text
+//                }
             }
         }
         
         stage('Install Packages') {
             steps {
+                sh 'sed -i "s/.*REACT_APP_VERSION.*/REACT_APP_VERSION=${GIT_COMMIT}/" .env.production'
                 sh 'npm install'
                 sh 'npm audit fix'
             }
@@ -56,9 +63,9 @@ pipeline {
             steps {
                 withAWS(region:'us-east-1',credentials:'pchong-aws-credentials') {
                     // Delete files from directory first.
-                    s3Delete(bucket:"dev.mblsto2020.com", path:'**/*')
+                    s3Delete(bucket:"dev.mblsto2020.com", path:'/')
                     // Upload files from working directory 'dist' in your project workspace
-                    s3Upload(bucket:"dev.mblsto2020.com", workingDir:'build', includePathPattern:'**/*');
+                    s3Upload(bucket:"dev.mblsto2020.com", workingDir:'build/dev', includePathPattern:'**/*');
                 }
             }
         }

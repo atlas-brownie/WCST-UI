@@ -1,51 +1,58 @@
-import classNames from 'classnames';
 import * as React from 'react';
+
+import classNames from 'classnames';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 
 import DropDownPanel from '@department-of-veterans-affairs/formation-react/DropDownPanel';
 
-// import { defaultFlexContainer, desktopOnly, mobileOnly } from '../styles/vadsUtils';
+import { IRootState } from 'src/types';
+import headerLogo from '../assets/header-logo.png';
 import { defaultFlexContainer } from '../styles/vadsUtils';
 
-import headerLogo from '../assets/header-logo.png';
-
-import Banner from './Banner';
+import APIDisplay from './APIDisplay';
 import VeteransCrisisLine from './crisisLine/VeteransCrisisLine';
-// import NavBar from './NavBar';
-// import Search from './Search';
 
 import './Header.scss';
 
 interface IHeaderState {
-  apiRequestString: string;
-  apiResponseString: string;
   mobileNavVisible: boolean;
   open: boolean;
-  version: string;
   isOn: boolean;
 }
 
-export default class Header extends React.Component<{}, IHeaderState> {
-  constructor(props: {}) {
+export interface IHeaderProps {
+  journal: any[];
+  version: string;
+}
+
+const mapStateToProps = (state: IRootState) => {
+  const pathname = state.routing.location?.pathname;
+  let displayJournal = [];
+  if (pathname === '/check-benefits-status-form-success') {
+    displayJournal = state.benefitsStatus.result?.journal || [];
+  } else {
+    displayJournal = state.uploadBenefits.result?.journal || [];
+  }
+  return {
+    journal: displayJournal,
+    version: state.environment.version,
+  };
+};
+
+class Header extends React.Component<IHeaderProps, IHeaderState> {
+  constructor(props: IHeaderProps) {
     super(props);
     this.state = {
-      apiRequestString:
-        "curl -X POST 'https://sandbox-api.va.gov/services/vba_documents/v1/uploads'  --data-row '{}'",
-      apiResponseString: 'example response',
       isOn: false,
       mobileNavVisible: false,
       open: false,
-      version: 'Version 1.0.2',
     };
 
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
   }
-
-  // public handleClick() {
-  //   this.setState({ isOn: !this.state.isOn });
-  // }
 
   public handleClick() {
     this.setState((prevState) => {
@@ -54,19 +61,16 @@ export default class Header extends React.Component<{}, IHeaderState> {
   }
 
   public render() {
-    // const navBarCloseHandler = this.toggleMenuVisible.bind(this);
-    // const buttonClassnames = classNames(
-    //   'usa-button',
-    //   'vads-u-background-color--white',
-    //   'vads-u-color--primary-darkest',
-    //   'vads-u-margin-right--2',
-    // );
-
     return (
       <React.Fragment>
         <header
           role="banner"
-          className={classNames('va-api-header', 'vads-u-background-color--primary-darkest')}
+          className={classNames(
+            'va-api-header',
+            'va-api-header',
+            'vads-u-background-color--primary-darkest',
+            'medium-screen:vads-u-padding-x--4',
+          )}
         >
           <HashLink
             to="#main"
@@ -75,13 +79,13 @@ export default class Header extends React.Component<{}, IHeaderState> {
           >
             Skip to main content
           </HashLink>
-          <Banner />
           <VeteransCrisisLine />
           <div
             className={classNames(
               defaultFlexContainer(true),
               'vads-u-justify-content--space-between',
               'medium-screen:vads-u-padding-x--4',
+              'xsmall-screen:vads-u-margin-y--1',
               'medium-screen:vads-u-margin-y--2',
             )}
           >
@@ -113,42 +117,17 @@ export default class Header extends React.Component<{}, IHeaderState> {
                 contents="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ullamcorper at eros eu suscipit. Ut imperdiet libero et luctus pretium."
                 clickHandler={() => this.setState({ open: !this.state.open })}
               >
-                <div>
-                  {/* <span style={{ position: 'relative', top: '15px' }}>API is: </span>
-
-                  <button
-                    type="button"
-                    className="usa-button"
-                    style={{ float: 'right' }}
-                    onClick={this.handleClick}
-                  >
-                    {this.state.isOn ? 'ON' : 'OFF'}
-                  </button> */}
-                </div>
-
-                <div>
-                  <span className="ta-label">API REQUEST</span>
-                  <textarea readOnly={true} defaultValue={this.state.apiRequestString} />
-                </div>
-
-                <div>
-                  <span className="ta-label">API RESPONSE</span>
-                  <textarea readOnly={true} defaultValue={this.state.apiResponseString} />
-                </div>
+                <APIDisplay journal={this.props.journal} />
               </DropDownPanel>
-              <div style={{ display: 'inline-block', color: '#fff' }}>{this.state.version}</div>
+              <div style={{ display: 'inline-block', color: '#fff' }}>
+                Version: {this.props.version}
+              </div>
             </div>
           </div>
         </header>
       </React.Fragment>
     );
   }
-
-  // private toggleMenuVisible() {
-  //   this.setState((state: IHeaderState) => {
-  //     return { mobileNavVisible: !state.mobileNavVisible };
-  //   });
-  // }
 
   // need to manually set focus on navigation to #main, since React Router cancels
   // native anchor click behavior and react-router-hash-link doesn't handle focus
@@ -159,3 +138,5 @@ export default class Header extends React.Component<{}, IHeaderState> {
     }
   }
 }
+
+export default connect(mapStateToProps)(Header);

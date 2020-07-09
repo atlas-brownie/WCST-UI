@@ -129,6 +129,7 @@ describe('upload benefits', () => {
         payloadResponse: {
           claimStatus: 'pending',
           firstName: 'TestFirstName',
+          journal: [],
           lastName: 'TestLastName',
           submissionData: '',
           trackingCode: 'TestTrackingCode',
@@ -141,6 +142,7 @@ describe('upload benefits', () => {
         result: expect.objectContaining({
           claimStatus: 'pending',
           firstName: 'TestFirstName',
+          journal: [],
           lastName: 'TestLastName',
           submissionData: '',
           trackingCode: 'TestTrackingCode',

@@ -20,7 +20,7 @@ interface IUploadBenefitsFormFieldsProps {
   updateVeteranFirstName: (value: IErrorableInput) => void;
   updateVeteranLastName: (value: IErrorableInput) => void;
   updateFileNumber: (oldValidation?: string) => (value: IErrorableInput) => void;
-  updateZipCode: (value: IErrorableInput) => void;
+  updateZipCode: (oldValidation?: string) => (value: IErrorableInput) => void;
 }
 
 const mapStateToProps = (state: IRootState) => {
@@ -57,31 +57,49 @@ const mapDispatchToProps = (dispatch: UploadBenefitsFormFieldsDispatch) => {
     updateVeteranLastName: (value: IErrorableInput) => {
       dispatch(actions.updateBenefitsVeteranLastName(value));
     },
-    updateZipCode: (value: IErrorableInput) => {
-      dispatch(actions.updateBenefitsZipCode(value));
+    updateZipCode: (oldValidation?: string) => {
+      return (value: IErrorableInput) => {
+        dispatch(actions.updateBenefitsZipCode(value, oldValidation));
+      };
     },
   };
 };
 
-const getRequiredSpan = (props: IUploadBenefitsFormFieldsProps) => {
+const getFileUploadLabel = (props: IUploadBenefitsFormFieldsProps) => {
   const { contentFile } = props;
-  let requiredSpan;
+  let label;
   if (contentFile.lastModified === -1) {
-    requiredSpan = (
-      <span className="usa-input-error-message undefined" role="alert">
+    label = <span>Click to select files for upload.</span>;
+  } else {
+    label = <span>File selected for upload</span>;
+  }
+  return label;
+};
+
+const getFileUploadSublabel = (props: IUploadBenefitsFormFieldsProps) => {
+  const { contentFile } = props;
+  let sublabel;
+  if (contentFile.lastModified === -1) {
+    sublabel = (
+      <div className="usa-input-error-message undefined" role="alert">
         <span className="sr-only">Error</span>
         PDF document is required.
-      </span>
+      </div>
+    );
+  } else {
+    sublabel = (
+      <div role="alert">
+        <span>{contentFile.name}</span>
+      </div>
     );
   }
-  return requiredSpan;
+  return sublabel;
 };
 
 class UploadBenefitsFormFields extends React.Component<IUploadBenefitsFormFieldsProps> {
   constructor(props: IUploadBenefitsFormFieldsProps) {
     super(props);
     this.handleChangeContentFile = this.handleChangeContentFile.bind(this);
-    console.log('props=', props);
   }
 
   public render() {
@@ -89,9 +107,9 @@ class UploadBenefitsFormFields extends React.Component<IUploadBenefitsFormFields
       <React.Fragment>
         <div>Click to select the file from your device.</div>
         <div className="feature">
-          <h4>Click to select files for upload.</h4>
+          <h4>{getFileUploadLabel(this.props)}</h4>
           <div className={classNames('usa-input')}>
-            {getRequiredSpan(this.props)}
+            {getFileUploadSublabel(this.props)}
             <label
               role="button"
               tabIndex={0}
@@ -142,10 +160,11 @@ class UploadBenefitsFormFields extends React.Component<IUploadBenefitsFormFields
           />
 
           <ErrorableTextInput
+            errorMessage={this.props.zipCode.validation}
             label="Postal Code"
             placeholder="Type Postal Code"
             field={this.props.zipCode}
-            onValueChange={this.props.updateZipCode}
+            onValueChange={this.props.updateZipCode(this.props.zipCode.validation)}
             required={true}
             minLength={5}
             maxLength={10}
