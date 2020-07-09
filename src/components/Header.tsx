@@ -11,7 +11,7 @@ import { IRootState } from 'src/types';
 import headerLogo from '../assets/header-logo.png';
 import { defaultFlexContainer } from '../styles/vadsUtils';
 
-// import Banner from './Banner';
+import APIDisplay from './APIDisplay';
 import VeteransCrisisLine from './crisisLine/VeteransCrisisLine';
 
 import './Header.scss';
@@ -23,7 +23,7 @@ interface IHeaderState {
 }
 
 export interface IHeaderProps {
-  journal: string[];
+  journal: any[];
   version: string;
 }
 
@@ -58,9 +58,6 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
   }
 
   public render() {
-    const apiRequestString = JSON.stringify(this.props.journal);
-    console.log('Header this.props=', this.props, apiRequestString);
-
     return (
       <React.Fragment>
         <header
@@ -74,7 +71,6 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
           >
             Skip to main content
           </HashLink>
-          {/* <Banner /> */}
           <VeteransCrisisLine />
           <div
             className={classNames(
@@ -112,17 +108,7 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
                 contents="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ullamcorper at eros eu suscipit. Ut imperdiet libero et luctus pretium."
                 clickHandler={() => this.setState({ open: !this.state.open })}
               >
-                <div>what is this?</div>
-
-                <div>
-                  <span className="ta-label">API REQUEST</span>
-                  <textarea rows={50} readOnly={true} value={apiRequestString} />
-                </div>
-
-                {/* <div>
-                  <span className="ta-label">API RESPONSE</span>
-                  <textarea readOnly={true} defaultValue={this.state.apiResponseString} />
-                </div> */}
+                <APIDisplay journal={this.props.journal} />
               </DropDownPanel>
               <div style={{ display: 'inline-block', color: '#fff' }}>
                 Version: {this.props.version}
@@ -133,12 +119,6 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
       </React.Fragment>
     );
   }
-
-  // private toggleMenuVisible() {
-  //   this.setState((state: IHeaderState) => {
-  //     return { mobileNavVisible: !state.mobileNavVisible };
-  //   });
-  // }
 
   // need to manually set focus on navigation to #main, since React Router cancels
   // native anchor click behavior and react-router-hash-link doesn't handle focus
