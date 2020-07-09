@@ -1,21 +1,39 @@
 import 'jest';
 import * as React from 'react';
 
-import { shallow } from 'enzyme';
+import { mount } from 'enzyme';
 import UploadBenefitsFormSuccess, {
   IUploadBenefitsFormSuccessProps,
 } from './UploadBenefitsFormSuccess';
 
-const c: IUploadBenefitsFormSuccessProps = {
+import { Provider } from 'react-redux';
+import { MemoryRouter } from 'react-router-dom';
+import store from '../../store';
+
+export const AppProviders: React.FunctionComponent = ({ children }): React.ReactElement => {
+  return (
+    <Provider store={store}>
+      <MemoryRouter>{children}</MemoryRouter>
+    </Provider>
+  );
+};
+
+const testProps: IUploadBenefitsFormSuccessProps = {
   claimStatus: 'received',
-  firstName: 'ddd',
+  firstName: 'firstName',
   isRedirectUploadBenefitsForm: false,
   journal: [],
-  lastName: 'dkksdj',
+  lastName: 'lastName',
   submissionData: '',
   trackingCode: '',
   vaTrackingCode: '',
 };
+
+const componentTree = mount(
+  <AppProviders>
+    <UploadBenefitsFormSuccess {...testProps} />
+  </AppProviders>,
+);
 
 describe('applyHeader2', () => {
   it('returns "applyHeader2"', () => {
@@ -23,6 +41,6 @@ describe('applyHeader2', () => {
   });
 
   it('should render the apply header 2', () => {
-    expect(shallow(<UploadBenefitsFormSuccess {...c} />).find('.vads-l-row').length).toBe(1);
+    expect(componentTree).toBeTruthy();
   });
 });
