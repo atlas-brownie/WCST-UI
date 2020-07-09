@@ -92,7 +92,7 @@ export const submitBenefitsForm: ActionCreator<SubmitBenefitsFormThunk> = () => 
 
     const benefitsFormData = buildBenefitsBody(state());
 
-    const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads`;
+    const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads`.replace('//api', '/api');
 
     const request = new Request(url, {
       body: benefitsFormData,
