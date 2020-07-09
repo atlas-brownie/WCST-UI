@@ -31,6 +31,7 @@ export default class APIDisplay extends React.Component<IAPIDisplayProps> {
               <div
                 key={`api-${itemIndex}`}
                 className={classNames(
+                  'content-wrapper',
                   'vads-u-border--1px',
                   'vads-u-margin-top--1',
                   'vads-u-padding--1',
