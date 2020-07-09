@@ -36,8 +36,4 @@ const store = createStore(
   compose(applyMiddleware(middleware), applyMiddleware(thunk as ThunkMiddleware<IRootState>)),
 );
 
-console.log('store=', store.getState());
-
-// store.subscribe(debounce(() => {}));
-
 export default store;
