@@ -180,7 +180,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
 
   private allFieldsComplete() {
     const fieldNames = ['fileNumber', 'veteranFirstName', 'veteranLastName', 'zipCode'];
-    const incompleteFields = fieldNames.filter(fieldName => {
+    const incompleteFields = fieldNames.filter((fieldName) => {
       return !this.props.inputs[fieldName].value;
     });
     return incompleteFields.length === 0;
@@ -191,7 +191,6 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
       inputs: { contentFile, fileNumber },
     } = this.props;
 
-    console.log('readyToSubmit contentFile.lastModified=', contentFile.lastModified);
     const fileNumberComplete = fileNumber.value.length !== 0 && fileNumber.validation === undefined;
     const contentFileComplete = contentFile.lastModified !== -1;
 

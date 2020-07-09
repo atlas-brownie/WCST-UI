@@ -50,21 +50,20 @@ export const submitBenefitsStatusForm: ActionCreator<SubmitBenefitsStatusFormThu
     const { benefitsStatus } = state();
     const confirmationCode = benefitsStatus.inputs.confirmationCode.value;
 
-    // const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads/${confirmationCode}`;
-    const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads/va/${confirmationCode}`;
+    const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads/${confirmationCode}`;
+
+    // WCST Tracking ID (mainly for testing but a back-up in case of emergency)
+    // const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads/va/${confirmationCode}`;
 
     return fetch(url)
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw Error(response.statusText);
         }
         return response;
       })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((responseJson: IBenefitsStatusSuccessResult) => {
-        // .then(json => {
-        console.log('benefits-status responseJson=', responseJson);
-        // const responseStatus = getResponseStatus(json);
         if (responseJson.hasError) {
           return dispatch(submitBenefitsStatusFormError(responseJson.message));
         } else {
@@ -74,8 +73,8 @@ export const submitBenefitsStatusForm: ActionCreator<SubmitBenefitsStatusFormThu
           return result;
         }
       })
-      .catch(error => {
-        Sentry.withScope(scope => {
+      .catch((error) => {
+        Sentry.withScope((scope) => {
           scope.setLevel(Sentry.Severity.fromString('warning'));
           Sentry.captureException(error);
         });
@@ -90,7 +89,9 @@ export const submitBenefitsStatusFormBegin: ActionCreator<ISubmitBenefitsStatusF
   };
 };
 
-export const submitBenefitsStatusFormSuccess: ActionCreator<ISubmitBenefitsStatusFormSuccess> = payloadResponse => {
+export const submitBenefitsStatusFormSuccess: ActionCreator<ISubmitBenefitsStatusFormSuccess> = (
+  payloadResponse,
+) => {
   return {
     payloadResponse,
     type: constants.SUBMIT_BENEFITS_STATUS_SUCCESS,

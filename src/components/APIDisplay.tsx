@@ -9,7 +9,6 @@ interface IAPIDisplayProps {
 
 export default class APIDisplay extends React.Component<IAPIDisplayProps> {
   public render() {
-    console.log('APIDisplay this.props.journal=', this.props.journal);
     const { journal } = this.props;
     if (journal.length === 0) {
       return (

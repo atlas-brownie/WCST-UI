@@ -71,7 +71,6 @@ export type SubmitBenefitsFormThunk = ThunkAction<
 >;
 
 function buildBenefitsBody({ uploadBenefits }: IRootState): FormData {
-  console.log('buildBenefitsBody uploadBenefits=', uploadBenefits);
   const formData = new FormData();
   const claimFile = uploadBenefits.inputs.contentFile;
   const firstName = uploadBenefits.inputs.veteranFirstName.value;
@@ -94,7 +93,6 @@ export const submitBenefitsForm: ActionCreator<SubmitBenefitsFormThunk> = () => 
     const benefitsFormData = buildBenefitsBody(state());
 
     const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads`;
-    console.log('url = ', url);
 
     const request = new Request(url, {
       body: benefitsFormData,
@@ -104,16 +102,15 @@ export const submitBenefitsForm: ActionCreator<SubmitBenefitsFormThunk> = () => 
       method: 'POST',
     });
     return fetch(request)
-      .then(response => {
+      .then((response) => {
         console.log('upload-benefits response=', response);
         if (!response.ok) {
           throw Error(response.statusText);
         }
         return response;
       })
-      .then(response => response.json())
+      .then((response) => response.json())
       .then((responseJson: IUploadBenefitsSuccessResult) => {
-        console.log('upload-benefits responseJson=', responseJson);
         if (responseJson.hasError) {
           return dispatch(submitBenefitsFormError(responseJson.message));
         } else {
@@ -123,9 +120,8 @@ export const submitBenefitsForm: ActionCreator<SubmitBenefitsFormThunk> = () => 
           return result;
         }
       })
-      .catch(error => {
-        console.log('upload-benefits error=', error);
-        Sentry.withScope(scope => {
+      .catch((error) => {
+        Sentry.withScope((scope) => {
           scope.setLevel(Sentry.Severity.fromString('warning'));
           Sentry.captureException(error);
         });
@@ -140,7 +136,9 @@ export const submitBenefitsFormBegin: ActionCreator<ISubmitBenefitsForm> = () =>
   };
 };
 
-export const submitBenefitsFormSuccess: ActionCreator<ISubmitBenefitsFormSuccess> = payloadResponse => {
+export const submitBenefitsFormSuccess: ActionCreator<ISubmitBenefitsFormSuccess> = (
+  payloadResponse,
+) => {
   return {
     payloadResponse,
     type: constants.SUBMIT_BENEFITS_SUCCESS,
