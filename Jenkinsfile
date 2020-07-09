@@ -16,7 +16,7 @@ pipeline {
             steps {
                 sh '''
                 echo "PATH = ${PATH}"
-                echo "$GIT_COMMIT"
+                echo "${GIT_COMMIT}"
                 node -v
                 npm -v
                 '''
