@@ -58,7 +58,10 @@ class Home extends React.Component {
               <ul>
                 <li>Completed Form T4NG in PDF Format</li>
               </ul>
-              If you need a blank copy, you can <a href={formUrl}>download Form T4NG</a>
+              If you need a blank copy, you can{' '}
+              <a href={formUrl} target="_blank">
+                download Form T4NG
+              </a>
             </li>
             <li className="process-step list-two">
               <b>Upload</b>
