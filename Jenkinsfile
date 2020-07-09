@@ -3,7 +3,7 @@ pipeline {
     environment {
         HOME = '.'
     }
-    
+
     stages {
         stage('Notify Start') {
             steps {
@@ -16,9 +16,15 @@ pipeline {
             steps {
                 sh '''
                 echo "PATH = ${PATH}"
+                echo "${GIT_COMMIT}"
                 node -v
                 npm -v
                 '''
+                script {
+                    def text = readFile ".env.dev"
+                    text.replaceAll("REACT_APP_VERSION*", "REACT_APP_VERSION=${GIT_COMMIT}")
+                    writeFile file: ".env.dev", text: text
+                }
             }
         }
         
@@ -35,16 +41,16 @@ pipeline {
             }
         }
         
-//        stage('Code Quality') {
-//            steps {
-//                script {
-//                    def scannerHome = tool 'SonarQube';
-//                    withSonarQubeEnv("SonarQubeServer") {
-//                        sh "${tool("SonarQube")}/bin/sonar-scanner"
-//                    }
-//                }
-//            }
-//        }
+        stage('Code Quality') {
+            steps {
+                script {
+                    def scannerHome = tool 'SonarQube';
+                    withSonarQubeEnv("SonarQubeServer") {
+                        sh "${tool("SonarQube")}/bin/sonar-scanner"
+                    }
+                }
+            }
+        }
         
         stage('Build') {
             steps {
