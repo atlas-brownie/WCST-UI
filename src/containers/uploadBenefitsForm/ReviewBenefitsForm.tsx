@@ -8,11 +8,14 @@ import { ThunkDispatch } from 'redux-thunk';
 import AlertBox from '@department-of-veterans-affairs/formation-react/AlertBox';
 import ProgressButton from '@department-of-veterans-affairs/formation-react/ProgressButton';
 
+import { isEmpty } from 'lodash';
+import { Redirect } from 'react-router-dom';
 import * as actions from '../../actions';
 import { IBenefits, IRootState } from '../../types';
 import ReviewBenefitsFormFields from './ReviewBenefitsFormFields';
 
 interface IBenefitsProps extends IBenefits {
+  isRedirectUploadBenefitsForm: boolean;
   submitForm: () => void;
 }
 
@@ -32,6 +35,7 @@ const mapDispatchToProps = (dispatch: BenefitsDispatch) => {
 
 const mapStateToProps = (state: IRootState) => {
   return {
+    isRedirectUploadBenefitsForm: isEmpty(state.uploadBenefits.inputs.fileNumber.value),
     ...state.uploadBenefits,
   };
 };
@@ -39,112 +43,98 @@ const mapStateToProps = (state: IRootState) => {
 class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
   public render() {
     const { ...props } = this.props;
-    return (
-      <div role="region" aria-labelledby="benefits-header">
-        {/* <ApplyHeader /> */}
+    if (props.isRedirectUploadBenefitsForm) {
+      return <Redirect to="/upload-benefits-form" />;
+    } else {
+      return (
+        <div role="region" aria-labelledby="benefits-header">
+          {/* <ApplyHeader /> */}
 
-        <div
-          className={classNames(
-            'vads-l-col--12',
-            'medium-screen:vads-l-col--12',
-            'vads-u-padding-x--2p5',
-          )}
-        >
-          <div className="vads-l-row">
-            <form className={classNames('vads-u-margin-x--auto')}>
-              <div
-                className={classNames(
-                  'vads-u-display--flex',
-                  'vads-u-flex-direction--row',
-                  'vads-u-align-items--center',
-                  'vads-u-flex-wrap--nowrap',
-                  'vads-u-margin-y--2',
-                )}
-              >
+          <div
+            className={classNames(
+              'vads-l-col--12',
+              'medium-screen:vads-l-col--12',
+              'vads-u-padding-x--2p5',
+            )}
+          >
+            <div className="vads-l-row">
+              <form className={classNames('vads-u-margin-x--auto')}>
                 <div
                   className={classNames(
-                    'progress-segment',
-                    'progress-segment-complete',
-                    'vads-u-padding-y--0p5',
+                    'vads-u-display--flex',
+                    'vads-u-flex-direction--row',
+                    'vads-u-align-items--center',
+                    'vads-u-flex-wrap--nowrap',
+                    'vads-u-margin-y--2',
                   )}
-                />
-                <div
-                  className={classNames(
-                    'progress-segment',
-                    'progress-segment-complete',
-                    'vads-u-padding-y--0p5',
-                  )}
-                />
-              </div>
-              <div
-                className={classNames(
-                  'vads-u-display--flex',
-                  'vads-u-flex-direction--row',
-                  'vads-u-align-items--center',
-                  'vads-u-flex-wrap--nowrap',
-                  'vads-u-margin-y--2',
-                )}
-              >
-                <div className="fa-stack">
-                  <i
+                >
+                  <div
                     className={classNames(
-                      'fa',
-                      'fa-circle',
-                      'fa-stack-2x',
-                      'vads-u-color--primary',
-                      'vads-u-padding-x--0',
+                      'progress-segment',
+                      'progress-segment-complete',
+                      'vads-u-padding-y--0p5',
                     )}
                   />
-                  <strong className={classNames('fa-stack-1x', 'vads-u-color--white')}>2</strong>
+                  <div
+                    className={classNames(
+                      'progress-segment',
+                      'progress-segment-complete',
+                      'vads-u-padding-y--0p5',
+                    )}
+                  />
                 </div>
-                <div>of 2</div>
-                <h4 className={classNames('vads-u-margin-x--1', 'vads-u-margin-y--0')}>
-                  Submit to the VA
-                </h4>
-              </div>
-              <div
-                className={classNames(
-                  'vads-u-display--flex',
-                  'vads-u-align-items--center',
-                  'vads-u-flex-wrap--nowrap',
-                  'vads-u-margin-y--2',
-                )}
-              >
-                <h2>Widget Claim</h2>
-                <span className={classNames('vads-u-margin-x--4')}>Form T4NG</span>
-              </div>
-              {this.renderError()}
-              <ReviewBenefitsFormFields />
-              <div
-                className={classNames(
-                  'vads-u-display--flex',
-                  'vads-u-flex-wrap--nowrap',
-
-                  'vads-u-margin-y--2',
-                )}
-              >
-                <div className={classNames('va-api-nav-secondary')}>
-                  <Link
-                    to="/upload-benefits-form"
-                    className={classNames('usa-button', 'usa-button-secondary')}
-                  >
-                    <span
+                <div
+                  className={classNames(
+                    'vads-u-display--flex',
+                    'vads-u-flex-direction--row',
+                    'vads-u-align-items--center',
+                    'vads-u-flex-wrap--nowrap',
+                    'vads-u-margin-y--2',
+                  )}
+                >
+                  <div className="fa-stack">
+                    <i
                       className={classNames(
-                        'vads-u-display--flex',
-                        'vads-u-align-items--center',
-                        'vads-u-flex-wrap--nowrap',
+                        'fa',
+                        'fa-circle',
+                        'fa-stack-2x',
+                        'vads-u-color--primary',
+                        'vads-u-padding-x--0',
                       )}
-                    >
-                      <i className={classNames('fa', 'fa-angle-double-left')} />
-                      <span className={classNames('vads-u-margin-x--2')}>Back</span>
-                    </span>
-                  </Link>
+                    />
+                    <strong className={classNames('fa-stack-1x', 'vads-u-color--white')}>2</strong>
+                  </div>
+                  <div>of 2</div>
+                  <h4 className={classNames('vads-u-margin-x--1', 'vads-u-margin-y--0')}>
+                    Submit to the VA
+                  </h4>
                 </div>
-                <ProgressButton
-                  buttonText={
-                    props.sending ? (
-                      'Sending...'
-                    ) : (
+                <div
+                  className={classNames(
+                    'vads-u-display--flex',
+                    'vads-u-align-items--center',
+                    'vads-u-flex-wrap--nowrap',
+                    'vads-u-margin-y--2',
+                  )}
+                >
+                  <h2>Widget Claim</h2>
+                  <span className={classNames('vads-u-margin-x--4')}>Form T4NG</span>
+                </div>
+                {this.renderError()}
+                <ReviewBenefitsFormFields />
+                <div
+                  className={classNames(
+                    'vads-u-display--flex',
+                    'vads-u-flex-wrap--nowrap',
+
+                    'vads-u-margin-y--2',
+                  )}
+                >
+                  <div className={classNames('va-api-nav-secondary')}>
+                    <Link
+                      to="/upload-benefits-form"
+                      className={classNames('usa-button', 'usa-button-secondary')}
+                    >
                       <span
                         className={classNames(
                           'vads-u-display--flex',
@@ -152,34 +142,52 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
                           'vads-u-flex-wrap--nowrap',
                         )}
                       >
-                        Submit
-                        <i
-                          className={classNames(
-                            'fa',
-                            'fa-angle-double-right',
-                            'vads-u-margin-x--2',
-                          )}
-                        />
+                        <i className={classNames('fa', 'fa-angle-double-left')} />
+                        <span className={classNames('vads-u-margin-x--2')}>Back</span>
                       </span>
-                    )
-                  }
-                  onButtonClick={props.submitForm}
-                  disabled={props.sending}
-                  buttonClass="usa-button-primary"
-                />
-              </div>
-            </form>
+                    </Link>
+                  </div>
+                  <ProgressButton
+                    buttonText={
+                      props.sending ? (
+                        'Sending...'
+                      ) : (
+                        <span
+                          className={classNames(
+                            'vads-u-display--flex',
+                            'vads-u-align-items--center',
+                            'vads-u-flex-wrap--nowrap',
+                          )}
+                        >
+                          Submit
+                          <i
+                            className={classNames(
+                              'fa',
+                              'fa-angle-double-right',
+                              'vads-u-margin-x--2',
+                            )}
+                          />
+                        </span>
+                      )
+                    }
+                    onButtonClick={props.submitForm}
+                    disabled={props.sending}
+                    buttonClass="usa-button-primary"
+                  />
+                </div>
+              </form>
+            </div>
+            <div
+              className={classNames(
+                'vads-l-col--12',
+                'medium-screen:vads-l-col--4',
+                'vads-u-padding-x--2p5',
+              )}
+            />
           </div>
-          <div
-            className={classNames(
-              'vads-l-col--12',
-              'medium-screen:vads-l-col--4',
-              'vads-u-padding-x--2p5',
-            )}
-          />
         </div>
-      </div>
-    );
+      );
+    }
   }
 
   private renderError() {
