@@ -13,7 +13,7 @@ export default class APIDisplay extends React.Component<IAPIDisplayProps> {
     if (journal.length === 0) {
       return (
         <h4 className={classNames('ta-label', 'vads-u-margin--2')}>
-          Watch here for VA API Access Information
+          VA API Access Information will appear here.
         </h4>
       );
     } else {

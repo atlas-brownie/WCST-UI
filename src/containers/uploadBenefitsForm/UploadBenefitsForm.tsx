@@ -160,7 +160,7 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
                       this.props.clearErrorMessage();
                       history.push('/review-benefits-form');
                     }}
-                    buttonClass="usa-button-primary"
+                    buttonClass={classNames('usa-button-primary', 'vads-u-margin-left--2')}
                   />
                 </div>
               </fieldset>
