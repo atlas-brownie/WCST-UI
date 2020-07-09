@@ -17,6 +17,7 @@ pipeline {
                 echo "PATH = ${PATH}"
                 node -v
                 npm -v
+                sed -i "s/.*REACT_APP_VERSION.*/REACT_APP_VERSION=${GIT_COMMIT}/" .env.production
                 '''
             }
         }
