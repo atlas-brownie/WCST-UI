@@ -23,7 +23,7 @@ pipeline {
                 script {
                     def text = readFile ".env.dev"
                     text.replaceAll("REACT_APP_VERSION*", "REACT_APP_VERSION=${GIT_COMMIT}")
-                    writeFile ".ev.dev" text
+                    writeFile ".env.dev" text
                 }
             }
         }
