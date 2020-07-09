@@ -164,6 +164,7 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
                     )
                   }
                   onButtonClick={props.submitForm}
+                  disabled={props.sending}
                   buttonClass="usa-button-primary"
                 />
               </div>
@@ -182,7 +183,6 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
   }
 
   private renderError() {
-    console.log('in renderError this.props=', this.props);
     const headline = (
       <div>
         <span>We encountered an issue saving your form.</span>
@@ -192,16 +192,9 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
         <span>Please try again later.</span>
       </div>
     );
-    // const assistanceTrailer = <span>&nbsp;</span>;
 
     if (this.props.errorStatus) {
-      return (
-        <AlertBox
-          status="error"
-          headline={headline}
-          // content={assistanceTrailer}
-        />
-      );
+      return <AlertBox status="error" headline={headline} />;
     } else {
       return null;
     }

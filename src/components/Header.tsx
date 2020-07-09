@@ -28,10 +28,13 @@ export interface IHeaderProps {
 }
 
 const mapStateToProps = (state: IRootState) => {
-  const uploadBenefitsJournal = state.uploadBenefits.result?.journal || [];
-  const benefitsSuccessJournal = state.benefitsStatus.result?.journal || [];
-
-  const displayJournal = uploadBenefitsJournal.concat(benefitsSuccessJournal);
+  const pathname = state.routing.location?.pathname;
+  let displayJournal = [];
+  if (pathname === '/check-benefits-status-form-success') {
+    displayJournal = state.benefitsStatus.result?.journal || [];
+  } else {
+    displayJournal = state.uploadBenefits.result?.journal || [];
+  }
   return {
     journal: displayJournal,
     version: state.environment.version,

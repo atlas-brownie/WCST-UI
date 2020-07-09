@@ -20,14 +20,7 @@ const mapStateToProps = (state: IRootState) => {
 };
 
 class UploadBenefitsFormSuccess extends React.Component<IUploadBenefitsResponsePayload> {
-  // public copyConfirmationCode = () => copy(this.props.trackingCode || this.props.vaTrackingCode)
-
-  // public copyVaId = () => {
-  //   copy(this.props.vaTrackingCode);
-  // };
-
   public render() {
-    console.log('this.props=', this.props);
     return (
       <div
         className="vads-l-grid-container vads-u-margin-top--6 vads-u-margin-x--auto"
