@@ -30,7 +30,7 @@ pipeline {
         
         stage('Install Packages') {
             steps {
-                sh 'sed -i "s/REACT_APP_VERSION*/REACT_APP_VERSION=${GIT_COMMIT}/g"'
+                sh 'sed -i "s/REACT_APP_VERSION*/REACT_APP_VERSION=${GIT_COMMIT}/g" .env.dev'
                 sh 'npm install'
                 sh 'npm audit fix'
             }
