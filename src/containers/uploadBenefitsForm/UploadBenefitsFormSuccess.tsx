@@ -14,7 +14,7 @@ const mapStateToProps = (state: IRootState) => {
   return {
     ...(state.uploadBenefits.result || {
       trackingCode: 'No Confirmation Code Available',
-      vaTrackingCode: 'No VA ID Available',
+      vaTrackingCode: 'No Tracking ID Available',
     }),
   };
 };

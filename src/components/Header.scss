@@ -42,12 +42,10 @@ a.va-api-skipnav {
 }
 
 .va-dropdown-panel {
-  width: 300px;
-}
-
-.ta-label {
-  font-weight: bold;
-  color: #2e3743;
+  width: 800px;
+  right: -100px;
+  max-height: 720px;
+  overflow-y: auto;
 }
 
 textarea {
