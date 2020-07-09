@@ -13,14 +13,61 @@ export default class APIDisplay extends React.Component<IAPIDisplayProps> {
     const { journal } = this.props;
     if (journal.length === 0) {
       return (
-        <div className={classNames('ta-label')}>No requests to VA API were made for this page.</div>
+        <h4 className={classNames('ta-label', 'vads-u-margin--2')}>
+          Watch here for VA API Access Information
+        </h4>
       );
     } else {
       return (
-        <div>
-          <div className={classNames('ta-label')}>VA API REQUEST/RESPONSE</div>
-          {this.props.journal.map((item, itemIndex) => {
-            return <div key={`api-${itemIndex}`}>{item.targetUrl}</div>;
+        <div
+          className={classNames(
+            'vads-u-margin-left--1',
+            'vads-u-margin-right--1',
+            'vads-u-padding-bottom--2',
+          )}
+        >
+          <h4 className={classNames('ta-label', 'vads-u-margin-top--2')}>VA API Access</h4>
+          {journal.map((item, itemIndex) => {
+            return (
+              <div
+                key={`api-${itemIndex}`}
+                className={classNames(
+                  'vads-u-border--1px',
+                  'vads-u-margin-top--1',
+                  'vads-u-padding--1',
+                )}
+              >
+                <h5>URL: {item.targetUrl}</h5>
+                <ul>
+                  <li>
+                    <span className={classNames('ta-label', 'item-label', 'vads-u-font-size--md')}>
+                      ResponseCode
+                    </span>
+                    <span className={classNames('item-value')}>{item.responseCode}</span>
+                  </li>
+                  <li>
+                    <span className={classNames('ta-label', 'item-label', 'vads-u-font-size--md')}>
+                      ReceivedContent
+                    </span>
+                    <span className={classNames('item-value')}>
+                      {item.attributeMap.receivedContent}
+                    </span>
+                  </li>
+                  <li>
+                    <span className={classNames('ta-label', 'item-label', 'vads-u-font-size--md')}>
+                      RequestSentTime
+                    </span>
+                    <span className={classNames('item-value')}>{item.requestSentTime}</span>
+                  </li>
+                  <li>
+                    <span className={classNames('ta-label', 'item-label', 'vads-u-font-size--md')}>
+                      ResponseReceivedTime
+                    </span>
+                    <span className={classNames('item-value')}>{item.responseReceivedTime}</span>
+                  </li>
+                </ul>
+              </div>
+            );
           })}
         </div>
       );

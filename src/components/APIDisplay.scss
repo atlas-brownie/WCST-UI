@@ -2,3 +2,14 @@
   font-weight: bold;
   color: #2e3743;
 }
+
+.item-label {
+  display: inline-block;
+  width: 20rem;
+}
+
+.item-value {
+  display: inline-block;
+  width: 50rem;
+  overflow-wrap: break-word;
+}

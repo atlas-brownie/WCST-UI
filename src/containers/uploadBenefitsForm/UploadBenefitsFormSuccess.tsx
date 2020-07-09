@@ -111,8 +111,9 @@ class UploadBenefitsFormSuccess extends React.Component<IUploadBenefitsResponseP
 
               <div className="vads-u-margin-left--4">
                 Congratulations, your form has been successfully submitted to the VA for processing.
-                You can use the confirmation code below to check the status of your submission at
-                any time in the future.
+                You can use the confirmation code below to&nbsp;
+                <Link to="/check-benefits-status">check the status</Link> of your submission at any
+                time in the future.
               </div>
             </div>
 
