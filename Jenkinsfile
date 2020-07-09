@@ -16,6 +16,7 @@ pipeline {
             steps {
                 sh '''
                 echo "PATH = ${PATH}"
+                echo "$GIT_COMMIT"
                 node -v
                 npm -v
                 '''
@@ -35,16 +36,16 @@ pipeline {
             }
         }
         
-//        stage('Code Quality') {
-//            steps {
-//                script {
-//                    def scannerHome = tool 'SonarQube';
-//                    withSonarQubeEnv("SonarQubeServer") {
-//                        sh "${tool("SonarQube")}/bin/sonar-scanner"
-//                    }
-//                }
-//            }
-//        }
+        stage('Code Quality') {
+            steps {
+                script {
+                    def scannerHome = tool 'SonarQube';
+                    withSonarQubeEnv("SonarQubeServer") {
+                        sh "${tool("SonarQube")}/bin/sonar-scanner"
+                    }
+                }
+            }
+        }
         
         stage('Build') {
             steps {
