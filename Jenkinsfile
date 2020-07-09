@@ -19,9 +19,7 @@ pipeline {
                 echo "${GIT_COMMIT}"
                 node -v
                 npm -v
-                tag=$(git describe --tags)
-                echo ${tag}
-                sed -i "s/.*REACT_APP_VERSION.*/REACT_APP_VERSION=${tag}/" .env.production
+                sed -i "s/.*REACT_APP_VERSION.*/REACT_APP_VERSION=${GIT_COMMIT}/" .env.production    
                 '''
             }
         }
