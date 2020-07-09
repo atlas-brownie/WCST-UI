@@ -50,7 +50,10 @@ export const submitBenefitsStatusForm: ActionCreator<SubmitBenefitsStatusFormThu
     const { benefitsStatus } = state();
     const confirmationCode = benefitsStatus.inputs.confirmationCode.value;
 
-    const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads/${confirmationCode}`;
+    const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads/${confirmationCode}`.replace(
+      '//api',
+      '/api',
+    );
 
     // WCST Tracking ID (mainly for testing but a back-up in case of emergency)
     // const url = `${process.env.REACT_APP_BENEFITS_API_URL}/api/v1/uploads/va/${confirmationCode}`;
