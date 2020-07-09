@@ -228,7 +228,17 @@ export const updateBenefitsVeteranLastName: ActionCreator<IUploadBenefitsVeteran
 
 export const updateBenefitsZipCode: ActionCreator<IUploadBenefitsZipCode> = (
   newValue: IErrorableInput,
+  previousValidation?: string,
 ) => {
+  if (newValue.dirty) {
+    // validateByPattern mutates newValue
+    validateByPattern(newValue, /(^\d{5}$)|(^\d{5}-\d{4}$)/, 'Format: #####-####');
+    newValue.dirty = false;
+  } else {
+    // the newValue passed by IErrorableInput doesn't include validation
+    newValue.validation = previousValidation;
+  }
+
   return {
     newValue,
     type: constants.UPDATE_BENEFITS_ZIP_CODE,

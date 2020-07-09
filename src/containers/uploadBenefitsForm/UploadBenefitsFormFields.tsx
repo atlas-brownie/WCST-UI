@@ -20,7 +20,7 @@ interface IUploadBenefitsFormFieldsProps {
   updateVeteranFirstName: (value: IErrorableInput) => void;
   updateVeteranLastName: (value: IErrorableInput) => void;
   updateFileNumber: (oldValidation?: string) => (value: IErrorableInput) => void;
-  updateZipCode: (value: IErrorableInput) => void;
+  updateZipCode: (oldValidation?: string) => (value: IErrorableInput) => void;
 }
 
 const mapStateToProps = (state: IRootState) => {
@@ -57,8 +57,10 @@ const mapDispatchToProps = (dispatch: UploadBenefitsFormFieldsDispatch) => {
     updateVeteranLastName: (value: IErrorableInput) => {
       dispatch(actions.updateBenefitsVeteranLastName(value));
     },
-    updateZipCode: (value: IErrorableInput) => {
-      dispatch(actions.updateBenefitsZipCode(value));
+    updateZipCode: (oldValidation?: string) => {
+      return (value: IErrorableInput) => {
+        dispatch(actions.updateBenefitsZipCode(value, oldValidation));
+      };
     },
   };
 };
@@ -81,7 +83,6 @@ class UploadBenefitsFormFields extends React.Component<IUploadBenefitsFormFields
   constructor(props: IUploadBenefitsFormFieldsProps) {
     super(props);
     this.handleChangeContentFile = this.handleChangeContentFile.bind(this);
-    console.log('props=', props);
   }
 
   public render() {
@@ -142,10 +143,11 @@ class UploadBenefitsFormFields extends React.Component<IUploadBenefitsFormFields
           />
 
           <ErrorableTextInput
+            errorMessage={this.props.zipCode.validation}
             label="Postal Code"
             placeholder="Type Postal Code"
             field={this.props.zipCode}
-            onValueChange={this.props.updateZipCode}
+            onValueChange={this.props.updateZipCode(this.props.zipCode.validation)}
             required={true}
             minLength={5}
             maxLength={10}
