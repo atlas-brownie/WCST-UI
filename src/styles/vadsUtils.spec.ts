@@ -1,6 +1,14 @@
 import 'jest';
 
-import { desktopOnly, mobileOnly } from './vadsUtils';
+import { defaultFlexContainer, desktopOnly, mobileOnly } from './vadsUtils';
+
+describe('defaultFlexContainer', () => {
+  it('returns "defaultFlexContainer"', () => {
+    expect(defaultFlexContainer()).toBe(
+      'vads-u-display--flex vads-u-flex-direction--row vads-u-flex-wrap--wrap',
+    );
+  });
+});
 
 describe('mobileOnly', () => {
   it('returns "mobileOnly"', () => {

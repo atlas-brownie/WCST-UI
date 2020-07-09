@@ -7,3 +7,9 @@ describe('registerServiceWorker', () => {
     expect(registerServiceWorker);
   });
 });
+
+describe('registerServiceWorker', () => {
+  it('returns "registerServiceWorker"', () => {
+    expect(registerServiceWorker.unregister);
+  });
+});
