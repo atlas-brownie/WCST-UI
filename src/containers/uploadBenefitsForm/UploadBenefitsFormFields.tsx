@@ -65,18 +65,35 @@ const mapDispatchToProps = (dispatch: UploadBenefitsFormFieldsDispatch) => {
   };
 };
 
-const getRequiredSpan = (props: IUploadBenefitsFormFieldsProps) => {
+const getFileUploadLabel = (props: IUploadBenefitsFormFieldsProps) => {
   const { contentFile } = props;
-  let requiredSpan;
+  let label;
   if (contentFile.lastModified === -1) {
-    requiredSpan = (
-      <span className="usa-input-error-message undefined" role="alert">
+    label = <span>Click to select files for upload.</span>;
+  } else {
+    label = <span>File selected for upload</span>;
+  }
+  return label;
+};
+
+const getFileUploadSublabel = (props: IUploadBenefitsFormFieldsProps) => {
+  const { contentFile } = props;
+  let sublabel;
+  if (contentFile.lastModified === -1) {
+    sublabel = (
+      <div className="usa-input-error-message undefined" role="alert">
         <span className="sr-only">Error</span>
         PDF document is required.
-      </span>
+      </div>
+    );
+  } else {
+    sublabel = (
+      <div role="alert">
+        <span>{contentFile.name}</span>
+      </div>
     );
   }
-  return requiredSpan;
+  return sublabel;
 };
 
 class UploadBenefitsFormFields extends React.Component<IUploadBenefitsFormFieldsProps> {
@@ -90,9 +107,9 @@ class UploadBenefitsFormFields extends React.Component<IUploadBenefitsFormFields
       <React.Fragment>
         <div>Click to select the file from your device.</div>
         <div className="feature">
-          <h4>Click to select files for upload.</h4>
+          <h4>{getFileUploadLabel(this.props)}</h4>
           <div className={classNames('usa-input')}>
-            {getRequiredSpan(this.props)}
+            {getFileUploadSublabel(this.props)}
             <label
               role="button"
               tabIndex={0}
