@@ -172,7 +172,7 @@ class ReviewBenefitsForm extends React.Component<IBenefitsProps> {
                     }
                     onButtonClick={props.submitForm}
                     disabled={props.sending}
-                    buttonClass="usa-button-primary"
+                    buttonClass={classNames('usa-button-primary', 'vads-u-margin-left--2')}
                   />
                 </div>
               </form>

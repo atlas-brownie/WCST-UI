@@ -65,7 +65,12 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
       <React.Fragment>
         <header
           role="banner"
-          className={classNames('va-api-header', 'vads-u-background-color--primary-darkest')}
+          className={classNames(
+            'va-api-header',
+            'va-api-header',
+            'vads-u-background-color--primary-darkest',
+            'medium-screen:vads-u-padding-x--4',
+          )}
         >
           <HashLink
             to="#main"
@@ -80,6 +85,7 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
               defaultFlexContainer(true),
               'vads-u-justify-content--space-between',
               'medium-screen:vads-u-padding-x--4',
+              'xsmall-screen:vads-u-margin-y--1',
               'medium-screen:vads-u-margin-y--2',
             )}
           >
