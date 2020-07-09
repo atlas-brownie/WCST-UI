@@ -1,6 +1,9 @@
+@import '~@department-of-veterans-affairs/formation/sass/base/b-breakpoints';
+
 .content-wrapper {
   background-color: #222222;
   color: #ffffff;
+  overflow-wrap: break-word;
 }
 
 .ta-label {
@@ -15,5 +18,8 @@
 .item-value {
   display: inline-block;
   width: 50rem;
-  overflow-wrap: break-word;
+
+  @media (max-width: $small-screen) {
+    width: 100%;
+  }
 }
