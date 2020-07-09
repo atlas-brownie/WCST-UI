@@ -188,13 +188,14 @@ class UploadBenefitsForm extends React.Component<IBenefitsProps> {
 
   private readyToSubmit() {
     const {
-      inputs: { contentFile, fileNumber },
+      inputs: { contentFile, fileNumber, zipCode },
     } = this.props;
 
     const fileNumberComplete = fileNumber.value.length !== 0 && fileNumber.validation === undefined;
     const contentFileComplete = contentFile.lastModified !== -1;
+    const zipCodeComplete = zipCode.value.length !== 0 && zipCode.validation === undefined;
 
-    return this.allFieldsComplete() && fileNumberComplete && contentFileComplete;
+    return this.allFieldsComplete() && fileNumberComplete && contentFileComplete && zipCodeComplete;
   }
 }
 
