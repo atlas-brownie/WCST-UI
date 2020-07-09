@@ -19,31 +19,22 @@ import './Header.scss';
 interface IHeaderState {
   mobileNavVisible: boolean;
   open: boolean;
-  version: string;
   isOn: boolean;
 }
 
 export interface IHeaderProps {
   journal: string[];
+  version: string;
 }
 
 const mapStateToProps = (state: IRootState) => {
-  // const uploadBenefitsJournal = state.uploadBenefits.result?.journal || [];
-  // const benefitsSuccessJournal = state.benefitsStatus.result?.journal || [];
+  const uploadBenefitsJournal = state.uploadBenefits.result?.journal || [];
+  const benefitsSuccessJournal = state.benefitsStatus.result?.journal || [];
 
-  const displayJournal = [].concat([], []).filter((item) => {
-    if (item) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-
-  // return {
-  //   ...(state.uploadBenefits.result || { journal: null }),
-  // };
+  const displayJournal = uploadBenefitsJournal.concat(benefitsSuccessJournal);
   return {
     journal: displayJournal,
+    version: state.environment.version,
   };
 };
 
@@ -54,16 +45,11 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
       isOn: false,
       mobileNavVisible: false,
       open: false,
-      version: 'Version 1.0.2',
     };
 
     // This binding is necessary to make `this` work in the callback
     this.handleClick = this.handleClick.bind(this);
   }
-
-  // public handleClick() {
-  //   this.setState({ isOn: !this.state.isOn });
-  // }
 
   public handleClick() {
     this.setState((prevState) => {
@@ -126,18 +112,7 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
                 contents="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce ullamcorper at eros eu suscipit. Ut imperdiet libero et luctus pretium."
                 clickHandler={() => this.setState({ open: !this.state.open })}
               >
-                <div>
-                  {/* <span style={{ position: 'relative', top: '15px' }}>API is: </span>
-
-                  <button
-                    type="button"
-                    className="usa-button"
-                    style={{ float: 'right' }}
-                    onClick={this.handleClick}
-                  >
-                    {this.state.isOn ? 'ON' : 'OFF'}
-                  </button> */}
-                </div>
+                <div>what is this?</div>
 
                 <div>
                   <span className="ta-label">API REQUEST</span>
@@ -149,7 +124,9 @@ class Header extends React.Component<IHeaderProps, IHeaderState> {
                   <textarea readOnly={true} defaultValue={this.state.apiResponseString} />
                 </div> */}
               </DropDownPanel>
-              <div style={{ display: 'inline-block', color: '#fff' }}>{this.state.version}</div>
+              <div style={{ display: 'inline-block', color: '#fff' }}>
+                Version: {this.props.version}
+              </div>
             </div>
           </div>
         </header>
