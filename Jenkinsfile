@@ -20,16 +20,17 @@ pipeline {
                 node -v
                 npm -v
                 '''
-                script {
-                    def text = readFile ".env.dev"
-                    text.replaceAll("REACT_APP_VERSION*", "REACT_APP_VERSION=${GIT_COMMIT}")
-                    writeFile file: ".env.dev", text: text
-                }
+//                script {
+//                    def text = readFile ".env.dev"
+//                    text.replaceAll("REACT_APP_VERSION*", "REACT_APP_VERSION=${GIT_COMMIT}")
+//                    writeFile file: ".env.dev", text: text
+//                }
             }
         }
         
         stage('Install Packages') {
             steps {
+                sh 'sed -i "/REACT_APP_VERSION/c\REACT_APP_VERSION=${GIT_COMMIT}"'
                 sh 'npm install'
                 sh 'npm audit fix'
             }
