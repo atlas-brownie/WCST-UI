@@ -103,7 +103,6 @@ export const submitBenefitsForm: ActionCreator<SubmitBenefitsFormThunk> = () => 
     });
     return fetch(request)
       .then((response) => {
-        console.log('upload-benefits response=', response);
         if (!response.ok) {
           throw Error(response.statusText);
         }
