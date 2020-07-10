@@ -1,12 +1,12 @@
 import 'jest';
 import * as React from 'react';
 
-//import { mount } from 'enzyme';
-import PageContent from './PageContent';
+import { mount } from 'enzyme';
+import ReviewBenefitsForm from './ReviewBenefitsForm';
 
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import store from '../store';
+import store from '../../store';
 
 export const AppProviders: React.FunctionComponent = ({ children }): React.ReactElement => {
   return (
@@ -16,18 +16,18 @@ export const AppProviders: React.FunctionComponent = ({ children }): React.React
   );
 };
 
-// const componentTree = mount(
-//   <AppProviders>
-//     <PageContent RouteComponentProps={RouteComponentProps} />
-//   </AppProviders>,
-// );
+const componentTree = mount(
+  <AppProviders>
+    <ReviewBenefitsForm />
+  </AppProviders>,
+);
 
 describe('PageContent', () => {
   it('returns "PageContent"', () => {
-    expect(PageContent);
+    expect(ReviewBenefitsForm);
   });
 
   it('returns "PageContent"', () => {
-    expect(AppProviders).toBeTruthy();
+    expect(componentTree).toBeTruthy();
   });
 });
