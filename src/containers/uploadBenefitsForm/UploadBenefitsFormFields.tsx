@@ -8,7 +8,7 @@ import { IErrorableInput, IRootState } from '../../types';
 
 import classNames from 'classnames';
 
-interface IUploadBenefitsFormFieldsProps {
+export interface IUploadBenefitsFormFieldsProps {
   contentFile: File;
   docType: string;
   fileNumber: IErrorableInput;

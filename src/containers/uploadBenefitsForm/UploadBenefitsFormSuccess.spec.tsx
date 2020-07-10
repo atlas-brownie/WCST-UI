@@ -40,7 +40,7 @@ describe('applyHeader2', () => {
     expect(UploadBenefitsFormSuccess);
   });
 
-  it('should render the apply header 2', () => {
+  it('should render componentTree', () => {
     expect(componentTree).toBeTruthy();
   });
 });

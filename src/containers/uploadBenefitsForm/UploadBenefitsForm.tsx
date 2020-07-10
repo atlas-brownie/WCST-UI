@@ -14,7 +14,7 @@ import UploadBenefitsFormFields from './UploadBenefitsFormFields';
 
 interface IBenefitsProps extends IBenefits {
   clearErrorMessage: () => void;
-  updateDescription?: (value: IErrorableInput) => void;
+  updateDescription?  : (value: IErrorableInput) => void;
 }
 
 type BenefitsDispatch = ThunkDispatch<
