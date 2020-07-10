@@ -51,10 +51,11 @@ const testProps: IUploadBenefitsFormFieldsProps = {
     dirty: false,
     value: '',
   },
+
   updateContentFile: (value: File) => newErrorableInput,
+  updateFileNumber: (oldValidation?: string) => (value: IErrorableInput) => newErrorableInput,
   updateVeteranFirstName: (value: IErrorableInput) => newErrorableInput,
   updateVeteranLastName: (value: IErrorableInput) => newErrorableInput,
-  updateFileNumber: (oldValidation?: string) => (value: IErrorableInput) => newErrorableInput,
   updateZipCode: (oldValidation?: string) => (value: IErrorableInput) => newErrorableInput,
 };
 

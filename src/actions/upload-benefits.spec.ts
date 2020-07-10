@@ -37,3 +37,42 @@ describe('updateBenefitsFileNumber', () => {
     });
   });
 });
+
+describe('updateBenefitsVeteranFirstName', () => {
+  it('should return the input value if the value is not dirty', () => {
+    const newValue = {
+      dirty: false,
+      value: 'TestFirstName',
+    };
+    expect(actions.updateBenefitsVeteranFirstName(newValue)).toEqual({
+      newValue,
+      type: constants.UPDATE_BENEFITS_VETERAN_FIRST_NAME,
+    });
+  });
+});
+
+describe('updateBenefitsVeteranLastName', () => {
+  it('should return the input value if the value is not dirty', () => {
+    const newValue = {
+      dirty: false,
+      value: 'TestLastName',
+    };
+    expect(actions.updateBenefitsVeteranLastName(newValue)).toEqual({
+      newValue,
+      type: constants.UPDATE_BENEFITS_VETERAN_LAST_NAME,
+    });
+  });
+});
+
+describe('updateBenefitsZipCode', () => {
+  it('should return the input value if the value is not dirty', () => {
+    const newValue = {
+      dirty: false,
+      value: '35399',
+    };
+    expect(actions.updateBenefitsZipCode(newValue)).toEqual({
+      newValue,
+      type: constants.UPDATE_BENEFITS_ZIP_CODE,
+    });
+  });
+});
