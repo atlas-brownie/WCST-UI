@@ -18,7 +18,7 @@ export const AppProviders: React.FunctionComponent = ({ children }): React.React
 
 // const componentTree = mount(
 //   <AppProviders>
-//     <PageContent RouteComponentProps={RouteComponentProps} />
+//     <PageContent />
 //   </AppProviders>,
 // );
 
