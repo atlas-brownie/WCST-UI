@@ -2,7 +2,7 @@ import 'jest';
 import * as React from 'react';
 
 import { mount } from 'enzyme';
-import DisabledApplyForm from './DisabledApplyForm';
+import NotFound from './NotFound';
 
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -18,13 +18,13 @@ export const AppProviders: React.FunctionComponent = ({ children }): React.React
 
 const componentTree = mount(
   <AppProviders>
-    <DisabledApplyForm />
+    <NotFound />
   </AppProviders>,
 );
 
-describe('DisabledApplyForm', () => {
-  it('returns "DisabledApplyForm"', () => {
-    expect(DisabledApplyForm);
+describe('NotFound', () => {
+  it('returns "NotFound"', () => {
+    expect(NotFound);
   });
 
   it('returns "componentTree"', () => {

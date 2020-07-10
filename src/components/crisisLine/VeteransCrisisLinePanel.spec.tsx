@@ -2,11 +2,11 @@ import 'jest';
 import * as React from 'react';
 
 import { mount } from 'enzyme';
-import DisabledApplyForm from './DisabledApplyForm';
+import VeteransCrisisLinePanel from './VeteransCrisisLinePanel';
 
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
-import store from '../store';
+import store from '../../store';
 
 export const AppProviders: React.FunctionComponent = ({ children }): React.ReactElement => {
   return (
@@ -18,13 +18,13 @@ export const AppProviders: React.FunctionComponent = ({ children }): React.React
 
 const componentTree = mount(
   <AppProviders>
-    <DisabledApplyForm />
+    <VeteransCrisisLinePanel />
   </AppProviders>,
 );
 
-describe('DisabledApplyForm', () => {
-  it('returns "DisabledApplyForm"', () => {
-    expect(DisabledApplyForm);
+describe('VeteransCrisisLinePanel', () => {
+  it('returns "VeteransCrisisLinePanel"', () => {
+    expect(VeteransCrisisLinePanel);
   });
 
   it('returns "componentTree"', () => {
