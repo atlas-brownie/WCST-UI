@@ -1,7 +1,6 @@
 import 'jest';
 
 import * as constants from '../types/constants';
-// import * as validators from '../utils/validators';
 import * as actions from './benefits-status';
 
 const appState = {
@@ -70,20 +69,6 @@ describe('submitBenefitsStatusForm', () => {
     expect(dispatch).toBeCalledWith({
       type: constants.SUBMIT_BENEFITS_STATUS_BEGIN,
     });
-
-    // expect(dispatch).toBeCalledWith({
-    //   dateTime: '',
-    //   errorMap: {},
-    //   hasError: false,
-    //   length: 0,
-    //   message: '',
-    //   payload: {
-    //     claimStatus: 'received',
-    //     journal: [],
-    //   },
-    //   payloadType: '',
-    //   type: constants.SUBMIT_BENEFITS_STATUS_SUCCESS,
-    // });
   });
 });
 

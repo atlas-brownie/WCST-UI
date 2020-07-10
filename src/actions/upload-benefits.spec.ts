@@ -34,20 +34,6 @@ describe('submitBenefitsForm', () => {
     expect(dispatch).toBeCalledWith({
       type: constants.SUBMIT_BENEFITS_BEGIN,
     });
-
-    // expect(dispatch).toBeCalledWith({
-    //   dateTime: '',
-    //   errorMap: {},
-    //   hasError: false,
-    //   length: 0,
-    //   message: '',
-    //   payload: {
-    //     claimStatus: 'received',
-    //     journal: [],
-    //   },
-    //   payloadType: '',
-    //   type: constants.SUBMIT_BENEFITS_STATUS_SUCCESS,
-    // });
   });
 });
 
