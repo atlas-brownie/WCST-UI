@@ -1,15 +1,15 @@
 import 'jest';
 
-import * as registerServiceWorker from './registerServiceWorker';
+import register, { unregister } from './registerServiceWorker';
 
 describe('registerServiceWorker', () => {
   it('returns "registerServiceWorker"', () => {
-    expect(registerServiceWorker);
+    expect(register());
   });
 });
 
-describe('registerServiceWorker', () => {
-  it('returns "registerServiceWorker"', () => {
-    expect(registerServiceWorker.unregister);
+describe('unregisterServiceWorker', () => {
+  it('returns "unregisterServiceWorker"', () => {
+    expect(unregister());
   });
 });
