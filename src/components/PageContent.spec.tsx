@@ -1,7 +1,6 @@
 import 'jest';
 import * as React from 'react';
 
-// import { mount } from 'enzyme';
 import PageContent from './PageContent';
 
 import { Provider } from 'react-redux';
@@ -15,12 +14,6 @@ export const AppProviders: React.FunctionComponent = ({ children }): React.React
     </Provider>
   );
 };
-
-// const componentTree = mount(
-//   <AppProviders>
-//     <PageContent />
-//   </AppProviders>,
-// );
 
 describe('PageContent', () => {
   it('returns "PageContent"', () => {

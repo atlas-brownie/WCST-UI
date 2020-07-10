@@ -1,7 +1,6 @@
 import 'jest';
 
 import * as constants from '../types/constants';
-// import * as validators from '../utils/validators';
 import * as actions from './upload-benefits';
 
 afterEach(() => {
@@ -14,16 +13,58 @@ describe('upload-status actions', () => {
   });
 });
 
-// const appState = {
-//   uploadBenefits: {
-//     inputs: {
-//       fileNumber: '321-22-3432',
-//       veteranFirstName: 'TestFirstName',
-//       veteranLastName: 'TestLastName',
-//       zipCode: '22003',
-//     },
-//   },
-// };
+const appState = {
+  uploadBenefits: {
+    inputs: {
+      fileNumber: '321-22-3432',
+      veteranFirstName: 'TestFirstName',
+      veteranLastName: 'TestLastName',
+      zipCode: '22003',
+    },
+  },
+};
+
+describe('submitBenefitsForm', () => {
+  it('dispatches correct events when fetch has a 200 response', async () => {
+    fetchMock.mockResponse(JSON.stringify({ confirmationCode: 'BBBER-38347' }));
+    const dispatch = jest.fn();
+    const getState = jest.fn();
+    getState.mockReturnValueOnce(appState);
+    await actions.submitBenefitsForm()(dispatch, getState, undefined);
+    expect(dispatch).toBeCalledWith({
+      type: constants.SUBMIT_BENEFITS_BEGIN,
+    });
+
+    // expect(dispatch).toBeCalledWith({
+    //   dateTime: '',
+    //   errorMap: {},
+    //   hasError: false,
+    //   length: 0,
+    //   message: '',
+    //   payload: {
+    //     claimStatus: 'received',
+    //     journal: [],
+    //   },
+    //   payloadType: '',
+    //   type: constants.SUBMIT_BENEFITS_STATUS_SUCCESS,
+    // });
+  });
+});
+
+it('dispatches error events when the fetch errors', async () => {
+  fetchMock.mockReject(new Error('Network Failure'));
+  const dispatch = jest.fn();
+  const getState = jest.fn();
+  getState.mockReturnValueOnce(appState);
+  await actions.submitBenefitsForm()(dispatch, getState, undefined);
+  expect(dispatch).toBeCalledWith({
+    type: constants.SUBMIT_BENEFITS_BEGIN,
+  });
+  expect(dispatch).toBeCalledWith({
+    status: 'Network Failure',
+    type: constants.SUBMIT_BENEFITS_ERROR,
+  });
+});
 
 describe('updateBenefitsFileNumber', () => {
   it('should return the input value if the value is not dirty', () => {
