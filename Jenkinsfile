@@ -20,7 +20,7 @@ pipeline {
                 node -v
                 npm -v
 
-                sed -i "s,.*REACT_APP_BENEFITS_API_URL.*,REACT_APP_BENEFITS_API_URL=http://devsrv.mblsto2020.com," .env.production
+                sed -i "s,.*REACT_APP_BENEFITS_API_URL.*,REACT_APP_BENEFITS_API_URL=https://devsrv.mblsto2020.com," .env.production
                 sed -i "s/.*REACT_APP_VERSION.*/REACT_APP_VERSION=${GIT_COMMIT}/" .env.production
                 '''
             }
