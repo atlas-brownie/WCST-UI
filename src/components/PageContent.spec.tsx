@@ -1,7 +1,7 @@
 import 'jest';
 import * as React from 'react';
 
-//import { mount } from 'enzyme';
+// import { mount } from 'enzyme';
 import PageContent from './PageContent';
 
 import { Provider } from 'react-redux';

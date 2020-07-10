@@ -2,7 +2,7 @@ import 'jest';
 import * as React from 'react';
 
 import { mount } from 'enzyme';
-import ReviewBenefitsForm from './ReviewBenefitsForm';
+import BenefitsStatusFormFields from './BenefitsStatusFormFields';
 
 import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
@@ -18,13 +18,13 @@ export const AppProviders: React.FunctionComponent = ({ children }): React.React
 
 const componentTree = mount(
   <AppProviders>
-    <ReviewBenefitsForm />
+    <BenefitsStatusFormFields />
   </AppProviders>,
 );
 
-describe('ReviewBenefitsForm', () => {
-  it('returns "ReviewBenefitsForm"', () => {
-    expect(ReviewBenefitsForm);
+describe('BenefitsStatusFormFields', () => {
+  it('returns "BenefitsStatusFormFields"', () => {
+    expect(BenefitsStatusFormFields);
   });
 
   it('returns "componentTree"', () => {
