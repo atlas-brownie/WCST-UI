@@ -12,7 +12,7 @@ import copy from 'copy-to-clipboard';
 import { isEmpty } from 'lodash';
 import { Redirect } from 'react-router-dom';
 
-interface IUploadBenefitsFormSuccessProps extends IUploadBenefitsResponsePayload {
+export interface IUploadBenefitsFormSuccessProps extends IUploadBenefitsResponsePayload {
   isRedirectUploadBenefitsForm: boolean;
 }
 
