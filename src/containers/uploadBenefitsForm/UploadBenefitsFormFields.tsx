@@ -8,7 +8,7 @@ import { IErrorableInput, IRootState } from '../../types';
 
 import classNames from 'classnames';
 
-interface IUploadBenefitsFormFieldsProps {
+export interface IUploadBenefitsFormFieldsProps {
   contentFile: File;
   docType: string;
   fileNumber: IErrorableInput;
@@ -69,9 +69,9 @@ const getFileUploadLabel = (props: IUploadBenefitsFormFieldsProps) => {
   const { contentFile } = props;
   let label;
   if (contentFile.lastModified === -1) {
-    label = <span>Click to select files for upload.</span>;
+    label = <span>Click to select file for upload.</span>;
   } else {
-    label = <span>File selected for upload</span>;
+    label = <span>1 File selected for upload</span>;
   }
   return label;
 };

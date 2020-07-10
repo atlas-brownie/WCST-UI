@@ -12,7 +12,7 @@ import { history } from '../../store';
 import { IBenefits, IErrorableInput, IRootState } from '../../types';
 import UploadBenefitsFormFields from './UploadBenefitsFormFields';
 
-interface IBenefitsProps extends IBenefits {
+export interface IBenefitsProps extends IBenefits {
   clearErrorMessage: () => void;
   updateDescription: (value: IErrorableInput) => void;
 }
