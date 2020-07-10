@@ -22,7 +22,7 @@ const getMetadataFile = (metadata: any) => {
   return file;
 };
 
-const initialUploadBenefitsInputs: IUploadBenefitsInputs = {
+export const initialUploadBenefitsInputs: IUploadBenefitsInputs = {
   contentFile: getMetadataFile({}),
   docType: '29-4364',
   fileNumber: newErrorableInput(),
